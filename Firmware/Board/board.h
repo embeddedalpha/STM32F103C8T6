@@ -24,7 +24,7 @@ void Delay_ms(TIM_TypeDef *timer, float msSeconds);
 void Delay_s (TIM_TypeDef *timer, float Seconds);
 
 void Append_Arrays(int data_1[], int data_1_length, int data_2[], int data_2_length);
-
+void Init_Buffer(void);
 
 
 
