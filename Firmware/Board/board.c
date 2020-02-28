@@ -74,7 +74,7 @@ void Delay_s(TIM_TypeDef *timer,float Seconds){
 	while(!(timer->SR & TIM_SR_UIF)){} //WAIT TIIL UIF BIT IS SET
 }
 
-////************************************************** APPEND ARRAY **************************************************
+//************************************************** APPEND ARRAY **************************************************
 
 void Append_Arrays(int data_1[], int data_1_length, int data_2[], int data_2_length)
 {
@@ -88,4 +88,17 @@ for(j = 0;  j < data_2_length; j++)
 buffer[data_1_length + j] = data_2[j];	
 }	
 }
+
+//************************************************** Init Buffer **************************************************
+
+void Init_Buffer(void)
+{
+int i = 0;
+for(i = 0; i< 100; i++)
+{
+buffer[i] = -1;
+}
+}
+//
+
 
