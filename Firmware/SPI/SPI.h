@@ -118,7 +118,7 @@ int SPI_Master_Half_Duplex_Init(SPI_TypeDef *spi, uint8_t Port, uint8_t CPOL, ui
 //														 5625(0.5625 MHz), 2812(0.28125 MHz)
 //        LSBorMSB             1 = MSB first
 //                             0 = LSB first
-//        DataFormat           0 = 8 bits
+//        DataFormat           0 = 8 bits 
 //                             1 = 16 bits
 //        NSS_mode             1 = NSS/SS is controlled by software
 //														 0 = NSS/SS is controlled by hardware
