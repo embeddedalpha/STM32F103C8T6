@@ -187,6 +187,4 @@ void SPI_Enables(SPI_TypeDef *spi);
 void SPI_Send(SPI_TypeDef *spi, int data[], int length);
 
 
-
-
 #endif
