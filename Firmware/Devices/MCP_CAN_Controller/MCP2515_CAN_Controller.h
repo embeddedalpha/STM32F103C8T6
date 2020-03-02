@@ -6,14 +6,26 @@
 
 static SPI_TypeDef *spi;
 
-struct MCP_Standard_Frame
+struct MCP_TX_DataStruct
 {
-uint16_t identifier;
+uint16_t standard_id;
+uint32_t extended_id;
 uint16_t dlc;
 uint16_t data0, data1, data2, data3, 
          data4, data5, data6, data6;
          
 };
+
+struct MCP_RX_DataStruct
+{
+uint16_t standard_id;
+uint32_t extended_id;
+uint16_t dlc;
+uint16_t data0, data1, data2, data3, 
+         data4, data5, data6, data6;
+         
+};
+
 
 uint8_t MCP_Read_Instruction(uint8_t address);
 void MCP_Write_Byte_Instruction(uint8_t address, uint8_t data);
