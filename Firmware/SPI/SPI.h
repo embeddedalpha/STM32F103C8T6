@@ -178,7 +178,7 @@ void SPI_Enables(SPI_TypeDef *spi);
 //***************************************** SPI Trasnmit Data *******************************************************************
 //@attribute: This function transmits the data through MOSI.
 //@param:
-//				spi           0 = SPI1
+//				spi           0 = SPI1 
 //											1 = SPI2
 //        data[]				Array to be sent
 //        length        length of array
