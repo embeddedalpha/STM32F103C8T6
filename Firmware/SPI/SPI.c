@@ -1,4 +1,3 @@
-#include "SPI.h"
 /*
 *********************************************************************************************************************************
 @file:    SPI.c
@@ -6,18 +5,17 @@
 @version: V3.05.0
 @date:    29/2/2020
 @brief:   SPI Driver File. 
-	        This file contains the functions declared in SPI.h file.
-	        By calling various "Init" functions, the user can configure 
-	        the SPI Hardware Peripheral in any of the permitted modes. 
+					This file contains the functions declared in SPI.h file.
+					By calling various "Init" functions, the user can configure 
+					the SPI Hardware Peripheral in any of the permitted modes. 
 					
 @attention: This file aims at providing the user an abrstraction layer to the SPI peripheral
-	          and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
-	          In case of failure of code/product due to third party tampering, the author will not be
-	          responsible. This code is published under MIT License.
+						and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
+						In case of failure of code/product due to third party tampering, the author will not be
+						responsible. This code is published under MIT License.
 	
 *********************************************************************************************************************************	
 */
-
 #include "SPI.h"
 
 //*******************************************************************************************************************************//
@@ -739,4 +737,5 @@ int i;
 	}
 }
 //
+
 

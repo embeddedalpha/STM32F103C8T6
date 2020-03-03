@@ -6,8 +6,8 @@
 @date:    29-Feb-2020
 @brief:   Serial Peripheral Interface Header File.
 
-							MIT License
-						Copyright (c) 2018 Embedded_Alpha
+																												MIT License
+																							Copyright (c) 2018 Embedded_Alpha
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
 (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
@@ -41,25 +41,25 @@ int SPI_PORT;
 //***************************************** Full Duplex Master Mode *************************************************************
 //@function: The function sets up the SPI block in Full Duplex Mode
 //@param:
-// 	spi 			 SPI1, SPI2
-//	Port  			 0 = Port A
-//				 1 = Port B
-//				 2 = Port A and B  (Refer to the Pinout Diagram of Blue-Pill)
-//	CPOL 			 0 or 1
-//      CPHA 			 0 or 1
-//	Baudrate 		 36 MHz,18 MHz,9 MHz, 
-//				 45(4.5 MHz), 225(2.25 MHz), 1125(1.125 MHz),
-//				 5625(0.5625 MHz), 2812(0.28125 MHz)
-//	LSBorMSB            	 1 = MSB first
-//                               0 = LSB first
-//	DataFormat               0 = 8 bits
-//                               1 = 16 bits
-//      NSS_mode                 1 = NSS/SS is controlled by software
-//				 0 = NSS/SS is controlled by hardware
-//      CRC_mode                 1 = CRC Enable
-//	                         0 = CRC Disable
-//	multimaster_mode         1 = Multi master mode enable
-//				 0 = Multi master mode disable
+// 				spi 			           SPI1, SPI2
+//				Port 			 				   0 = Port A
+//														 1 = Port B
+//														 2 = Port A and B  (Refer to the Pinout Diagram of Blue-Pill)
+//				CPOL 			 				   0 or 1
+//        CPHA 			 				   0 or 1
+//				Baudrate 					   36 MHz,18 MHz,9 MHz, 
+//														 45(4.5 MHz), 225(2.25 MHz), 1125(1.125 MHz),
+//														 5625(0.5625 MHz), 2812(0.28125 MHz)
+//        LSBorMSB             1 = MSB first
+//                             0 = LSB first
+//        DataFormat           0 = 8 bits
+//                             1 = 16 bits
+//        NSS_mode             1 = NSS/SS is controlled by software
+//														 0 = NSS/SS is controlled by hardware
+//        CRC_mode             1 = CRC Enable
+//	                           0 = CRC Disable
+//				multimaster_mode     1 = Multi master mode enable
+//														 0 = Multi master mode disable
 //@return: Returns 1 if master mode is enabled
 //         Returns 0 if master mode is not enabled
  
@@ -86,10 +86,10 @@ int SPI_Master_Full_Duplex_Init(SPI_TypeDef *spi, uint8_t Port, uint8_t CPOL, ui
 //        DataFormat           0 = 8 bits
 //                             1 = 16 bits
 //        NSS_mode             1 = NSS/SS is controlled by software
-//			       0 = NSS/SS is controlled by hardware
+//														 0 = NSS/SS is controlled by hardware
 //        CRC_mode             1 = CRC Enable
-//	                       0 = CRC Disable
-//	  multimaster_mode     1 = Multi master mode enable
+//	                           0 = CRC Disable
+//				multimaster_mode     1 = Multi master mode enable
 //														 0 = Multi master mode disable
 //        bidir_mode           1 = Bidirection Data mode enabled (1 clock and 1 bidirectional mode)
 //                             0 = Bidirection Data mode disabled (1 clock and 1 data wire)
@@ -118,7 +118,7 @@ int SPI_Master_Half_Duplex_Init(SPI_TypeDef *spi, uint8_t Port, uint8_t CPOL, ui
 //														 5625(0.5625 MHz), 2812(0.28125 MHz)
 //        LSBorMSB             1 = MSB first
 //                             0 = LSB first
-//        DataFormat           0 = 8 bits 
+//        DataFormat           0 = 8 bits
 //                             1 = 16 bits
 //        NSS_mode             1 = NSS/SS is controlled by software
 //														 0 = NSS/SS is controlled by hardware
@@ -184,7 +184,24 @@ void SPI_Enables(SPI_TypeDef *spi);
 //        length        length of array
 //@return: none
 
-void SPI_Send(SPI_TypeDef *spi, int data[], int length);
+void SPI_Send_Data(SPI_TypeDef *spi, int data[], int length);
+
+
+
+
+//***************************************** SPI Receive Data *******************************************************************
+//@attribute: This function Receives data through MISO.
+//@param:
+//				spi           0 = SPI1
+//											1 = SPI2
+//        length        length of data stream to be received
+//@return: none
+
+void SPI_Receive_Data(SPI_TypeDef *spi, int length);
+
+
+
+
 
 
 #endif
