@@ -201,6 +201,15 @@ void SPI_Receive_Data(SPI_TypeDef *spi, int length);
 
 
 
+#include "stm32f10x.h"
+
+int main(void)
+{
+
+    while(1)
+    {
+    }
+}
 
 
 
