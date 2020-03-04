@@ -45,7 +45,9 @@ struct CAN_Extended_Frame{
 #define CAN_BitRate_10_kbps     10
 
 
-
+int CAN_Init_Mode();
+int CAN_Normal_Mode();
+int CAN_Sleep_Mode();
 
 
 
