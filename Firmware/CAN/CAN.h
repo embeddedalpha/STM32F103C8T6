@@ -88,7 +88,16 @@ int CAN_Sleep_Mode();
 
 void CAN_Bitrate(int baudrate);
 
+/***************************************** CAN Test Mode *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: 
+//       mode               0     ->    Silent Mode     
+//                          1     ->    Loop Back Mode
+//                          2     ->    Silent Loop Back Mode
+//@return: none
+********************************************************************************************************************************/
 
+void CAN_Test_Mode_Setup(int mode);
 
 
 
