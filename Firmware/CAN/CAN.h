@@ -117,4 +117,16 @@ void CAN_Test_Mode_Setup(int mode);
 
 int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority);
 
+
+/***************************************** CAN Buffer 0 Transmission Errors *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: none
+//@return: Returns 1 when data is lost in arbitration 
+//         Return  2 when data is lost in transmission
+//         Return  3 when data is lost in both arbitration and transmission.
+*****************************************************************************************************************************************************/
+
+
+int CAN_Buffer_0_Transmission_Errors(void);
+
 #endif
