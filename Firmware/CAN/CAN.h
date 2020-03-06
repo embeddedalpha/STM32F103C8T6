@@ -100,6 +100,21 @@ void CAN_Bitrate(int baudrate);
 void CAN_Test_Mode_Setup(int mode);
 
 
+/***************************************** CAN Trasnmmit Data *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: 
+//       mailbox_no               0     ->    Mailbox 0     
+//                                1     ->    Mailbox 1
+//                                2     ->    Mailbox 2
+//       standard_id              Any 11 bit id
+//       extended_id              Any 18 bit id
+//       dlc                      from 0 to 8
+//       data[]                   Array of data to be transmitted
+//       priority                 0     ->    Message driven by id of message
+//                                1     ->    Message driven by request order
+//@return: Returns 1 when data is transmitted.
+********************************************************************************************************************************/
 
+int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority);
 
 #endif
