@@ -101,7 +101,7 @@ void CAN_Test_Mode_Setup(int mode);
 
 
 /***************************************** CAN Trasnmmit Data *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@function: The function transmitts data onto the CAN bus by filling the appropriate buffers
 //@param: 
 //       mailbox_no               0     ->    Mailbox 0     
 //                                1     ->    Mailbox 1
