@@ -1,5 +1,4 @@
-/*
-*********************************************************************************************************************************
+/**********************************************************************************************************************************
 @file:    CAN.c
 @author:  Kunal Salvi
 @version: V3.05.0
@@ -14,19 +13,74 @@ and is tested on STM32f103C8T6. This file is free for use to any person or corpo
 In case of failure of code/product due to third party tampering, the author will not be
 responsible. This code is published under MIT License.
 	
-*********************************************************************************************************************************	
-*/
+**********************************************************************************************************************************/	
+
 
 #include "CAN.h"
 
-int CAN_Init_Mode(int baudrate)
+/***************************************** Initialization Mode *****************************************************************
+//@function: The function sets up the CAN controller in Initialization mode.
+//@param: none
+//@return: Returns 1 if Initialization is successful
+********************************************************************************************************************************/
+
+int CAN_Initialization_Mode()
 {
     CAN -> MCR &= ~CAN_MCR_SLEEP; //RESET SLEEP BIT
     while((CAN -> MSR & CAN_MSR_SLAK)){} //WAIT TILL SLAK IS RESET
     CAN -> MCR |= CAN_MCR_INRQ;         //SET INRQ BIT 
     while(!(CAN -> MSR & CAN_MSR_INAK)){}   //WAIT TILL INAK IS SET
-    
-    switch(baudrate)
+    return 1;
+}
+//
+
+/***************************************** Normal Mode *************************************************************************
+//@function: The function sets up the CAN controller in Normal mode.
+//@param: none
+//@return: Returns 1 if Normalization is successful
+********************************************************************************************************************************/
+
+int CAN_Normal_Mode()
+{
+    CAN->MCR &= ~CAN_MCR_INRQL;  //CLEAR INRQ BIT
+    while((CAN->MSR & CAN_MSR_INAK)); //WAIT TILL INAK BIT IS RESET
+    CAN->MCR &= ~CAN_MCR_SLEEP;
+    while((CAN->MSR & CAN_MSR_SLAK)); //WAIT TILL SLAK BIT IS RESET
+    return 1;
+}
+//
+
+/***************************************** Sleep Mode *************************************************************************
+//@function: The function sets up the CAN controller in Sleep mode.
+//@param: none
+//@return: Returns 1 if controller is in sleep mode
+********************************************************************************************************************************/
+
+int CAN_Sleep_Mode()
+{
+    CAN -> MCR |= CAN_MCR_AWUM; //AUTOMATIC WAKEUP FROM SLEEP MODE ON MESSAGE RECEPTION
+    CAN -> MCR |= CAN_MCR_SLEEP; //ENTER SLEEP MODE
+    while(!(CAN -> MSR & CAN_MSR_SLAK)){} //WAIT TILL ACKNOWLEDGEMENT IS RECEIVED
+}
+//
+
+/***************************************** CAN Bitrate *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: 
+//       baudrate           CAN_BitRate_1000_kbps   1000     [Defined in CAN.h]
+//                          CAN_BitRate_500_kbps    500
+//                          CAN_BitRate_250_kbps    250
+//                          CAN_BitRate_125_kbps    125
+//                          CAN_BitRate_100_kbps    100
+//                          CAN_BitRate_75_kbps     75
+//                          CAN_BitRate_50_kbps     50
+//                          CAN_BitRate_10_kbps     10
+//@return: none
+********************************************************************************************************************************/
+
+void CAN_Bitrate(int baudrate)
+{
+        switch(baudrate)
     {
         case 1000: 
         {
@@ -49,6 +103,12 @@ int CAN_Init_Mode(int baudrate)
         case 125: 
         {
             CAN -> BTR |= (15<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 15  |   TS1[] : 8   | TS2[] : 7
+            break;
+        };
+        
+        case 100: 
+        {
+            CAN -> BTR |= (19<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 39  |   TS1[] : 8   | TS2[] : 7
             break;
         };
         
@@ -75,17 +135,16 @@ int CAN_Init_Mode(int baudrate)
             CAN -> BTR |= (1<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 1  |   TS1[] : 8   | TS2[] : 7
             break;
         };        
+    
+        
+        
     }
-    
-    CAN -> MCR |= CAN_MCR_AWUM; //AUTOMATIC WAKEUP FROM SLEEP MODE ON MESSAGE RECEPTION
-    
-    
 }
+//
 
-int CAN_Normal_Mode()
-{}
 
-int CAN_Sleep_Mode()
-{}
+
+
+
 
 
