@@ -142,9 +142,36 @@ void CAN_Bitrate(int baudrate)
 }
 //
 
+/***************************************** CAN Test Mode *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: 
+//       mode               0     ->    Silent Mode     
+//                          1     ->    Loop Back Mode
+//                          2     ->    Silent Loop Back Mode
+//@return: none
+********************************************************************************************************************************/
 
-
-
-
-
-
+void CAN_Test_Mode_Setup(int mode)
+{
+    switch(mode)
+    {
+        case 0:
+        {   
+            CAN->BTR |= CAN_BTR_SLIM;   //SET SLIM BIT 
+            break;
+        };
+        
+        case 1:
+        {   
+            CAN->BTR |= CAN_BTR_LBKM;  //SET LBKM BIT
+            break;
+        };
+        
+        case 2:
+        {   
+            CAN->BTR |= CAN_BTR_LBKM | CAN_BTR_SLIM;  //SET LBKM  AND SLIM BITS
+            break;
+        };        
+    }
+}
+//
