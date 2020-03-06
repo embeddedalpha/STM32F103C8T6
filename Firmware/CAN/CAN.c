@@ -4,14 +4,14 @@
 @version: V3.05.0
 @date:    29/2/2020
 @brief:   CAN Source File. 
-This file contains the functions declared in CAN.h file.
-By calling various "Init" functions, the user can configure 
-the CAN Hardware Peripheral in any of the permitted modes. 
+          This file contains the functions declared in CAN.h file.
+          By calling various "Init" functions, the user can configure 
+          the CAN Hardware Peripheral in any of the permitted modes. 
 					
 @attention: This file aims at providing the user an abrstraction layer to the CAN peripheral
-and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
-In case of failure of code/product due to third party tampering, the author will not be
-responsible. This code is published under MIT License.
+            and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
+            In case of failure of code/product due to third party tampering, the author will not be
+            responsible. This code is published under MIT License.
 	
 **********************************************************************************************************************************/	
 
@@ -340,6 +340,32 @@ int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, in
    
    return 1;
     
+}
+//
+
+/***************************************** CAN Buffer 0 Transmission Errors *************************************************************************
+//@function: The function sets up the bitrate for CAN bus
+//@param: none
+//@return: Returns 1 when data is lost in arbitration 
+//         Return  2 when data is lost in transmission
+//         Return  3 when data is lost in both arbitration and transmission.
+*****************************************************************************************************************************************************/
+
+
+int CAN_Buffer_0_Transmission_Errors(void)
+{
+    int error  = 0;
+    int flag = 0;
+    
+    flag = (CAN1 -> TSR & CAN_TSR_ALST0);
+    if(flah == 1) error |= 1 << 0;
+    else error |= 0 << 0;
+
+    flag = (CAN1 -> TSR & CAN_TSR_TERR0);
+    if(flah == 1) error |= 1 << 1;
+     else error |= 0 << 1;
+     
+    return error;
 }
 //
 
