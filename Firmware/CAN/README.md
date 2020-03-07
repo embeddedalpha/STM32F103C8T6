@@ -3,9 +3,9 @@
 <h3> The CAN.h contains the following functions which can be called in appilcation. </h3>
 
 ``` javascript   
-int CAN_Initialization_Mode();
-int CAN_Normal_Mode();
-int CAN_Sleep_Mode();
+int CAN_Initialization_Mode(void);
+int CAN_Normal_Mode(void);
+int CAN_Sleep_Mode(void);
 void CAN_Bitrate(int baudrate);
 void CAN_Test_Mode_Setup(int mode);
 int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority);
@@ -16,5 +16,23 @@ void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame);
 int CAN_Receive_Messages(int fifo_number);
 ```
   
-<h3> To set the controller in Normal Mode, it needs to be initialized. Initialization mode can be entered by calling
-     the following function </h3>
+<h3> To set the controller in Normal Mode, it needs to be initialized first. Initialization mode can be entered by calling the following function </h3>
+
+``` javascript
+CAN_Initialization_Mode(void);
+```
+
+<h3> After initialization, the bitrate, interrupts, identifier and mask should be set </h3>
+
+``` javascript
+CAN_Bitrate(int baudrate);
+CAN_Interrupt_Setup(int interrupts);
+CAN_Identifier_&_Mask(uint16_t id, uint16_t mask);
+```
+
+<h3> Once the setup is done, the Normal Mode can be entered. To enter the Normal Mode the following function should be called. </h3>
+
+``` javascript
+CAN_Normal_Mode(void);
+```
+
