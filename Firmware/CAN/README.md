@@ -1,6 +1,6 @@
-# Controller Area Network
+<h1> Controller Area Network </h1>
 
-The CAN.h contains the following functions
+The CAN.h contains the following functions which can be called in appilcation.
 
 ``` javascript   
 int CAN_Initialization_Mode();
@@ -16,3 +16,5 @@ void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame);
 int CAN_Receive_Messages(int fifo_number);
 ```
   
+<h3> To set the controller in Normal Mode, it needs to be initialized. Initialization mode can be entered by calling
+     the following function </h3>
