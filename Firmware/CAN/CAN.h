@@ -23,19 +23,22 @@
 
 #include "stm32f10x.h"
 
-struct CAN_Standard_Frame{
-    uint16_t id;
-    uint8_t  data[8];
-
+struct CAN_Frame{
+    int standard_id;
+    int extended_id;
+    int dlc;
+    int data[8];
+    int ide;
+    int rtr;
+    int filter_match_index;
+    int time_stamp;
 };
 //
 
-struct CAN_Extended_Frame{
-    uint16_t id;
-    uint32_t extended_id;
-    uint8_t data[8];
-};
-//
+
+struct CAN_Frame FIFO_0_Message[3];
+struct CAN_Frame FIFO_1_Message[3];
+
 
 
 #define CAN_BitRate_1000_kbps   1000
@@ -155,6 +158,31 @@ int CAN_Buffer_1_Transmission_Errors(void);
 int CAN_Buffer_2_Transmission_Errors(void);
 
 
+
+
+/***************************************** CAN Receive FIFO Data *************************************************************************
+//@brief: The function Receive data from the CAN bus by filling the appropriate buffers and passes the data to struct
+//@param:
+//       fifo_number               0    ->     FIFO number 0
+//                                 1    ->     FIFO number 1
+//       rx_frame                  Pass the CAN_Frame structure defined
+//@return: Returns 1 when data is transmitted.
+********************************************************************************************************************************/
+
+void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame);
+
+
+
+
+/***************************************** CAN Receive Message *************************************************************************
+//@brief: The function Receive data from the CAN bus by filling the appropriate buffers and passes the data to struct
+//@param:
+//       fifo_number               0    ->     FIFO number 0
+//                                 1    ->     FIFO number 1
+//@return: Returns number of messages received.
+********************************************************************************************************************************/
+
+int CAN_Receive_Messages(int fifo_number);
 
 
 #endif
