@@ -1,6 +1,6 @@
 <h1> Controller Area Network </h1>
 
-<h3> The CAN.h contains the following functions which can be called in appilcation. </h3>
+<h4> The CAN.h contains the following functions which can be called in appilcation. </h4>
 
 ``` javascript   
 int CAN_Initialization_Mode(void);
@@ -16,13 +16,13 @@ void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame);
 int CAN_Receive_Messages(int fifo_number);
 ```
   
-<h3> To set the controller in Normal Mode, it needs to be initialized first. Initialization mode can be entered by calling the following function </h3>
+<h4> To set the controller in Normal Mode, it needs to be initialized first. Initialization mode can be entered by calling the following function </h4>
 
 ``` javascript
 CAN_Initialization_Mode(void);
 ```
 
-<h3> After initialization, the bitrate, interrupts, identifier and mask should be set </h3>
+<h4> After initialization, the bitrate, interrupts, identifier and mask should be set </h4>
 
 ``` javascript
 CAN_Bitrate(int baudrate);
@@ -30,25 +30,25 @@ CAN_Interrupt_Setup(int interrupts);
 CAN_Identifier_&_Mask(uint16_t id, uint16_t mask);
 ```
 
-<h3> Once the setup is done, the Normal Mode can be entered. To enter the Normal Mode the following function should be called. </h3>
+<h4> Once the setup is done, the Normal Mode can be entered. To enter the Normal Mode the following function should be called. </h4>
 
 ``` javascript
 CAN_Normal_Mode(void);
 ```
 
-<h3> After the Normal Mode is entered, messages can be sent on CAN bus. To send a message: the mailbox no, standard_id, extended_id, dlc, actual data in the form of an array and message priority should be passed to the function. </h3>
+<h4> After the Normal Mode is entered, messages can be sent on CAN bus. To send a message: the mailbox no, standard_id, extended_id, dlc, actual data in the form of an array and message priority should be passed to the function. </h4>
 
 ``` javascript
 CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority)
 ```
 
-<h3> To receive messages from CAN bus, the following function should be called. The data in the messages can be accessed by the predfined structs : FIFO_0_Message[] and FIFO_1_Message[]. The fifo number should be passed. </h3>
+<h4> To receive messages from CAN bus, the following function should be called. The data in the messages can be accessed by the predfined structs : FIFO_0_Message[] and FIFO_1_Message[]. The fifo number should be passed. </h4>
   
 ``` javascript
 CAN_Receive_Messages(int fifo_number);
 ```
 
-<h3>As there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0]. </h3>
+<h4>As there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0]. </h4>
 
  ``` javascript
  CAN_Receive_Messages(0);
@@ -56,4 +56,48 @@ CAN_Receive_Messages(int fifo_number);
  int extended_id = FIFO_0_Message[0].extended_id;
  int standard_id = FIFO_0_Message[0].standard_id;
  //refer the CAN_Frame struct in CAN.h
+ ```
+
+<h4> Simple Example of CAN Transmission and Reception </h4>
+
+ ``` javascript
+ #include  "stm32f10x.h"
+#include "CAN.h"
+
+
+int main()
+{
+
+CAN_Initialization_Mode();
+CAN_Bitrate(CAN_BitRate_1000_kbps);
+CAN_Normal_Mode();
+
+struct CAN_Frame Tx_frame1;
+struct CAN_Frame Rx_frame1;
+
+// Transmit Data
+Tx_frame1.standard_id = 0x12;
+Tx_frame1.extended_id = 0x112;
+Tx_frame1.priority    = 0;
+Tx_frame1.dlc        = 4;
+Tx_frame1.data[0] =  0;
+Tx_frame1.data[1] =  0;
+Tx_frame1.data[2] =  0;
+Tx_frame1.data[3] =  0;
+
+
+CAN_Transmit_Data_Frame(0,Tx_frame1.standard_id, Tx_frame1.extended_id, Tx_frame1.dlc, Tx_frame1.data );
+
+// Receive Data
+
+CAN_Receive_Messages(0);
+Rx_frame1.standard_id = FIFO_0_Message[0].standard_id;
+Rx_frame1.extended_id = FIFO_0_Message[0].extended_id;
+Rx_frame1.dlc         = FIFO_0_Message[0].dlc;
+Rx_frame1.time_stamp  = FIFO_0_Message[0].time_stamp;
+
+//This data can be used in application
+
+}
+
  ```
