@@ -1,6 +1,6 @@
 <h1> Controller Area Network </h1>
 
-The CAN.h contains the following functions which can be called in appilcation.
+<h3> The CAN.h contains the following functions which can be called in appilcation. </h3>
 
 ``` javascript   
 int CAN_Initialization_Mode();
