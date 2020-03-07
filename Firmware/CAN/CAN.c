@@ -19,7 +19,7 @@
 #include "CAN.h"
 
 /***************************************** Initialization Mode *****************************************************************
-//@function: The function sets up the CAN controller in Initialization mode.
+//@brief: The function sets up the CAN controller in Initialization mode.
 //@param: none
 //@return: Returns 1 if Initialization is successful
 ********************************************************************************************************************************/
@@ -35,7 +35,7 @@ int CAN_Initialization_Mode()
 //
 
 /***************************************** Normal Mode *************************************************************************
-//@function: The function sets up the CAN controller in Normal mode.
+//@brief: The function sets up the CAN controller in Normal mode.
 //@param: none
 //@return: Returns 1 if Normalization is successful
 ********************************************************************************************************************************/
@@ -51,7 +51,7 @@ int CAN_Normal_Mode()
 //
 
 /***************************************** Sleep Mode *************************************************************************
-//@function: The function sets up the CAN controller in Sleep mode.
+//@brief: The function sets up the CAN controller in Sleep mode.
 //@param: none
 //@return: Returns 1 if controller is in sleep mode
 ********************************************************************************************************************************/
@@ -66,7 +66,7 @@ int CAN_Sleep_Mode()
 //
 
 /***************************************** CAN Bitrate *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@brief: The function sets up the bitrate for CAN bus
 //@param:
 //       baudrate           CAN_BitRate_1000_kbps   1000     [Defined in CAN.h]
 //                          CAN_BitRate_500_kbps    500
@@ -144,7 +144,7 @@ void CAN_Bitrate(int baudrate)
 //
 
 /***************************************** CAN Test Mode *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@brief: The function sets up the bitrate for CAN bus
 //@param:
 //       mode               0     ->    Silent Mode
 //                          1     ->    Loop Back Mode
@@ -178,7 +178,7 @@ void CAN_Test_Mode_Setup(int mode)
 //
 
 /***************************************** CAN Trasnmmit Data *************************************************************************
-//@function: The function transmitts data onto the CAN bus by filling the appropriate buffers
+//@brief: The function transmitts data onto the CAN bus by filling the appropriate buffers
 //@param:
 //       mailbox_no               0     ->    Mailbox 0
 //                                1     ->    Mailbox 1
@@ -345,7 +345,7 @@ int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, in
 //
 
 /***************************************** CAN Buffer 0 Transmission Errors *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@brief: The function sets up the bitrate for CAN bus
 //@param: none
 //@return: Returns 1 when data is lost in arbitration
 //         Return  2 when data is lost in transmission
@@ -373,7 +373,7 @@ int CAN_Buffer_0_Transmission_Errors(void)
 
 
 /***************************************** CAN Buffer 1 Transmission Errors *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@brief: The function sets up the bitrate for CAN bus
 //@param: none
 //@return: Returns 1 when data is lost in arbitration
 //         Return  2 when data is lost in transmission
@@ -401,7 +401,7 @@ int CAN_Buffer_1_Transmission_Errors(void)
 
 
 /***************************************** CAN Buffer 2 Transmission Errors *************************************************************************
-//@function: The function sets up the bitrate for CAN bus
+//@brief: The function sets up the bitrate for CAN bus
 //@param: none
 //@return: Returns 1 when data is lost in arbitration
 //         Return  2 when data is lost in transmission
@@ -423,6 +423,100 @@ int CAN_Buffer_2_Transmission_Errors(void)
      else error |= 0 << 1;
 
     return error;
+}
+//
+
+
+
+/***************************************** CAN Receive FIFO Data *************************************************************************
+//@brief: The function Receive data from the CAN bus by filling the appropriate buffers and passes the data to struct
+//@param:
+//       fifo_number               0    ->     FIFO number 0
+//                                 1    ->     FIFO number 1
+//       rx_frame                  Pass the CAN_Frame structure defined
+//@return: Returns 1 when data is transmitted.
+********************************************************************************************************************************/
+
+void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame)
+{
+	uint32_t riro =  CAN1->sFIFOMailBox[fifo_number].RIR;
+	uint32_t rdtor = CAN1->sFIFOMailBox[fifo_number].RDTR;
+	uint32_t rdlor = CAN1->sFIFOMailBox[fifo_number].RDLR;
+	uint32_t rdhor = CAN1->sFIFOMailBox[fifo_number].RDHR;
+
+	rx_frame.standard_id = riro & 0xFFE00000;
+	rx_frame.extended_id = riro & 0x001FFFF8;
+	rx_frame.ide         = riro & 0x00000004;
+	rx_frame.rtr         = riro & 0x00000002;
+
+	rx_frame.time_stamp = rdtor & 0xFFFF0000;
+	rx_frame.dlc        = rdtor & 0x00000008;
+	rx_frame.filter_match_index = rdtor & 0x0000FF00;
+
+	for(i = 0; i < dlc; i++)
+	{
+	 if(i <= 3)
+	 {
+	    rx_frame.data[i] = rdlor << (8*i);
+	 }
+	 else
+	 {
+	    rx_frame.data[i] = rdhoror << (8* (i-4));
+	 }
+	}
+
+}
+//
+
+
+
+/***************************************** CAN Receive Message *************************************************************************
+//@brief: The function Receive data from the CAN bus by filling the appropriate buffers and passes the data to struct
+//@param:
+//       fifo_number               0    ->     FIFO number 0
+//                                 1    ->     FIFO number 1
+//@return: Returns number of messages received.
+********************************************************************************************************************************/
+
+int CAN_Receive_Messages(int fifo_number)
+{
+	//delay
+	int fmp = 0;
+	if(fifo_number == 0)
+	{
+		fmp = CAN1->RF0R & 0x00000003;
+	}
+	if(fifo_number == 1)
+	{
+		fmp = CAN1->RF1R & 0x00000003;
+	}
+
+	switch(fifo_number)
+	{
+
+	case 0:
+	{
+		for(int i = 0 ; i< fmp; i++)
+		{
+			CAN_Receive_FIFO_Data(fifo_number, FIFO_0_Message[i]);
+		}
+		CAN1 -> RF0R  |= CAN_RF0R_RFOM0;//release fifo
+		break;
+	}
+
+	case 1:
+	{
+		for(int i = 0 ; i< fmp; i++)
+		{
+			CAN_Receive_FIFO_Data(fifo_number, FIFO_1_Message[i]);
+		}
+
+		CAN1 -> RF1R  |= CAN_RF1R_RF1M0;//release fifo
+		break;
+	}
+	}
+
+	return fmp;
 }
 //
 
