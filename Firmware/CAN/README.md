@@ -36,3 +36,23 @@ CAN_Identifier_&_Mask(uint16_t id, uint16_t mask);
 CAN_Normal_Mode(void);
 ```
 
+<h3> After the Normal Mode is entered, messages can be sent on CAN bus. To send a message: the mailbox no, standard_id, extended_id, dlc, actual data in the form of an array and message priority should be passed to the function. </h3>
+
+``` javascript
+CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority)
+```
+
+<h3> To receive messages from CAN bus, the following function should be called. The data in the messages can be accessed by the predfined structs : FIFO_0_Message[] and FIFO_1_Message[]. The fifo number should be passed. </h3>
+  
+``` javascript
+CAN_Receive_Messages(int fifo_number);
+```
+
+<h3>AS there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0] </h3>
+
+ ``` javascript
+ CAN_Receive_Messages(0);
+ int standard_id = FIFO_0_Message[0].standard_id;
+ int extended_id = FIFO_0_Message[0].extended_id;
+ int standard_id = FIFO_0_Message[0].standard_id;
+ ```
