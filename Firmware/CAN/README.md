@@ -48,11 +48,12 @@ CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dl
 CAN_Receive_Messages(int fifo_number);
 ```
 
-<h3>AS there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0] </h3>
+<h3>As there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0]. </h3>
 
  ``` javascript
  CAN_Receive_Messages(0);
  int standard_id = FIFO_0_Message[0].standard_id;
  int extended_id = FIFO_0_Message[0].extended_id;
  int standard_id = FIFO_0_Message[0].standard_id;
+ //refer the CAN_Frame struct in CAN.h
  ```
