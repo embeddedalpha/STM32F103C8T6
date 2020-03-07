@@ -27,7 +27,7 @@
 int CAN_Initialization_Mode()
 {
     CAN1 -> MCR &= ~CAN_MCR_SLEEP; //RESET SLEEP BIT
-    while((CAN -> MSR & CAN_MSR_SLAK)){} //WAIT TILL SLAK IS RESET
+    while((CAN1 -> MSR & CAN_MSR_SLAK)){} //WAIT TILL SLAK IS RESET
     CAN1 -> MCR |= CAN_MCR_INRQ;         //SET INRQ BIT 
     while(!(CAN1 -> MSR & CAN_MSR_INAK)){}   //WAIT TILL INAK IS SET
     return 1;
@@ -42,7 +42,7 @@ int CAN_Initialization_Mode()
 
 int CAN_Normal_Mode()
 {
-    CAN1->MCR &= ~CAN_MCR_INRQL;  //CLEAR INRQ BIT
+    CAN1->MCR &= ~CAN_MCR_INRQ;  //CLEAR INRQ BIT
     while((CAN1->MSR & CAN_MSR_INAK)); //WAIT TILL INAK BIT IS RESET
     CAN1->MCR &= ~CAN_MCR_SLEEP;
     while((CAN1->MSR & CAN_MSR_SLAK)); //WAIT TILL SLAK BIT IS RESET
@@ -157,7 +157,7 @@ void CAN_Test_Mode_Setup(int mode)
     {
         case 0:
         {   
-            CAN1->BTR |= CAN_BTR_SLIM;   //SET SLIM BIT 
+            CAN1->BTR |= CAN_BTR_SILM;   //SET SLIM BIT 
             break;
         };
         
@@ -169,7 +169,7 @@ void CAN_Test_Mode_Setup(int mode)
         
         case 2:
         {   
-            CAN1->BTR |= CAN_BTR_LBKM | CAN_BTR_SLIM;  //SET LBKM  AND SLIM BITS
+            CAN1->BTR |= CAN_BTR_LBKM | CAN_BTR_SILM;  //SET LBKM  AND SLIM BITS
             break;
         };        
     }
@@ -202,30 +202,30 @@ int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, in
            CAN1 -> TSR |= CAN_TSR_RQCP0;
            if(extended_id != 0)
            {
-               CAN1 -> TI0R |= CAN_TI0R_IDE;
-               CAN1 -> TI0R |= (standard_id << 21) | (extended_id << 3);
+               CAN1->sTxMailBox[0].TIR |= CAN_TI0R_IDE;
+               CAN1->sTxMailBox[0].TIR |= (standard_id << 21) | (extended_id << 3);
            }
            else
            {
-               CAN1 -> TI0R &= ~CAN_TI0R_IDE;
-               CAN1 -> TI0R |= (standard_id << 21);
+               CAN1->sTxMailBox[0].TIR &= ~CAN_TI0R_IDE;
+               CAN1->sTxMailBox[0].TIR |= (standard_id << 21);
            }
            
-           CAN1 -> TDT0R |= dlc << 0;
+          CAN1->sTxMailBox[0].TDTR |= dlc << 0;
            
            for(i = 0; i < dlc; i++)
            {
                if(i <= 3)
                {
-                   CAN1 -> TDL0R |= data[i] << (8 * i);
+                   CAN1->sTxMailBox[0].TDLR |= data[i] << (8 * i);
                }
                else
                {
-                   CAN1 -> TDL0R |= data[i] << (8 * (i-4));
+                  CAN1->sTxMailBox[0].TDHR |= data[i] << (8 * (i-4));
                }
            }
            
-           CAN1 -> TI0R |= CAN_TI0R_TXRQ;
+           CAN1->sTxMailBox[0].TIR |= CAN_TI0R_TXRQ;
            
            if(priority == 0)
            {
@@ -249,30 +249,30 @@ int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, in
            CAN1 -> TSR |= CAN_TSR_RQCP1;
            if(extended_id != 0)
            {
-               CAN1 -> TI1R |= CAN_TI1R_IDE;
-               CAN1 -> TI1R |= (standard_id << 21) | (extended_id << 3);
+               CAN1->sTxMailBox[1].TIR |= CAN_TI0R_IDE;
+               CAN1->sTxMailBox[1].TIR |= (standard_id << 21) | (extended_id << 3);
            }
            else
            {
-               CAN1 -> TI1R &= ~CAN_TI1R_IDE;
-               CAN1 -> TI1R |= (standard_id << 21);
+               CAN1->sTxMailBox[1].TIR &= ~CAN_TI0R_IDE;
+               CAN1->sTxMailBox[1].TIR |= (standard_id << 21);
            }
            
-           CAN1 -> TDT1R |= dlc << 0;
+           CAN1->sTxMailBox[1].TDTR |= dlc << 0;
            
            for(i = 0; i < dlc; i++)
            {
                if(i <= 3)
                {
-                   CAN1 -> TDL1R |= data[i] << (8 * i);
+                   CAN1->sTxMailBox[1].TDLR |= data[i] << (8 * i);
                }
                else
                {
-                   CAN1 -> TDL1R |= data[i] << (8 * (i-4));
+                  CAN1->sTxMailBox[1].TDHR |= data[i] << (8 * (i-4));
                }
            }
            
-           CAN1 -> TI1R |= CAN_TI1R_TXRQ;
+           CAN1->sTxMailBox[1].TIR |= CAN_TI0R_TXRQ;
            
            if(priority == 0)
            {
@@ -296,30 +296,30 @@ int CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, in
            CAN1 -> TSR |= CAN_TSR_RQCP2;
            if(extended_id != 0)
            {
-               CAN1 -> TI2R |= CAN_TI2R_IDE;
-               CAN1 -> TI2R |= (standard_id << 21) | (extended_id << 3);
+               CAN1->sTxMailBox[2].TIR |= CAN_TI0R_IDE;
+               CAN1->sTxMailBox[2].TIR |= (standard_id << 21) | (extended_id << 3);
            }
            else
            {
-               CAN1 -> TI2R &= ~CAN_TI2R_IDE;
-               CAN1 -> TI2R |= (standard_id << 21);
+               CAN1->sTxMailBox[2].TIR &= ~CAN_TI0R_IDE;
+               CAN1->sTxMailBox[2].TIR |= (standard_id << 21);
            }
            
-           CAN1 -> TDT2R |= dlc << 0;
+           CAN1->sTxMailBox[2].TDTR |= dlc << 0;
            
            for(i = 0; i < dlc; i++)
            {
                if(i <= 3)
                {
-                   CAN1 -> TDL2R |= data[i] << (8 * i);
+                   CAN1->sTxMailBox[2].TDLR |= data[i] << (8 * i);
                }
                else
                {
-                   CAN1 -> TDH2R |= data[i] << (8 * (i-4));
+                  CAN1->sTxMailBox[2].TDHR |= data[i] << (8 * (i-4));
                }
            }
            
-           CAN1 -> TI2R |= CAN_TI2R_TXRQ;
+           CAN1->sTxMailBox[2].TIR |= CAN_TI0R_TXRQ;
            
            if(priority == 0)
            {
@@ -358,11 +358,11 @@ int CAN_Buffer_0_Transmission_Errors(void)
     int flag = 0;
     
     flag = (CAN1 -> TSR & CAN_TSR_ALST0);
-    if(flah == 1) error |= 1 << 0;
+    if(flag == 1) error |= 1 << 0;
     else error |= 0 << 0;
 
     flag = (CAN1 -> TSR & CAN_TSR_TERR0);
-    if(flah == 1) error |= 1 << 1;
+    if(flag == 1) error |= 1 << 1;
      else error |= 0 << 1;
      
     return error;
