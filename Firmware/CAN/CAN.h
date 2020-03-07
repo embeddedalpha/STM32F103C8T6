@@ -32,6 +32,7 @@ struct CAN_Frame{
     int rtr;
     int filter_match_index;
     int time_stamp;
+    int priority;
 };
 //
 
