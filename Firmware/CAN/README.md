@@ -7,7 +7,10 @@
 ![bit_timing](https://user-images.githubusercontent.com/38166489/76237857-efe8ae80-6254-11ea-9bbe-113bb305bdb4.png)
 
 <h4> 
-  >> 
+ The values chosen for 
+      >> SYNC_SEG : 1 
+      >> Prop_Seg + Phase_Seg1: 15 [14 + 1]
+      >> Phase_Seg2 : 2 [1 + 1]
 </h4>
 
 <h4> The acceptable baudrates are: </h4>
@@ -23,7 +26,7 @@
  CAN_BitRate_10_kbps     10
 ````
 
-<h4> The CAN.h contains the following functions which can be called in appilcation. </h4>
+<h4> The CAN.h contains the following functions which can be called in application. </h4>
 
 ``` javascript   
 int CAN_Initialization_Mode(void);
