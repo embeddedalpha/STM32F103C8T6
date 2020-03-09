@@ -73,8 +73,8 @@ int CAN_Sleep_Mode()
 //                          CAN_BitRate_250_kbps    250
 //                          CAN_BitRate_125_kbps    125
 //                          CAN_BitRate_100_kbps    100
-//                          CAN_BitRate_75_kbps     75
-//                          CAN_BitRate_50_kbps     50
+//                          CAN_BitRate_75_kbps     50
+//                          CAN_BitRate_50_kbps     20
 //                          CAN_BitRate_10_kbps     10
 //@return: none
 ********************************************************************************************************************************/
