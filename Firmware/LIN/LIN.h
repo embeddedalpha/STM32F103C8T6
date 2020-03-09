@@ -14,6 +14,14 @@
 
 **********************************************************************************************************************************/
 
+/*
+ * LIN Frame
+ * |0000000000000|1|0_01010101_1|0_[ID 6:0]_[Parity 1:0]_1|Data [8:0]|
+ * 13 SYNC Break bits
+ * 1  Delimiter bits
+ * 10 SYNC Field bits [1 START BIT | 8 SYNC BITS (0X55) | 1 STOP BIT]
+ * 10 IDENTIFIER bits [1 START BIT | 6 ID BITS | 2 PARITY BITS | 1 STOP BIT |
+ */
 #ifndef _LIN_H_
 #define _LIN_H_
 
@@ -21,13 +29,17 @@
 
 USART_TypeDef *LIN;
 
+uint8_t LIN_TX_Buffer[8];
+uint8_t LIN_RX_Buffer[10];
 
-
+void LIN_Setup(void);
 int LIN_Init(void);
 int LIN_Send_Break(void);
-int LIN_Transmit_Data(void);
+int LIN_Send_Break(void);
+int LIN_Transmit_Data(uint8_t LIN_SLAVE_ID);
 int LIN_Receive_Data(void);
 
 
 
 #endif
+
