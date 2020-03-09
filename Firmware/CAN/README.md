@@ -4,7 +4,7 @@
 
 <h4> CAN frame bit timing: </h4>
 
-![bit_timing](https://user-images.githubusercontent.com/38166489/76237366-338ee880-6254-11ea-97d3-b47f24bea472.png)
+![bit_timing](https://user-images.githubusercontent.com/38166489/76237857-efe8ae80-6254-11ea-9bbe-113bb305bdb4.png)
 
 <h4> 
   >> 
