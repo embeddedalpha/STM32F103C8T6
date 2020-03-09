@@ -14,6 +14,7 @@
 
 **********************************************************************************************************************************/
 
+
 /*
  * LIN Frame
  * |0000000000000|1|0_01010101_1|0_[ID 6:0]_[Parity 1:0]_1|Data [8:0]|
@@ -32,14 +33,60 @@ USART_TypeDef *LIN;
 uint8_t LIN_TX_Buffer[8];
 uint8_t LIN_RX_Buffer[10];
 
+/***************************************** LIN Setup Mode *****************************************************************
+//@brief: The function sets up the LIN controller.
+//@param: none
+//@return: none
+********************************************************************************************************************************/
+
 void LIN_Setup(void);
+
+
+
+/***************************************** Initialization Mode *****************************************************************
+//@brief: The function is initializes the LIN controller.
+//@param: none
+//@return: Return 1 when LIN mode is enabled.
+********************************************************************************************************************************/
+
 int LIN_Init(void);
+
+
+
+/***************************************** LIN Send Break *****************************************************************
+//@brief: The function send a break on LIN bus.
+//@param: none
+//@return: none
+********************************************************************************************************************************/
+
 int LIN_Send_Break(void);
-int LIN_Send_Break(void);
+
+
+
+/***************************************** LIN Transmit Data *****************************************************************
+//@brief: The function transmit data onto LIN bus.
+//@param:
+//       LIN_SLAVE_ID         0x00 to 0x3B    Normal Signal or Data carrying frame
+//                            0x3C to 0x3D    Carry Diagnostic & Configuration Data
+//                            0x3E to 0x3F    Released for future enhancements
+//@return: Returns 1 for proper transmission
+********************************************************************************************************************************/
+
 int LIN_Transmit_Data(uint8_t LIN_SLAVE_ID);
+
+
+
+
+/***************************************** LIN Receive Data *****************************************************************
+//@brief: The function receives data that's onto the bus
+//@param: none
+//@return: Returns 1 when Normal Signal or Data carrying frame
+//         Returns 2 when Carry Diagnostic & Configuration Data
+//         Returns 3 when Released for future enhancements
+********************************************************************************************************************************/
+
 int LIN_Receive_Data(void);
 
 
 
 #endif
-
