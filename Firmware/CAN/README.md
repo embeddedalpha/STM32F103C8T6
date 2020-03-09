@@ -1,5 +1,28 @@
 <h1> Controller Area Network </h1>
 
+<h4> CAN is a two-wired half duplex high speed serial network technology used basically in automotive application as inter vehicle   communication protocol. Driver files (CAN.c and CAN.h) provide the software designer with all the functions with which they can communicate with the CAN PHY.</h4>
+
+<h4> CAN frame bit timing: </h4>
+
+![bit_timing](https://user-images.githubusercontent.com/38166489/76237366-338ee880-6254-11ea-97d3-b47f24bea472.png)
+
+<h4> 
+  >> 
+</h4>
+
+<h4> The acceptable baudrates are: </h4>
+
+```javascript
+ CAN_BitRate_1000_kbps   1000
+ CAN_BitRate_500_kbps    500
+ CAN_BitRate_250_kbps    250
+ CAN_BitRate_125_kbps    125
+ CAN_BitRate_100_kbps    100
+ CAN_BitRate_50_kbps     50
+ CAN_BitRate_20_kbps     20
+ CAN_BitRate_10_kbps     10
+````
+
 <h4> The CAN.h contains the following functions which can be called in appilcation. </h4>
 
 ``` javascript   
