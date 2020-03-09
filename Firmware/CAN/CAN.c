@@ -85,55 +85,55 @@ void CAN_Bitrate(int baudrate)
     {
         case 1000:
         {
-           CAN1 -> BTR |= (1<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 1  |   TS1[] : 8   | TS2[] : 7
+           CAN1 -> BTR = 0x001E0001;
             break;
         };
 
         case 500:
         {
-            CAN1 -> BTR |= (3<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 3  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E0003;
             break;
         };
 
         case 250:
         {
-            CAN1 -> BTR |= (7<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 7  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E0007;
             break;
         };
 
         case 125:
         {
-            CAN1 -> BTR |= (15<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 15  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E000F;
             break;
         };
 
         case 100:
         {
-            CAN1 -> BTR |= (19<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 39  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E0013;
             break;
         };
 
         case 50:
         {
-            CAN1 -> BTR |= (39<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 39  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR 0x001E0027;
             break;
         };
 
         case 20:
         {
-            CAN1 -> BTR |= (99<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 99  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E0063;
             break;
         };
 
         case 10:
         {
-            CAN1 -> BTR |= (199<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 199  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E00C7;
             break;
         };
 
         default:
         {
-            CAN1 -> BTR |= (1<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 1  |   TS1[] : 8   | TS2[] : 7
+            CAN1 -> BTR = 0x001E0001;
             break;
         };
 
