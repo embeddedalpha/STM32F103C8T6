@@ -51,6 +51,7 @@ int ADC_Calibrate(ADC_TypeDef *ADC);
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
+//       sequence               1 : 16
 //@return: none
 ********************************************************************************************************************************/
 
