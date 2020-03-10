@@ -73,8 +73,8 @@ int CAN_Sleep_Mode()
 //                          CAN_BitRate_250_kbps    250
 //                          CAN_BitRate_125_kbps    125
 //                          CAN_BitRate_100_kbps    100
-//                          CAN_BitRate_75_kbps     50
-//                          CAN_BitRate_50_kbps     20
+//                          CAN_BitRate_50_kbps     50
+//                          CAN_BitRate_20_kbps     20
 //                          CAN_BitRate_10_kbps     10
 //@return: none
 ********************************************************************************************************************************/
@@ -85,55 +85,55 @@ void CAN_Bitrate(int baudrate)
     {
         case 1000:
         {
-           CAN1 -> BTR = 0x001E0001;
+           CAN1 -> BTR |= (1<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 1  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 500:
         {
-            CAN1 -> BTR = 0x001E0003;
+            CAN1 -> BTR |= (3<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 3  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 250:
         {
-            CAN1 -> BTR = 0x001E0007;
+            CAN1 -> BTR |= (7<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 7  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 125:
         {
-            CAN1 -> BTR = 0x001E000F;
+            CAN1 -> BTR |= (15<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 15  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 100:
         {
-            CAN1 -> BTR = 0x001E0013;
+            CAN1 -> BTR |= (19<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 39  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 50:
         {
-            CAN1 -> BTR 0x001E0027;
+            CAN1 -> BTR |= (39<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 39  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 20:
         {
-            CAN1 -> BTR = 0x001E0063;
+            CAN1 -> BTR |= (99<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 99  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         case 10:
         {
-            CAN1 -> BTR = 0x001E00C7;
+            CAN1 -> BTR |= (199<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 199  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
         default:
         {
-            CAN1 -> BTR = 0x001E0001;
+            CAN1 -> BTR |= (1<< 0) | (8 << 16) | (7 << 20) | (1 << 24); //PRESCALLER : 1  |   TS1[] : 8   | TS2[] : 7
             break;
         };
 
@@ -453,7 +453,7 @@ void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame)
 	rx_frame.dlc        = rdtor & 0x00000008;
 	rx_frame.filter_match_index = rdtor & 0x0000FF00;
 
-	for(i = 0; i < dlc; i++)
+	for(int i = 0; i < rx_frame.dlc; i++)
 	{
 	 if(i <= 3)
 	 {
@@ -461,7 +461,7 @@ void CAN_Receive_FIFO_Data(int fifo_number,struct CAN_Frame rx_frame)
 	 }
 	 else
 	 {
-	    rx_frame.data[i] = rdhoror << (8* (i-4));
+	    rx_frame.data[i] = rdhor << (8* (i-4));
 	 }
 	}
 
@@ -511,7 +511,7 @@ int CAN_Receive_Messages(int fifo_number)
 			CAN_Receive_FIFO_Data(fifo_number, FIFO_1_Message[i]);
 		}
 
-		CAN1 -> RF1R  |= CAN_RF1R_RF1M0;//release fifo
+		CAN1 -> RF1R  |= CAN_RF1R_RFOM1;//release fifo
 		break;
 	}
 	}
