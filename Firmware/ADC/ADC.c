@@ -116,13 +116,26 @@ int ADC_Calibrate(ADC_TypeDef *ADC)
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
+//       no_of_sequences        1 : 16
+//@return: none
+********************************************************************************************************************************/
+
+void ADC_Sequence_Setup(int channel_type, int no_of_sequences)
+{}
+
+/***************************************** Channel Initialization Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       channel_type           0  ->  Regular mode
+//                              1  ->  Injected mode
 //       sequence               1 : 16
 //@return: none
 ********************************************************************************************************************************/
 
-void ADC_Channel_0_Init(int channel_type, int sequence)
+void ADC_Channel_0_Init(int channel_type, int sequence, int sampling_time)
 {
-
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << 1;
 	switch(channel_type)
 	{
 	case 0 :
