@@ -21,6 +21,7 @@
 
 
 #include "stm32f10x.h"
+#include "Board.h"
 
 /***************************************** Initialization Mode *****************************************************************
 //@brief: The function sets up the ADC in Initialization mode.
