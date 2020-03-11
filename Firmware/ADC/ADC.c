@@ -111,62 +111,216 @@ int ADC_Calibrate(ADC_TypeDef *ADC)
 }
 //
 
-/***************************************** Channel Initialization Mode *****************************************************************
+/***************************************** Channel Sequence Setup *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
-//       no_of_sequences        1 : 16
+//       no_of_conversions      1 : 16 [ For Regular Channels ]
+//                              1 : 4  [ For Injected Channels ]
 //@return: none
 ********************************************************************************************************************************/
 
-void ADC_Sequence_Setup(int channel_type, int no_of_sequences)
-{}
-
-
-
-/***************************************** Analog Watchdog Mode *****************************************************************
-//@brief: The function setups ADC Analog Watchdog. The value of lower_level should be low than higher level.
-//@param:
-//      ADC                ADC1 or ADC2
-//      channel_type       0  ->  Regular mode
-//                         1  ->  Injected mode
-//      lower_level        0  to 4095
-//      high_level         0  to 4095
-//@return: Returns 1 if Initialization is successful
-********************************************************************************************************************************/
-
-int ADC_Analog_Watchdog(ADC_TypeDef *ADC, int channel_type, int lower_level, int high_level)
+void ADC_Sequence_Setup(ADC_TypeDef *ADC,int channel_type, int no_of_conversions)
 {
-ADC ->  CR1 |= ADC_CR
+switch(channel_type)
+{
+case 0 : {
+	ADC ->SQR1 |= (no_of_conversions - 1)<< 20;
+	break;}
+
+case 1 :{
+	ADC ->JSQR |= (no_of_conversions - 1) << 20;
+	break;}
+}
 }
 
+
+
+
 /***************************************** Channel Initialization Mode *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
-//       sequence               1 : 16
+//       sequence               1 : 10 Regular Channels
+//                              1 : 4  Injected Channels
+//       sampling_time          ADC_Sampling_Time_1_16us = 0; //1.16 us
+//                              ADC_Sampling_Time_1_66us = 1; //1.667 us
+//                              ADC_Sampling_Time_2_16us = 2; //2.16 us
+//                              ADC_Sampling_Time_3_41us = 3; //3.41 us
+//                              ADC_Sampling_Time_4_50us = 4; //4.50 us
+//                              ADC_Sampling_Time_5_67us = 5; //5.67 us
+//                              ADC_Sampling_Time_7_00us = 6; //7.00 us
+//                              ADC_Sampling_Time_21_us =  7; //21.0 us
 //@return: none
 ********************************************************************************************************************************/
 
-void ADC_Channel_0_Init(int channel_type, int sequence, int sampling_time)
+void ADC_Channel_0_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time)
 {
 RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
-GPIOA -> CRL   |= ANALOG_INPUT << 0;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*0);
+ADC ->SMPR2 |=  sampling_time << (4*0);
 	switch(channel_type)
 	{
 	case 0 :
 	{
-                
+        ADC -> SQR3 |= sequence << (5*0);
 		break;
 	};
 
 	case 1 :
 	{
-
+        ADC -> JSQR |= sequence << (5*0);
 		break;
 	};
 	}
+}
+//
+
+
+void ADC_Channel_1_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*1);
+ADC ->SMPR2 |=  sampling_time << (4*1);
+	switch(channel_type)
+	{
+	case 0 :
+	{
+        ADC -> SQR3 |= sequence << (5*1);
+		break;
+	};
+
+	case 1 :
+	{
+        ADC -> JSQR |= sequence << (5*1);
+		break;
+	};
+	}
+}
+//
+
+void ADC_Channel_2_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*2);
+ADC ->SMPR2 |=  sampling_time << (4*2);
+	switch(channel_type)
+	{
+	case 0 :
+	{
+        ADC -> SQR3 |= sequence << (5*2);
+		break;
+	};
+
+	case 1 :
+	{
+        ADC -> JSQR |= sequence << (5*2);
+		break;
+	};
+	}
+}
+//
+
+void ADC_Channel_3_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*3);
+ADC ->SMPR2 |=  sampling_time << (4*3);
+	switch(channel_type)
+	{
+	case 0 :
+	{
+        ADC -> SQR3 |= sequence << (5*3);
+		break;
+	};
+
+	case 1 :
+	{
+        ADC -> JSQR |= sequence << (5*3);
+		break;
+	};
+	}
+}
+//
+
+/***************************************** Channel Initialization Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       ADC                    ADC1 or ADC2
+//       sequence               1 : 10 Regular Channels
+//       sampling_time          ADC_Sampling_Time_1_16us = 0; //1.16 us
+//                              ADC_Sampling_Time_1_66us = 1; //1.667 us
+//                              ADC_Sampling_Time_2_16us = 2; //2.16 us
+//                              ADC_Sampling_Time_3_41us = 3; //3.41 us
+//                              ADC_Sampling_Time_4_50us = 4; //4.50 us
+//                              ADC_Sampling_Time_5_67us = 5; //5.67 us
+//                              ADC_Sampling_Time_7_00us = 6; //7.00 us
+//                              ADC_Sampling_Time_21_us =  7; //21.0 us
+//@return: none
+********************************************************************************************************************************/
+
+void ADC_Channel_4_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*4);
+ADC ->SMPR2 |=  sampling_time << (4*4);
+ADC -> SQR3 |= sequence << (5*4);
+}
+//
+
+
+void ADC_Channel_5_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*5);
+ADC ->SMPR2 |=  sampling_time << (4*5);
+ADC -> SQR3 |= sequence << (5*5);
+
+}
+//
+
+
+void ADC_Channel_6_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*5);
+ADC ->SMPR2 |=  sampling_time << (4*5);
+ADC -> SQR3 |= sequence << (5*6);
+
+}
+//
+
+
+void ADC_Channel_7_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*5);
+ADC ->SMPR2 |=  sampling_time << (4*5);
+ADC -> SQR2 |= sequence << (5*0);
+
+}
+//
+
+
+void ADC_Channel_8_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*5);
+ADC ->SMPR2 |=  sampling_time << (4*5);
+ADC -> SQR2 |= sequence << (5*1);
+
+}
+//
+
+
+void ADC_Channel_9_Init(ADC_TypeDef *ADC, int sequence, int sampling_time)
+{
+RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+GPIOA -> CRL   |= ANALOG_INPUT << (4*5);
+ADC ->SMPR2 |=  sampling_time << (4*5);
+ADC -> SQR2 |= sequence << (5*2);
+
 }
 //
