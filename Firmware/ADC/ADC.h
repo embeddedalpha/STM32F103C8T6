@@ -19,8 +19,18 @@
 #ifndef _ADC_H_
 #define _ADC_H_
 
+
 #include "stm32f10x.h"
 #include "Board.h"
+
+const float ADC_Sampling_Time_1_16us = 0; //1.16 us
+const float ADC_Sampling_Time_1_66us = 1; //1.667 us
+const float ADC_Sampling_Time_2_16us = 2; //2.16 us
+const float ADC_Sampling_Time_3_41us = 3; //3.41 us
+const float ADC_Sampling_Time_4_50us = 4; //4.50 us
+const float ADC_Sampling_Time_5_67us = 5; //5.67 us
+const float ADC_Sampling_Time_7_00us = 6; //7.00 us
+const float ADC_Sampling_Time_21_us =  7; //21.0 us
 
 /***************************************** Initialization Mode *****************************************************************
 //@brief: The function sets up the ADC in Initialization mode.
@@ -46,17 +56,64 @@ void ADC_Init(ADC_TypeDef *ADC , int conversion_mode, int data_alignment, int DM
 
 int ADC_Calibrate(ADC_TypeDef *ADC);
 
+
+
+
 /***************************************** Channel Initialization Mode *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
-//       sequence               1 : 16
+//       sequence               1 : 10 Regular Channels
+//                              1 : 4  Injected Channels
+//       sampling_time          ADC_Sampling_Time_1_16us = 0; //1.16 us
+//                              ADC_Sampling_Time_1_66us = 1; //1.667 us
+//                              ADC_Sampling_Time_2_16us = 2; //2.16 us
+//                              ADC_Sampling_Time_3_41us = 3; //3.41 us
+//                              ADC_Sampling_Time_4_50us = 4; //4.50 us
+//                              ADC_Sampling_Time_5_67us = 5; //5.67 us
+//                              ADC_Sampling_Time_7_00us = 6; //7.00 us
+//                              ADC_Sampling_Time_21_us =  7; //21.0 us
 //@return: none
 ********************************************************************************************************************************/
 
-void ADC_Channel_0_Init(int channel_type, int sequence);
+void ADC_Channel_0_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time);
+void ADC_Channel_1_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time);
+void ADC_Channel_2_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time);
+void ADC_Channel_3_Init(ADC_TypeDef *ADC,int channel_type, int sequence, int sampling_time);
+
+/***************************************** Channel Initialization Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       ADC                    ADC1 or ADC2
+//       sequence               1 : 10 Regular Channels
+//       sampling_time          ADC_Sampling_Time_1_16us = 0; //1.16 us
+//                              ADC_Sampling_Time_1_66us = 1; //1.667 us
+//                              ADC_Sampling_Time_2_16us = 2; //2.16 us
+//                              ADC_Sampling_Time_3_41us = 3; //3.41 us
+//                              ADC_Sampling_Time_4_50us = 4; //4.50 us
+//                              ADC_Sampling_Time_5_67us = 5; //5.67 us
+//                              ADC_Sampling_Time_7_00us = 6; //7.00 us
+//                              ADC_Sampling_Time_21_us =  7; //21.0 us
+//@return: none
+********************************************************************************************************************************/
+
+void ADC_Channel_4_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
+void ADC_Channel_5_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
+void ADC_Channel_6_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
+void ADC_Channel_7_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
+void ADC_Channel_8_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
 
 
+/***************************************** Channel Initialization Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       channel_type           0  ->  Regular mode
+//                              1  ->  Injected mode
+//       no_of_conversions      1 : 16 [ For Regular Channels ]
+//                              1 : 4  [ For Injected Channels ]
+//@return: none
+********************************************************************************************************************************/
 
+void ADC_Sequence_Setup(ADC_TypeDef *ADC,int channel_type, int no_of_conversions);
 #endif
