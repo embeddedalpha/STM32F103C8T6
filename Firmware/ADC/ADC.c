@@ -123,6 +123,24 @@ int ADC_Calibrate(ADC_TypeDef *ADC)
 void ADC_Sequence_Setup(int channel_type, int no_of_sequences)
 {}
 
+
+
+/***************************************** Analog Watchdog Mode *****************************************************************
+//@brief: The function setups ADC Analog Watchdog. The value of lower_level should be low than higher level.
+//@param:
+//      ADC                ADC1 or ADC2
+//      channel_type       0  ->  Regular mode
+//                         1  ->  Injected mode
+//      lower_level        0  to 4095
+//      high_level         0  to 4095
+//@return: Returns 1 if Initialization is successful
+********************************************************************************************************************************/
+
+int ADC_Analog_Watchdog(ADC_TypeDef *ADC, int channel_type, int lower_level, int high_level)
+{
+ADC ->  CR1 |= ADC_CR
+}
+
 /***************************************** Channel Initialization Mode *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
@@ -135,12 +153,12 @@ void ADC_Sequence_Setup(int channel_type, int no_of_sequences)
 void ADC_Channel_0_Init(int channel_type, int sequence, int sampling_time)
 {
 RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
-GPIOA -> CRL   |= ANALOG_INPUT << 1;
+GPIOA -> CRL   |= ANALOG_INPUT << 0;
 	switch(channel_type)
 	{
 	case 0 :
 	{
-
+                
 		break;
 	};
 
