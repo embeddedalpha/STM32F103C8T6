@@ -94,6 +94,8 @@ case 1 :
 }
 //
 
+
+
 /***************************************** Calibration Mode *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
@@ -110,6 +112,8 @@ int ADC_Calibrate(ADC_TypeDef *ADC)
     return 1;
 }
 //
+
+
 
 /***************************************** Channel Sequence Setup *****************************************************************
 //@brief: The function calibrates ADC
@@ -324,3 +328,68 @@ ADC -> SQR2 |= sequence << (5*2);
 
 }
 //
+
+
+
+void ADC_Temperature_Init(ADC_TypeDef *ADC)
+{
+
+}
+
+
+
+/***************************************** Analog Watchdog Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       ADC                    ADC1 or ADC2
+//       upper_limit            From 0 to 2^(11)
+//       lower_limit            upper_limit >
+//       channel_mode           0  ->  Regular
+//                              1  ->  Injected
+//       awd_channel_type       0  ->  multiple channel
+//                              1  ->  single channel
+//       awd_channel_selection  0 : 9 channels
+ //@return: none
+********************************************************************************************************************************/
+
+void ADC_Analog_Watchdog_Init(ADC_TypeDef *ADC, int upper_limit, int lower_limit, int channel_mode, int awd_channel_type, int awd_channel_selection)
+{
+ADC -> LTR = lower_limit;
+ADC ->HTR = upper_limit;
+switch (channel_mode)
+{
+case 0 :
+{
+ADC ->CR1 |= ADC_CR1_AWDEN;
+break;
+}
+
+case 1 :
+{
+ADC->CR1 |= ADC_CR1_JAWDEN;
+break;
+}
+
+}
+
+switch ( awd_channel_type)
+{
+case 0 :
+{
+ADC ->CR1 &= ~ADC_CR1_AWDSGL;
+break;
+}
+
+case 1 :
+{
+ADC ->CR1 |= ADC_CR1_AWDSGL;
+break;
+}
+
+}
+
+
+ADC -> CR1 |= awd_channel_selection << 0;
+
+
+}
