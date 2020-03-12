@@ -1,5 +1,5 @@
 /**********************************************************************************************************************************
-@file:    ADC.H
+@file:    ADC.h
 @author:  Kunal Salvi
 @version: V3.05.0
 @date:    29/2/2020
@@ -47,6 +47,7 @@ const float ADC_Sampling_Time_21_us =  7; //21.0 us
 
 void ADC_Init(ADC_TypeDef *ADC , int conversion_mode, int data_alignment, int DMA_Enable);
 
+
 /***************************************** Calibration Mode *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
@@ -55,8 +56,6 @@ void ADC_Init(ADC_TypeDef *ADC , int conversion_mode, int data_alignment, int DM
 ********************************************************************************************************************************/
 
 int ADC_Calibrate(ADC_TypeDef *ADC);
-
-
 
 
 /***************************************** Channel Initialization Mode *****************************************************************
@@ -105,7 +104,7 @@ void ADC_Channel_7_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
 void ADC_Channel_8_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
 
 
-/***************************************** Channel Initialization Mode *****************************************************************
+/***************************************** Channel Sequence Setup  *****************************************************************
 //@brief: The function calibrates ADC
 //@param:
 //       channel_type           0  ->  Regular mode
@@ -116,4 +115,21 @@ void ADC_Channel_8_Init(ADC_TypeDef *ADC,int sequence, int sampling_time);
 ********************************************************************************************************************************/
 
 void ADC_Sequence_Setup(ADC_TypeDef *ADC,int channel_type, int no_of_conversions);
+
+/***************************************** Analog Watchdog Mode *****************************************************************
+//@brief: The function calibrates ADC
+//@param:
+//       ADC                    ADC1 or ADC2
+//       upper_limit            From 0 to 2^(11)
+//       lower_limit            upper_limit >
+//       channel_mode           0  ->  Regular
+//                              1  ->  Injected
+//       awd_channel_type       0  ->  multiple channel
+//                              1  ->  single channel
+//       awd_channel_selection  0 : 9 channels
+ //@return: none
+********************************************************************************************************************************/
+
+void ADC_Analog_Watchdog_Init(ADC_TypeDef *ADC, int upper_limit, int lower_limit, int channel_mode, int awd_channel_type, int awd_channel_selection);
+
 #endif
