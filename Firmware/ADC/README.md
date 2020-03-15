@@ -7,4 +7,6 @@
 void ADC_Init(ADC_TypeDef *ADC , int conversion_mode, int data_alignment, int DMA_Enable);
 int ADC_Calibrate(ADC_TypeDef *ADC);
 void ADC_Channel_0_Init(int channel_type, int sequence);
+void ADC_Analog_Watchdog_Init(ADC_TypeDef *ADC, int upper_limit, int lower_limit, int channel_mode, int awd_channel_type, int awd_channel_selection);
+
 ```
