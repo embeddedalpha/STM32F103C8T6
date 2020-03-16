@@ -681,7 +681,7 @@ if((SPI2 -> SR & SPI_SR_RXNE) == SPI_SR_RXNE)
 //@attribute: This function enables SPI block.
 //@param : 
 //        spi           0 = SPI1 
-//											1 = SPI2              
+//			1 = SPI2              
 //@return: none
 
 void SPI_Enables(SPI_TypeDef *spi)
