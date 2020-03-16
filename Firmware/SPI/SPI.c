@@ -47,6 +47,7 @@
 //@return: Returns 1 if master mode is enabled
 //         Returns 0 if master mode is not enabled
  
+
 int SPI_Master_Full_Duplex_Init(SPI_TypeDef *spi, uint8_t Port, uint8_t CPOL, uint8_t CPHA, int BaudRate, uint8_t LSBorMSB, uint8_t DataFormat, uint8_t NSS_mode, uint8_t CRC_mode, uint8_t multimaster){
 // Choose SPI1 or SPI2
 if(spi == SPI1)
