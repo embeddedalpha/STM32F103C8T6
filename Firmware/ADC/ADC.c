@@ -116,7 +116,7 @@ int ADC_Calibrate(ADC_TypeDef *ADC)
 
 
 /***************************************** Channel Sequence Setup *****************************************************************
-//@brief: The function calibrates ADC
+//@brief: The function sets up channel sequence
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
@@ -143,7 +143,7 @@ case 1 :{
 
 
 /***************************************** Channel Initialization Mode *****************************************************************
-//@brief: The function calibrates ADC
+//@brief: These functions sets up the ADC channel.
 //@param:
 //       channel_type           0  ->  Regular mode
 //                              1  ->  Injected mode
@@ -250,7 +250,7 @@ ADC ->SMPR2 |=  sampling_time << (4*3);
 //
 
 /***************************************** Channel Initialization Mode *****************************************************************
-//@brief: The function calibrates ADC
+//@brief: These functions sets up the ADC channel.
 //@param:
 //       ADC                    ADC1 or ADC2
 //       sequence               1 : 10 Regular Channels
@@ -339,7 +339,7 @@ void ADC_Temperature_Init(ADC_TypeDef *ADC)
 
 
 /***************************************** Analog Watchdog Mode *****************************************************************
-//@brief: The function calibrates ADC
+//@brief: These functions sets up the ADC watchdog.
 //@param:
 //       ADC                    ADC1 or ADC2
 //       upper_limit            From 0 to 2^(11)
