@@ -1,6 +1,9 @@
 <h1>LM35 Temperature Sensor with temperature alert </h1>
+
+![image](https://user-images.githubusercontent.com/38166489/76828309-aac10f80-6846-11ea-8427-0b9b3c2382a6.png)
+
+
 <b> Libraries used are: <br>
-  
 1. [ADC.h](https://github.com/embeddedalpha/Embedded-Systems/blob/master/Firmware/ADC/ADC.h) 
 2. [Debug.h](https://github.com/embeddedalpha/Embedded-Systems/blob/master/Firmware/Debug/Debug.h)
 
