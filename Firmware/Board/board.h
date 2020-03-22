@@ -28,7 +28,7 @@ void Init_Buffer(void);
 
 void Send_16Bit_Data(uint16_t data);
 void Send_8Bit_Data(GPIO_TypeDef *GPIO ,uint8_t data);
-
+void Paralle_Transmission_Init(void);
 
 
 
