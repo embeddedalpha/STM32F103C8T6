@@ -101,4 +101,20 @@ buffer[i] = -1;
 }
 //
 
+//************************************************** SEND 16 BIT PARALLEL DATA **************************************************
+
+void Send_16Bit_Data(uint16_t data)
+{
+uint8_t lowerBYTE = 0x00FF & data;
+uint8_t higherBYTE = 0xFF00 & data;
+GPIOA->ODR = lowerBYTE;
+GPIOB->ODR = higherBYTE;
+}
+
+//************************************************** SEND 8 BIT PARALLEL DATA **************************************************
+
+void Send_8Bit_Data(GPIO_TypeDef *GPIO ,uint8_t data)
+{
+GPIO->ODR = data;
+}
 
