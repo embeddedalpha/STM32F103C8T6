@@ -118,3 +118,19 @@ void Send_8Bit_Data(GPIO_TypeDef *GPIO ,uint8_t data)
 GPIO->ODR = data;
 }
 
+//************************************************** Setup Parallel Transmission **************************************************
+
+void Paralle_Transmission_Init(void)
+{
+	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN;
+	//GPIOA 0 - 7
+	GPIOA->CRL |= (GEN_PUSH_PULL_OUTPUT << 7) | (GEN_PUSH_PULL_OUTPUT << 6) | (GEN_PUSH_PULL_OUTPUT << 5) |
+			      (GEN_PUSH_PULL_OUTPUT << 4) | (GEN_PUSH_PULL_OUTPUT << 3) | (GEN_PUSH_PULL_OUTPUT << 2) |
+			      (GEN_PUSH_PULL_OUTPUT << 1) | (GEN_PUSH_PULL_OUTPUT << 0);
+    //GPIOB 8 - 15
+	GPIOB->CRH |= (GEN_PUSH_PULL_OUTPUT << 7) | (GEN_PUSH_PULL_OUTPUT << 6) | (GEN_PUSH_PULL_OUTPUT << 5) |
+			      (GEN_PUSH_PULL_OUTPUT << 4) | (GEN_PUSH_PULL_OUTPUT << 3) | (GEN_PUSH_PULL_OUTPUT << 2) |
+			      (GEN_PUSH_PULL_OUTPUT << 1) | (GEN_PUSH_PULL_OUTPUT << 0);
+
+
+}
