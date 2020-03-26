@@ -1,4 +1,3 @@
-
 #ifndef _MCP4725_H
 #define _MCP4725_H
 
@@ -18,13 +17,13 @@
 
 //
 #define MCP4725_DAC_FastMode      0  //This command is used to change the DAC register. EEPROM is not affected
-#define MCP4725_DAC_WRDACREG      2  //Load configuration bits and data code to the DAC Register     
+#define MCP4725_DAC_WRDACREG      2  //Load configuration bits and data code to the DAC Register
 #define MCP4725_DAC_WRDACnER      3  //Load configuration bits and data code to the DAC Register and also write the EEPROM
 
 
 
 
-void MCP_Write_DAC(uint16_t data);
+void MCP_Write_DAC_Fast_Mode(uint16_t data);
 
 //should be able to support DMA transfers
 
