@@ -1,1 +1,23 @@
 
+#include "MCP4725.h"
+
+
+	//start bit
+	//delay
+	//send address /write
+	//wait for ack
+
+
+	//higher byte = 0xFF00 & data;
+	//lower byte = 0x00FF & data;
+	//send higher byte
+	//wait for ack
+	//send lower byte
+	//wait for ack
+void MCP_Write_DAC(uint16_t data)
+{
+
+
+}
+
+
