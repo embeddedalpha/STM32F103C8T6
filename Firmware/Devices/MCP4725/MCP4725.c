@@ -1,5 +1,6 @@
 #include "MCP4725.h"
 
+
 /***************************************** Write DAC in Fast Mode *****************************************************************
 //@brief: The function writes DAC in fast mode.
 //@param: 12 bit data
