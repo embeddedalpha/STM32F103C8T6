@@ -136,7 +136,7 @@ void ADC_Analog_Watchdog_Init(ADC_TypeDef *ADC, int upper_limit, int lower_limit
 
 
 
-/***************************************** Analog Watchdog Mode *****************************************************************
+/***************************************** External Trigger Conversion *****************************************************************
 //@brief: These functions sets up the ADC watchdog.
 //@param:
 //       ADC                    ADC1 or ADC2
