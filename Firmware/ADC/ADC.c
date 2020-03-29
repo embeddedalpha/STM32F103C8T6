@@ -4,7 +4,7 @@
 @version: V3.05.0
 @date:    29/2/2020
 @brief:   ADC Source File.
-          This file contains the functions declared in CAN.h file.
+          This file contains the functions declared in ADC.h file.
           By calling various functions, the user can configure
           the ADC Hardware Peripheral.
 
