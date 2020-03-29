@@ -1,5 +1,20 @@
-#include "MCP4725.h"
+/**********************************************************************************************************************************
+@file:    MCP4725.C
+@author:  Kunal Salvi
+@version: V3.05.0
+@date:    27/3/2020
+@brief:   MCP4725 Source File.
+          This file contains the functions declared in MCP4725.h file.
+          By calling various functions, the user can configure and send data to DAC
 
+@attention: This file aims at providing the user an abstraction layer to the MCP4725 DAC
+            and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
+            In case of failure of code/product due to third party tampering, the author will not be
+            responsible. This code is published under MIT License.
+
+**********************************************************************************************************************************/
+
+#include "MCP4725.h"
 
 /***************************************** Write DAC in Fast Mode *****************************************************************
 //@brief: The function writes DAC in fast mode.
