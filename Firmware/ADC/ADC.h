@@ -132,4 +132,28 @@ void ADC_Sequence_Setup(ADC_TypeDef *ADC,int channel_type, int no_of_conversions
 
 void ADC_Analog_Watchdog_Init(ADC_TypeDef *ADC, int upper_limit, int lower_limit, int channel_mode, int awd_channel_type, int awd_channel_selection);
 
+
+
+
+
+/***************************************** Analog Watchdog Mode *****************************************************************
+//@brief: These functions sets up the ADC watchdog.
+//@param:
+//       ADC                    ADC1 or ADC2
+//       channel_type           0  ->  Regular channel
+//                              1  ->  Injected channel
+//       source                 0  ->  TIM1_CC1 event
+//                              1  ->  TIM1_CC2 event
+//                              2  ->  TIM1_CC3 event
+//                              3  ->  TIM2_CC2 event
+//                              4  ->  TIM3_TRGO event
+//                              5  ->  TIM4_CC4 event
+//                              6  ->  EXTI line 11
+//                              7  ->  Software control bit SWSTART
+//@return: none
+********************************************************************************************************************************/
+
+
+void ADC_Ext_Trigger_Conversion(ADC_TypeDef *ADC,int channel_type,uint8_t source);
+
 #endif
