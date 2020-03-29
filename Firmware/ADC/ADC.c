@@ -393,3 +393,44 @@ ADC -> CR1 |= awd_channel_selection << 0;
 
 
 }
+
+
+
+
+
+/***************************************** External Trigger Conversion *****************************************************************
+//@brief: These functions sets up the ADC watchdog.
+//@param:
+//       ADC                    ADC1 or ADC2
+//       channel_type           0  ->  Regular channel
+//                              1  ->  Injected channel
+//       source                 0  ->  TIM1_CC1 event
+//                              1  ->  TIM1_CC2 event
+//                              2  ->  TIM1_CC3 event
+//                              3  ->  TIM2_CC2 event
+//                              4  ->  TIM3_TRGO event
+//                              5  ->  TIM4_CC4 event
+//                              6  ->  EXTI line 11
+//                              7  ->  Software control bit SWSTART
+//@return: none
+********************************************************************************************************************************/
+
+
+void ADC_Ext_Trigger_Conversion(ADC_TypeDef *ADC,int channel_type,uint8_t source)
+{
+	switch(channel_type){
+	case 0 :
+	{
+		ADC -> CR2 |= (source) << 17 | 1 << 20;
+	    break;
+	}
+	case 1:
+	{
+     	ADC -> CR2 |= (source) << 12 | 1 << 15;
+	}
+	default : break;
+	}
+
+}
+/******************************************************************************************************************************/
+
