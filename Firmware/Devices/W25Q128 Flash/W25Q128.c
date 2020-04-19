@@ -74,6 +74,7 @@ void W25Q128_Erase_32KB_Block(uint32_t address)
 
 void W25Q128_Erase_64KB_Block(uint32_t address)
 {
+	uint8_t status, busy;
 	uint8_t A23_16 = (0x00FF0000 & address) >> 16;
 	uint8_t A15_08 = (0x0000FF00 & address) >> 8;
 	uint8_t A07_00 = (0x000000FF & address) >> 0;
@@ -87,7 +88,12 @@ void W25Q128_Erase_64KB_Block(uint32_t address)
 	SPI_Master_TX(A15_08);
 	SPI_Master_TX(A07_00);
 	SPI_NSS_HIGH();
+	do{
+		 status = W25Q128_Read_Status_Register_1();
+		 busy = 0x01 & status;
+	}while( busy != 0);
 }
+
 
 void W25Q128_Write(int data[256], int length, uint32_t address)
 {
