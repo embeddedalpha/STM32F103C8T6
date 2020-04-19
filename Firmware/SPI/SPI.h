@@ -33,6 +33,7 @@ SOFTWARE.
 #include "board.h"
 
 GPIO_TypeDef *PORT;
+SPI_TypeDef  *SPI;
 extern uint8_t NSS_Pin;
 
 #define LSB 0
@@ -92,19 +93,19 @@ struct SPI_Slave_IRQ_Parameters
 };
 
 
-void SPI_Master_Config(SPI_TypeDef *SPI, struct SPI_Master_Parameters SPI_M);
-void SPI_Master_IRQ_Config(SPI_TypeDef *SPI, struct SPI_Master_IRQ_Parameters SPIM_I);
-void SPI_Master_Enable(SPI_TypeDef *SPI);
-void SPI_Master_TX(SPI_TypeDef *SPI, int data);
-int SPI_Master_RX(SPI_TypeDef *SPI);
+void SPI_Master_Config(struct SPI_Master_Parameters SPI_M);
+void SPI_Master_IRQ_Config(struct SPI_Master_IRQ_Parameters SPIM_I);
+void SPI_Master_Enable(void);
+void SPI_Master_TX(int data);
+int SPI_Master_RX();
 void SPI_NSS_Pin_Setup(void);
 void SPI_NSS_LOW(void);
 void SPI_NSS_HIGH(void);
-void SPI_Slave_Init(SPI_TypeDef *SPI, struct SPI_Slave_Parameters SPI_S);
-void SPI_Slave_IRQ_Config(SPI_TypeDef *SPI, struct SPI_Slave_IRQ_Parameters SPIS_I);
-void SPI_Slave_Enable(SPI_TypeDef *SPI);
-void SPI_Slave_TX(SPI_TypeDef *SPI, int data);
-int SPI_Slave_RX(SPI_TypeDef *SPI);
+void SPI_Slave_Init(struct SPI_Slave_Parameters SPI_S);
+void SPI_Slave_IRQ_Config(struct SPI_Slave_IRQ_Parameters SPIS_I);
+void SPI_Slave_Enable(void);
+void SPI_Slave_TX(int data);
+int SPI_Slave_RX(void);
 
 
 
@@ -120,5 +121,6 @@ int SPI_Slave_RX(SPI_TypeDef *SPI);
 
 
 #endif
+
 
 
