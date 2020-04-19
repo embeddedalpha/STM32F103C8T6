@@ -9,6 +9,26 @@ uint8_t W25Q128_Read_Status_Register_1(void)
 	return status;
 }
 
+uint8_t W25Q128_Read_Status_Register_2(void)
+{
+	SPI_NSS_HIGH();
+	SPI_NSS_LOW();
+	SPI_Master_TX(Read_Status_Register_2);
+	uint8_t status = SPI_Master_RX();
+	return status;
+}
+
+uint8_t W25Q128_Read_Status_Register_3(void)
+{
+	SPI_NSS_HIGH();
+	SPI_NSS_LOW();
+	SPI_Master_TX(Read_Status_Register_3);
+	uint8_t status = SPI_Master_RX();
+	return status;
+}
+
+
+
 void W25Q128_Chip_Erase(void)
 {
 	uint8_t status, busy;
