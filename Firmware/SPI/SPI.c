@@ -5,9 +5,9 @@
 @version: V3.05.0
 @date:    29/2/2020
 @brief:   SPI Driver File.
-          This file contains the functions declared in SPI.h file.
-	  By calling various "Init" functions, the user can configure
-          the SPI Hardware Peripheral in any of the permitted modes.
+	  This file contains the functions declared in SPI.h file.
+          By calling various "Init" functions, the user can configure
+	  the SPI Hardware Peripheral in any of the permitted modes.
 
 @attention: This file aims at providing the user an abrstraction layer to the SPI peripheral
 	    and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
@@ -60,6 +60,28 @@ int SPI_Master_RX(SPI_TypeDef *SPI)
 	return SPI->DR;
 }
 
+void SPI_NSS_Pin_Setup(void)
+{
+
+	if(pin < 8)
+	{
+		PORT ->CRL |= ALT_PUSH_PULL_OUTPUT << NSS_Pin;
+	}
+	else
+	{
+		PORT->CRH |= ALT_PUSH_PULL_OUTPUT << NSS_Pin;
+	}
+}
+
+void SPI_NSS_LOW(void)
+{
+	PORT ->BSRR |= (16 + NSS_Pin);
+}
+
+void SPI_NSS_HIGH(void)
+{
+	PORT ->BSRR |= NSS_Pin;
+}
 /******************************************     Slave Configuration     ******************************************/
 
 void SPI_Slave_Config(SPI_TypeDef *SPI, struct SPI_Slave_Parameters SPI_S)
