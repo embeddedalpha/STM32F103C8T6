@@ -43,7 +43,6 @@ SPI = SPI1;
 NSS_Pin = 4;
 struct SPI_Master_Parameters W25Q128;
 
-
 void W25Q128_Init(void);
 
 void W25Q128_Page_Write(int data[256], int length, uint32_t address);
@@ -60,7 +59,9 @@ void W25Q128_Chip_Erase(void);
 
 uint8_t W25Q128_Read_Status_Register_1(void);
 
+uint8_t W25Q128_Read_Status_Register_2(void);
 
+uint8_t W25Q128_Read_Status_Register_3(void);
 
 
 
