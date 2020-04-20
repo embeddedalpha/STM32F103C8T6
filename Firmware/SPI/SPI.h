@@ -1,31 +1,3 @@
-/********************************************************************************************************************************
-
-@file:    SPI.h
-@author:  Kunal Salvi aka @embeddedaplha
-@version: V3.5.0
-@date:    29-Feb-2020
-@brief:   Serial Peripheral Interface Header File.
-
-																												MIT License
-																							Copyright (c) 2018 Embedded_Alpha
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-*/*******************************************************************************************************************************
-
 #ifndef _SPI_H_
 #define _SPI_H_
 
@@ -34,7 +6,7 @@ SOFTWARE.
 
 GPIO_TypeDef *PORT;
 SPI_TypeDef  *SPI;
-extern uint8_t NSS_Pin;
+extern int NSS_Pin;
 
 #define LSB 0
 #define MSB 1
@@ -98,9 +70,11 @@ void SPI_Master_IRQ_Config(struct SPI_Master_IRQ_Parameters SPIM_I);
 void SPI_Master_Enable(void);
 void SPI_Master_TX(int data);
 int SPI_Master_RX();
+
 void SPI_NSS_Pin_Setup(void);
 void SPI_NSS_LOW(void);
 void SPI_NSS_HIGH(void);
+
 void SPI_Slave_Init(struct SPI_Slave_Parameters SPI_S);
 void SPI_Slave_IRQ_Config(struct SPI_Slave_IRQ_Parameters SPIS_I);
 void SPI_Slave_Enable(void);
@@ -121,6 +95,3 @@ int SPI_Slave_RX(void);
 
 
 #endif
-
-
-
