@@ -39,12 +39,18 @@
 #define Enable_Reset				0x66
 #define Reset_Device				0x99
 
-SPI = SPI1;
-NSS_Pin = 4;
+
 struct SPI_Master_Parameters W25Q128;
 
+extern uint8_t Memory_Buffer[254];
 
 void W25Q128_Init(void);
+
+/***********************************************************************************/
+void W25Q128_Write_Enable(void);
+void W25Q128_Write_Disable(void);
+uint8_t W25Q128_Read_Data(uint32_t address, uint8_t length);
+/***********************************************************************************/
 
 /***********************************************************************************/
 void W25Q128_Write_Status_Register(uint8_t reg, uint8_t data);
@@ -74,6 +80,13 @@ uint8_t W25Q128_Read_Status_Register_3(void);
 void W25Q128_Global_Block_Sector_Unlock(void);
 void W25Q128_Global_Block_Sector_Lock(void);
 /***********************************************************************************/
+
+/***********************************************************************************/
+
+
+
+
+
 
 
 
