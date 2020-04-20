@@ -47,16 +47,20 @@ SPI->CR2 |= (SPIM_I.Error_Interrupt) << 5;
 
 void SPI_Master_Enable(void)
 {
+
 	SPI -> CR1 |= SPI_CR1_SPE;
 }
 
 void SPI_Master_TX(int data)
 {
+
+
 	SPI -> DR = data;
 }
 
 int SPI_Master_RX(void)
 {
+	while((SPI -> SR & SPI_SR_RXNE));
 	return SPI->DR;
 }
 
