@@ -6,6 +6,25 @@
 
 struct SPI_Master_Parameters MCP2512;
 
+#define MCP2512_Reset                      0xC0
+#define MCP2512_Read                       0x02
+#define MCP2512_Read_Rx_Buffer_0_RXB0SIDH  0x90
+#define MCP2512_Read_Rx_Buffer_0_RXB0D0    0x91
+#define MCP2512_Read_Rx_Buffer_1_RXB1SIDH  0x92
+#define MCP2512_Read_Rx_Buffer_1_RXB1D0    0x93
+#define MCP2512_Write                      0x02
+#define MCP2512_Load_Tx_Buffer_0_TXB0SIDH  0x40
+#define MCP2512_Load_Tx_Buffer_0_TXB0D0    0x41
+#define MCP2512_Load_Tx_Buffer_1_TXB1SIDH  0x42
+#define MCP2512_Load_Tx_Buffer_1_TXB1D0    0x43
+#define MCP2512_Load_Tx_Buffer_2_TXB2SIDH  0x44
+#define MCP2512_Load_Tx_Buffer_2_TXB2D0    0x45
+#define MCP2512_RTS_TXB0                   0x81
+#define MCP2512_RTS_TXB1                   0x82
+#define MCP2512_RTS_TXB2                   0x84
+#define MCP2512_Read_Status                0xA0
+#define MCP2512_Rx_Status                  0xB0
+#define MCP2512_Bit_Modify                 0x05
 
 #define RXF0SIDH  0x00
 #define RXF0SIDL  0x01
