@@ -125,7 +125,7 @@ void MCP2512_TX_Standard_Frame(uint8_t buffer,uint16_t standard_id, uint8_t data
                 	 stdid_lower = stdid_lower << 5;
                 	 MCP2512_Write(TXB0SIDL,stdid_lower);
                 	 uint16_t stdid_higher = standard_id & mask2;
-                	 uint16_t stdid_higher = stdid_higher >> 3;
+                	  stdid_higher = stdid_higher >> 3;
                 	 MCP2512_Write(TXB0SIDH,stdid_higher);
                 	 MCP2512_Write(TXB0DLC,dlc);
 
@@ -169,7 +169,7 @@ void MCP2512_TX_Standard_Frame(uint8_t buffer,uint16_t standard_id, uint8_t data
                 	 stdid_lower = stdid_lower << 5;
                 	 MCP2512_Write(TXB1SIDL,stdid_lower);
                 	 uint16_t stdid_higher = standard_id & mask2;
-                	 uint16_t stdid_higher = stdid_higher >> 3;
+                	  stdid_higher = stdid_higher >> 3;
                 	 MCP2512_Write(TXB1SIDH,stdid_higher);
                 	 MCP2512_Write(TXB1DLC,dlc);
 
@@ -213,7 +213,7 @@ void MCP2512_TX_Standard_Frame(uint8_t buffer,uint16_t standard_id, uint8_t data
                 	 stdid_lower = stdid_lower << 5;
                 	 MCP2512_Write(TXB2SIDL,stdid_lower);
                 	 uint16_t stdid_higher = standard_id & mask2;
-                	 uint16_t stdid_higher = stdid_higher >> 3;
+                	  stdid_higher = stdid_higher >> 3;
                 	 MCP2512_Write(TXB2SIDH,stdid_higher);
                 	 MCP2512_Write(TXB2DLC,dlc);
 
@@ -254,10 +254,7 @@ void MCP2512_TX_Extended_Frame(uint8_t buffer,uint16_t standard_id, uint32_t ext
 	      case 0:
 	            {
 
-	            	uint16_t standard_id;
-	            	uint32_t extended_id;
-	            	uint8_t data[8];
-	            	uint8_t dlc;
+
 	            	uint16_t mask1 = 0x0007;
 	            	uint16_t mask2 = 0x078F;
 	            	uint32_t mask3 = 0x00030000;
@@ -315,10 +312,6 @@ void MCP2512_TX_Extended_Frame(uint8_t buffer,uint16_t standard_id, uint32_t ext
 	      case 1:
 	            {
 
-	            	uint16_t standard_id;
-	            	uint32_t extended_id;
-	            	uint8_t data[8];
-	            	uint8_t dlc;
 	            	uint16_t mask1 = 0x0007;
 	            	uint16_t mask2 = 0x078F;
 	            	uint32_t mask3 = 0x00030000;
@@ -375,10 +368,6 @@ void MCP2512_TX_Extended_Frame(uint8_t buffer,uint16_t standard_id, uint32_t ext
 	      case 2:
 	            {
 
-	            	uint16_t standard_id;
-	            	uint32_t extended_id;
-	            	uint8_t data[8];
-	            	uint8_t dlc;
 	            	uint16_t mask1 = 0x0007;
 	            	uint16_t mask2 = 0x078F;
 	            	uint32_t mask3 = 0x00030000;
