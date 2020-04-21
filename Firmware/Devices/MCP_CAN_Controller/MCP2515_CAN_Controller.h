@@ -1,6 +1,7 @@
 #ifndef _MCP2512_CAN_Controller_H_
 #define _MCP2512_CAN_Controller_H_
 
+#include "stm32f10x.h"
 #include "SPI.h"
 #include "board.h"
 
@@ -40,8 +41,8 @@ struct SPI_Master_Parameters MCP2512;
 #define RXF2EID0  0x0B
 #define BFPCTRL   0x0C
 #define TXRTSCTRL 0x0D
-#define CANSTAT   0x0E
-#define CANCTRL   0x0F
+#define CANSTAT_F123   0x0E
+#define CANCTRL_F123   0x0F
 
 #define RXF3SIDH  0x10
 #define RXF3SIDL  0x11
@@ -57,8 +58,8 @@ struct SPI_Master_Parameters MCP2512;
 #define RXF5EID0  0x1B
 #define TEC       0x1C
 #define REC       0x1D
-#define CANSTAT   0x1E
-#define CANCTRL   0x1F
+#define CANSTAT_F345   0x1E
+#define CANCTRL_F345   0x1F
 
 #define RXM0SIDH  0x20
 #define RXM0SIDL  0x21
@@ -74,8 +75,8 @@ struct SPI_Master_Parameters MCP2512;
 #define CANINTE   0x2B
 #define CANINTF   0x2C
 #define EFLG      0x2D
-#define CANSTAT   0x2E
-#define CANCTRL   0x2F
+#define CANSTAT_M01   0x2E
+#define CANCTRL_M01   0x2F
 
 #define TXB0CTRL  0x30
 #define TXB0SIDH  0x31
@@ -108,8 +109,8 @@ struct SPI_Master_Parameters MCP2512;
 #define TXB1D5    0x4B
 #define TXB1D6    0x4C
 #define TXB1D7    0x4D
-#define CANSTAT   0x4E
-#define CANCTRL   0x4F
+#define CANSTAT_TX1   0x4E
+#define CANCTRL_TX1   0x4F
 
 #define TXB2CTRL  0x50
 #define TXB2SIDH  0x51
@@ -125,8 +126,8 @@ struct SPI_Master_Parameters MCP2512;
 #define TXB2D5    0x5B
 #define TXB2D6    0x5C
 #define TXB2D7    0x5D
-#define CANSTAT   0x5E
-#define CANCTRL   0x5F
+#define CANSTAT_TX2   0x5E
+#define CANCTRL_TX2   0x5F
 
 #define RXB0CTRL  0x60
 #define RXB0SIDH  0x61
@@ -142,8 +143,8 @@ struct SPI_Master_Parameters MCP2512;
 #define RXB0D5    0x6B
 #define RXB0D6    0x6C
 #define RXB0D7    0x6D
-#define CANSTAT   0x6E
-#define CANCTRL   0x6F
+#define CANSTAT_RX0   0x6E
+#define CANCTRL_RX0   0x6F
 
 #define RXB1CTRL  0x70
 #define RXB1SIDH  0x71
@@ -159,8 +160,8 @@ struct SPI_Master_Parameters MCP2512;
 #define RXB1D5    0x7B
 #define RXB1D6    0x7C
 #define RXB1D7    0x7D
-#define CANSTAT   0x7E
-#define CANCTRL   0x7F
+#define CANSTAT_RX1   0x7E
+#define CANCTRL_RX1   0x7F
 
 
 uint8_t MCP2512_Read(uint8_t address);
@@ -168,7 +169,7 @@ uint8_t MCP2512_Read_RX_Buffer(uint8_t buffer);
 void MCP2512_Write(uint8_t address, uint8_t data);
 void MCP2512_Load_TX_Buffer(uint8_t buffer, uint8_t data);
 void MCP2512_Request_To_Send(uint8_t RTS_Buffer);
-void MCP2512_Bit_Modify(uint8_t rts_buffer,uint8_t address, uint8_t mask, uint8_t data);
+void MCP2512_Bit_Modify(uint8_t address, uint8_t mask, uint8_t data);
 uint8_t MCP2512_Read_Status(void);
 uint8_t MCP2512_Rx_Status(void);
 
