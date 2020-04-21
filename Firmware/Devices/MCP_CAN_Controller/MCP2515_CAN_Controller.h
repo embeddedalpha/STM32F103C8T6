@@ -91,8 +91,8 @@ struct SPI_Master_Parameters MCP2512;
 #define TXB0D5    0x3B
 #define TXB0D6    0x3C
 #define TXB0D7    0x3D
-#define CANSTAT   0x3E
-#define CANCTRL   0x3F
+#define CANSTAT_TX0   0x3E
+#define CANCTRL_TX0   0x3F
 
 #define TXB1CTRL  0x40
 #define TXB1SIDH  0x41
@@ -163,7 +163,6 @@ struct SPI_Master_Parameters MCP2512;
 #define CANCTRL   0x7F
 
 
-void MCP2512_Init(void);
 uint8_t MCP2512_Read(uint8_t address);
 uint8_t MCP2512_Read_RX_Buffer(uint8_t buffer);
 void MCP2512_Write(uint8_t address, uint8_t data);
@@ -172,5 +171,10 @@ void MCP2512_Request_To_Send(uint8_t RTS_Buffer);
 void MCP2512_Bit_Modify(uint8_t rts_buffer,uint8_t address, uint8_t mask, uint8_t data);
 uint8_t MCP2512_Read_Status(void);
 uint8_t MCP2512_Rx_Status(void);
+
+void MCP2512_Init(void);
+void MCP2512_TX_Standard_Frame(uint8_t buffer,uint16_t standard_id, uint8_t data[8], uint8_t dlc);
+void MCP2512_TX_Extended_Frame(uint8_t buffer,uint16_t standard_id, uint32_t extended_id, uint8_t data[8], uint8_t dlc);
+
 
 #endif
