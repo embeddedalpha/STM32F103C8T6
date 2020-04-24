@@ -8,6 +8,10 @@
 
 #define BNO055_Address	0x28
 
+#define BNO055_Normal_Mode 0x00
+#define BNO055_Low_Normal_Mode 0x01
+#define BNo055_Suspend_Mode 0x02
+
 
 
 void BNO055_Init();
