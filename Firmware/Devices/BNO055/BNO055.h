@@ -18,5 +18,8 @@ void Gyroscope_CONFIG(uint8_t G_Range, uint8_t Bandwidth, uint8_t OpMode);
 
 void Magnetometer_CONFIG(uint8_t DataRate, uint8_t OpMode, uint8_t PowerMode);
 
+void BNO055_Write(uint8_t reg, uint8_t data);
+
+void BNO055_Read(uint8_t reg, uint8_t bytes);
 
 #endif
