@@ -5,7 +5,7 @@
 #include "board.h"
 
 GPIO_TypeDef *PORT;
-SPI_TypeDef  *SPI;
+
 extern int NSS_Pin;
 
 #define LSB 0
@@ -18,6 +18,8 @@ extern int NSS_Pin;
 #define Rx 0
 #define Enable 1
 #define Disable 0
+#define Hardware_Managed 0
+#define Software_Managed 1
 
 
 struct  SPI_Master_Parameters
@@ -32,6 +34,9 @@ struct  SPI_Master_Parameters
 	uint8_t TxorRX ;
 	uint8_t TxDMA ;
 	uint8_t RxDMA ;
+	uint8_t Slave_Management;
+	uint16_t CRC_Polynomial;
+	uint8_t CRC_Enable;
 };
 
 struct SPI_Master_IRQ_Parameters
@@ -65,11 +70,11 @@ struct SPI_Slave_IRQ_Parameters
 };
 
 
-void SPI_Master_Config(struct SPI_Master_Parameters SPI_M);
-void SPI_Master_IRQ_Config(struct SPI_Master_IRQ_Parameters SPIM_I);
-void SPI_Master_Enable(void);
-void SPI_Master_TX(int data);
+void SPI_Master_Config(SPI_TypeDef *SPI, struct SPI_Master_Parameters SPI_M);
+void SPI_Master_IRQ_Config(SPI_TypeDef *SPI, struct SPI_Master_IRQ_Parameters SPIM_I);
+void SPI_Master_TX(SPI_TypeDef *SPI,int data);
 int SPI_Master_RX();
+void SPI_Master_Enable(SPI_TypeDef *SPI);
 
 void SPI_NSS_Pin_Setup(void);
 void SPI_NSS_LOW(void);
@@ -80,17 +85,6 @@ void SPI_Slave_IRQ_Config(struct SPI_Slave_IRQ_Parameters SPIS_I);
 void SPI_Slave_Enable(void);
 void SPI_Slave_TX(int data);
 int SPI_Slave_RX(void);
-
-
-
-
-
-
-
-
-
-
-
 
 
 
