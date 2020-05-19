@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 #include "board.h"
 
-GPIO_TypeDef *PORT;
+
 
 extern int NSS_Pin;
 
