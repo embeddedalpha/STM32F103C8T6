@@ -8,12 +8,10 @@
 		  This file contains the functions declared in SPI.h file.
 		  By calling various "Init" functions, the user can configure
 		  the SPI Hardware Peripheral in any of the permitted modes.
-
-@attention: This file aims at providing the user an abrstraction layer to the SPI peripheral
+@attention: This file aims at providing the user an abstraction layer to the SPI peripheral
 			and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
 			In case of failure of code/product due to third party tampering, the author will not be
 			responsible. This code is published under MIT License.
-
 *********************************************************************************************************************************
 */
 #include "SPI.h"
@@ -22,8 +20,10 @@
 /******************************************     Master Configuration     ******************************************/
 
 
-void SPI_Master_Config(struct SPI_Master_Parameters SPI_M)
+void SPI_Master_Config(SPI_TypeDef *SPI,struct SPI_Master_Parameters SPI_M)
 {
+
+SPI ->CR1 |= SPI_CR1_MSTR;
 SPI->CR1 |= SPI_M.Baudrate << 3;
 SPI->CR1 |= SPI_M.CPOL << 1;
 SPI->CR1 |= SPI_M.CPHA << 0;
@@ -32,11 +32,17 @@ SPI->CR1 |= SPI_M.LSBorMSB << 7;
 SPI->CR1 |= SPI_M.CRC_Enable << 13;
 SPI->CR1 |= SPI_M.BiDirectional_Mode << 15;
 SPI->CR1 |= SPI_M.TxorRX << 14;
-SPI -> CR1 |= SPI_CR1_MSTR;
 SPI->CR2 |= SPI_M.TxDMA << 1;
 SPI->CR2 |= SPI_M.RxDMA << 0;
+SPI->CR1 |= SPI_M.Slave_Management << 9;
+SPI->CRCPR |= SPI_M.CRC_Polynomial;
+SPI->CR1 |= SPI_M.CRC_Enable << 13;
 }
 
+void SPI_Master_Enable(SPI_TypeDef *SPI)
+{
+	SPI->CR1 |= SPI_CR1_SPE;
+}
 
 void SPI_Master_IRQ_Config(struct SPI_Master_IRQ_Parameters SPIM_I)
 {
@@ -51,10 +57,10 @@ void SPI_Master_Enable(void)
 	SPI -> CR1 |= SPI_CR1_SPE;
 }
 
-void SPI_Master_TX(int data)
+void SPI_Master_TX(SPI_TypeDef *SPI,int data)
 {
 
-
+	while(!(SPI -> SR & SPI_SR_TXE));
 	SPI -> DR = data;
 }
 
