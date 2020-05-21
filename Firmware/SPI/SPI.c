@@ -35,6 +35,7 @@ SPI->CR1 |= SPI_M.TxorRX << 14;
 SPI->CR2 |= SPI_M.TxDMA << 1;
 SPI->CR2 |= SPI_M.RxDMA << 0;
 SPI->CR1 |= SPI_M.Slave_Management << 9;
+SPI->CR1 |= SPI_CR1_SSI;
 SPI->CRCPR |= SPI_M.CRC_Polynomial;
 SPI->CR1 |= SPI_M.CRC_Enable << 13;
 }
