@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 #include "board.h"
 
-
+GPIO_TypeDef *PORT;
 
 extern int NSS_Pin;
 
@@ -85,6 +85,17 @@ void SPI_Slave_IRQ_Config(struct SPI_Slave_IRQ_Parameters SPIS_I);
 void SPI_Slave_Enable(void);
 void SPI_Slave_TX(int data);
 int SPI_Slave_RX(void);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
