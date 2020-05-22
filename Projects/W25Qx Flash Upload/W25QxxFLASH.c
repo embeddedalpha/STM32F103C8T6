@@ -186,5 +186,25 @@ uint8_t W25Qx_Read_JEDEC_ID(void)
 	return jedec_id;
 }
 
+void W25Qx_Write_Flash_Bulk(uint32_t address)
+{
+	int length = sizeof(data)/sizeof(data[0]);
+	int increment = length / 256;
+	int remaining = length - (256 + ((increment -1)*256));
+	int counter = length - remaining;
 
+	for(int i = 0; i<increment; i++)
+		{
+			for(int j = 0; j < 256; j++){
+				flash_data_TX[j] = data[j + (i*256)];
+			}
+			 W25Qx_Write_Flash((address + (i*256)),255);
+		}
+	for(int k = 0; k<remaining; k++)
+	{
+		flash_data_TX[k] = data[counter+k];
+		W25Qx_Write_Flash(address  +(i*remaining),remaining);
+	}
+
+}
 
