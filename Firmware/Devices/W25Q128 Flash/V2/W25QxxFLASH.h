@@ -35,6 +35,7 @@ uint8_t W25Qx_Read_Unique_ID(void);
 
 uint8_t W25Qx_Read_JEDEC_ID(void);
 
+void W25Qx_Write_Flash_Bulk(uint32_t address);
 
 
 
