@@ -10,10 +10,18 @@ void BLDC_Timer_Init(void);
 
 void PWM1_Active(void);
 void PWM1N_Active(void);
+void PWM1_Inactive(void);
+void PWM1N_Inactive(void);
+
 void PWM2_Active(void);
 void PWM2N_Active(void);
+void PWM2_Inactive(void);
+void PWM2N_Inactive(void);
+
 void PWM3_Active(void);
 void PWM3N_Active(void);
+void PWM3_Inactive(void);
+void PWM3N_Inactive(void);
 
 void PWM1_Update(uint8_t update);
 void PWM2_Update(uint8_t update);
@@ -22,4 +30,17 @@ void PWM3_Update(uint8_t update);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 #endif
+
+
