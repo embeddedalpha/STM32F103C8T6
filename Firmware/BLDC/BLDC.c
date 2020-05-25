@@ -6,8 +6,8 @@
 
 void BLDC_Timer_Init(void)
 {
-    RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN | RCC_APB2ENR_TIM1EN;
-    GPIOA -> CRH |= (ALT_PUSH_PULL_OUTPUT << (4*(8-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(9-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(10-8)));
+	RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN | RCC_APB2ENR_TIM1EN;
+	GPIOA -> CRH |= (ALT_PUSH_PULL_OUTPUT << (4*(8-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(9-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(10-8)));
     GPIOB -> CRH |= (ALT_PUSH_PULL_OUTPUT << (4*(13-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(14-8))) | (ALT_PUSH_PULL_OUTPUT << (4*(15-8)));
     TIM1->PSC = 23;
     TIM1->ARR = 99;
@@ -35,6 +35,15 @@ void PWM1N_Active(void)
 	TIM1 -> CCER |= TIM_CCER_CC1NE;
 }
 
+void PWM1_Inactive(void)
+{
+    TIM1 -> CCER &= ~TIM_CCER_CC1E;
+
+}
+void PWM1N_Inactive(void)
+{
+	TIM1 -> CCER &= ~TIM_CCER_CC1NE;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 void PWM2_Active(void)
@@ -47,7 +56,15 @@ void PWM2N_Active(void)
 	TIM1 -> CCER |= TIM_CCER_CC2NE;
 }
 
+void PWM2_Inactive(void)
+{
+    TIM1 -> CCER &= ~TIM_CCER_CC2E;
 
+}
+void PWM2N_Inactive(void)
+{
+	TIM1 -> CCER &= ~TIM_CCER_CC2NE;
+}
 ///////////////////////////////////////////////////////////////////////////////////////
 void PWM3_Active(void)
 {
@@ -60,7 +77,15 @@ void PWM3N_Active(void)
 	TIM1 -> CCER |= TIM_CCER_CC3NE;
 }
 
+void PWM3_Inactive(void)
+{
+    TIM1 -> CCER &= ~TIM_CCER_CC3E;
 
+}
+void PWM3N_Inactive(void)
+{
+	TIM1 -> CCER &= ~TIM_CCER_CC3NE;
+}
 ///////////////////////////////////////////////////////////////////////////////////////
 void PWM1_Update(uint8_t update)
 {
@@ -79,4 +104,5 @@ void PWM3_Update(uint8_t update)
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
 
