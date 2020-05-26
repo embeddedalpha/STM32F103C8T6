@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 void OLED_Init(void)
 {
 
@@ -53,6 +57,7 @@ void OLED_Vertical_Horizontal_Scroll(int scroll, int start_page, int end_page)
 	OLED_Single_Command(0x00);
 	OLED_Single_Command(end_page);
 	OLED_Single_Command(0x01);
+
 
 }
 
@@ -121,4 +126,3 @@ void OLED_RESET_HIGH(void)
 {
 	GPIOA -> BSRR |= GPIO_BSRR_BR2;
 }
-
