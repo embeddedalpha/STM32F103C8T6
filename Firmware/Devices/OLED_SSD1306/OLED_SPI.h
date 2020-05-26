@@ -22,7 +22,22 @@ static int width;
 //PA2          RESET
 
 
+void OLED_Init(void);
+void OLED_Vertical_Horizontal_Scroll(int scroll, int start_page, int end_page);
+void OLED_Scroll_Activate(void);
+void OLED_Scroll_Deactivate(void);
+void OLED_Command(int command, int data);
+void OLED_Single_Command( int data);
+void OLED_Send_Data(int* data, int length);
+void OLED_DC_LOW(void);
+void OLED_DC_HIGH(void);
+void OLED_RESET_LOW(void);
+void OLED_RESET_HIGH(void);
+
+
+
+
+
 
 
 #endif
-
