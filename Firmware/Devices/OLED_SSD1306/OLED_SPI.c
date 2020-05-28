@@ -134,6 +134,11 @@ void OLED_DisplayChar(uint8_t ch)
 {
 
 }
+
+void OLED_Clear_Screen(void)
+{
+	
+}
 /***************************************************************************************************************************************************************/
 void OLED_Command(int command, int data[], int length)
 {
