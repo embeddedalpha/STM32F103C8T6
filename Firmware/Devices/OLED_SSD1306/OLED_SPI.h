@@ -6,6 +6,8 @@
 #include "stm32f10x.h"
 #include "SPI.h"
 #include "board.h"
+#include "OLED_Font.h"
+#include "OLED_Graphics.h"
 
 
 #define Vertical_and_Right_Horizontal_Scroll 0
