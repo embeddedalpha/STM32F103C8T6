@@ -125,6 +125,15 @@ void OLED_Set_Pixel_Address(int Column_Address_Start, int Column_Address_end, in
 
 }
 
+void OLED_Printf(uint8_t *letter)
+{
+
+}
+
+void OLED_DisplayChar(uint8_t ch)
+{
+
+}
 /***************************************************************************************************************************************************************/
 void OLED_Command(int command, int data[], int length)
 {
