@@ -31,6 +31,7 @@ void OLED_Scroll_Deactivate(void);
 void OLED_Send_Data(int* data, int length);
 void OLED_Printf(uint8_t *letter);
 void OLED_DisplayChar(uint8_t ch);
+void OLED_Clear_Screen(void);
 
 void OLED_Command(int command, int data);
 void OLED_Single_Command( int data);
