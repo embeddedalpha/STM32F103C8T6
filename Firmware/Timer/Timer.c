@@ -346,3 +346,334 @@ uint32_t Timer_Input_PWM_Capture_Channel_2(TIM_TypeDef *TIM)
 
 	return (TIM->CCR3 << 16 | TIM->CCR4);
 }
+
+
+//************************************************** OUTPUT COMPARE MODE **************************************************
+
+void Output_Compare_Channel_1(TIM_Typedef *timer, uint16_t compare_value_1, uint16_t compare_Value_2)
+{
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+}
+timer -> CCMR1 |= TIM_CCMR1_OC1M0;
+timer -> CCER &= ~TIM_CCER_CC1P;
+timer -> ARR = compare_value_1;
+timer -> CCR1 = compare_value_2;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
+
+void Output_Compare_Channel_2(TIM_Typedef *timer, uint16_t compare_value_1, uint16_t compare_Value_2)
+{
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+}
+timer -> CCMR1 |= TIM_CCMR1_OC2M0;
+timer -> CCER &= ~TIM_CCER_CC2P;
+timer -> ARR = compare_value_1;
+timer -> CCR1 = compare_value_2;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
+
+void Output_Compare_Channel_3(TIM_Typedef *timer, uint16_t compare_value_1, uint16_t compare_Value_2)
+{
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+}
+timer -> CCMR2 |= TIM_CCMR1_OC3M0;
+timer -> CCER &= ~TIM_CCER_CC3P;
+timer -> ARR = compare_value_1;
+timer -> CCR1 = compare_value_2;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
+
+void Output_Compare_Channel_4(TIM_Typedef *timer, uint16_t compare_value_1, uint16_t compare_Value_2)
+{
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+}
+timer -> CCMR2 |= TIM_CCMR1_OC3M0;
+timer -> CCER &= ~TIM_CCER_CC3P;
+timer -> ARR = compare_value_1;
+timer -> CCR1 = compare_value_2;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
+
+//************************************************** PWM MODE *****************************************************
+
+void PWM_Channel_1_Init(TIM_Typedef *timer, uint16_t frequency)
+{ 
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+ 
+ timer->ARR = 100; 
+ timer->CCMR1 |= TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2|TIM_CCMR1_OC1PE; 
+ timer->BDTR |= TIM_BDTR_MOE; 
+ timer->CCER |= TIM_CCER_CC1E; 
+ timer->CR1 |= TIM_CR1_ARPE;  
+ timer->EGR |= TIM_EGR_UG; 
+ timer->CR1 |= TIM_CR1_CEN;
+}
+//
+
+void PWM_Channel_1_Update(TIM_Typedef *timer, uint16_t duty_cycle)
+{ 
+ timer->CCR1 = duty_cycle;
+}
+//
+
+void PWM_Channel_2_Init(TIM_Typedef *timer, uint16_t frequency)
+{ 
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+ 
+ timer->ARR = 100; 
+ timer->CCMR1 |= TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2M_2|TIM_CCMR1_OC2PE; 
+ timer->BDTR |= TIM_BDTR_MOE; 
+ timer->CCER |= TIM_CCER_CC2E; 
+ timer->CR1 |= TIM_CR1_ARPE;  
+ timer->EGR |= TIM_EGR_UG; 
+ timer->CR1 |= TIM_CR1_CEN;
+}
+//
+
+void PWM_Channel_2_Update(TIM_Typedef *timer, uint16_t duty_cycle)
+{ 
+ timer->CCR1 = duty_cycle;
+}
+//
+
+void PWM_Channel_3_Init(TIM_Typedef *timer, uint16_t frequency)
+{ 
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+ 
+ timer->ARR = 100; 
+ timer->CCMR2 |= TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_2|TIM_CCMR2_OC3PE; 
+ timer->BDTR |= TIM_BDTR_MOE; 
+ timer->CCER |= TIM_CCER_CC3E; 
+ timer->CR1 |= TIM_CR1_ARPE;  
+ timer->EGR |= TIM_EGR_UG; 
+ timer->CR1 |= TIM_CR1_CEN;
+}
+//
+
+void PWM_Channel_3_Update(TIM_Typedef *timer, uint16_t duty_cycle)
+{ 
+ timer->CCR1 = duty_cycle;
+}
+//
+
+void PWM_Channel_4_Init(TIM_Typedef *timer, uint16_t frequency)
+{ 
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+ 
+ timer->ARR = 100; 
+ timer->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2|TIM_CCMR2_OC4PE; 
+ timer->BDTR |= TIM_BDTR_MOE; 
+ timer->CCER |= TIM_CCER_CC4E; 
+ timer->CR1 |= TIM_CR1_ARPE;  
+ timer->EGR |= TIM_EGR_UG; 
+ timer->CR1 |= TIM_CR1_CEN;
+}
+//
+
+void PWM_Channel_4_Update(TIM_Typedef *timer, uint16_t duty_cycle)
+{ 
+ timer->CCR1 = duty_cycle;
+}
+//
+
+//************************************************** ONE PULSE MODE *****************************************************
+
+void One_Pulse_Mode_Channel_1(TIM_Typedef *timer, uint16_t t_delay)
+{  
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+timer -> CCMR1 | TIM_CCMR1_CC1S_1;
+timer -> CCER |= TIM_CCER_CC1P;
+timer -> SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_0;
+timer -> SMCR |= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1;
+timer -> CCR1 = t_delay;
+timer -> ARR = 100;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
+
+void One_Pulse_Mode_Channel_2(TIM_Typedef *timer, uint16_t t_delay)
+{  
+if(timer == TIM1)
+{
+RCC ->APB2ENR |= RCC_APB2ENR_TIM1EN;
+timer->PSC = ((TIMER_CLOCK_ADVANCED) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM2)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM2EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM3)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM3EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+else if(timer == TIM4)
+{
+RCC -> APB1ENR |= RCC_APB1ENR_TIM4EN;
+timer->PSC = ((TIMER_CLOCK_GENERAL) / ((frequency)*(100)))-1; 
+}
+timer -> CCMR1 | TIM_CCMR1_CC2S_1;
+timer -> CCER |= TIM_CCER_CC2P;
+timer -> SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_1;
+timer -> SMCR |= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1;
+timer -> CCR1 = t_delay;
+timer -> ARR = 100;
+timer -> CR1 |= TIM_CR1_CEN;
+}
+//
