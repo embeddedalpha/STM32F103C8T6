@@ -50,4 +50,13 @@ void One_Pulse_Mode_Channel_2(TIM_TypeDef *timer, uint16_t t_delay);
 void Timer_Hall_Sensor(TIM_TypeDef *TIM, uint16_t* hall);
 
 
+void PWM_Complementary_Ch_1_Init(uint16_t freq);
+void PWM_Complementary_Ch_2_Init(uint16_t freq);
+void PWM_Complementary_Ch_3_Init(uint16_t freq);
+
+void PWM_Comp_Ch_1_Update(uint16_t duty_cycle);
+void PWM_Comp_Ch_2_Update(uint16_t duty_cycle);
+void PWM_Comp_Ch_3_Update(uint16_t duty_cycle);
+
+
 #endif
