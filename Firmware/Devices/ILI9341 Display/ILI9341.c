@@ -103,54 +103,15 @@ void ILI9341_Display_ON(void)
 }
 
 
-void ILI9341_Column_Address_Set(uint16_t start_address, uint16_t end_address )
-{
-	uint8_t dummy = 0;
-	SPI_NSS_HIGH();
-	SPI_NSS_LOW();
-	//command line low
-	SPI_Master_TX(SPI1,0x2A);
-	//command line high
-	dummy = start_address & 0xFF00;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = start_address & 0x00FF;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = end_address & 0xFF00;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = end_address & 0x00FF;
-	SPI_Master_TX(SPI1,dummy);
-	SPI_NSS_HIGH();
-
-}
 
 
-void ILI9341_Page_Address_Set(uint16_t start_address, uint16_t end_address )
-{
-	uint8_t dummy = 0;
-	SPI_NSS_HIGH();
-	SPI_NSS_LOW();
-	//command line low
-	SPI_Master_TX(SPI1,0x2B);
-	//command line high
-	dummy = start_address & 0xFF00;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = start_address & 0x00FF;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = end_address & 0xFF00;
-	SPI_Master_TX(SPI1,dummy);
-	dummy = end_address & 0x00FF;
-	SPI_Master_TX(SPI1,dummy);
-	SPI_NSS_HIGH();
-
-}
-
-void ILI9341_Memory_Write(int* data, int length)
+void ILI9341_Memory_Write(uint16_t* data, int length)
 {
 	SPI_NSS_HIGH();
 	SPI_NSS_LOW();
-	//command line low
+	ILI9341_Command_High();
 	SPI_Master_TX(SPI1,0x2c);
-	//command line high
+	ILI9341_Command_Low();
 	for(int i =0 ; i < length; i++)
 	{
 		SPI_Master_TX(SPI1, *data++);
@@ -159,6 +120,65 @@ void ILI9341_Memory_Write(int* data, int length)
 
 }
 
+
+
+
+void ILI9341_Reset_Low(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BS1;
+}
+
+void ILI9341_Reset_High(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BS1;
+}
+
+void ILI9341_Command_Low(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BS0;
+}
+
+void ILI9341_Command_High(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BR0;
+}
+
+void ILI9341_Define_Window(uint16_t X1, uint16_t Y1, uint16_t W, uint16_t H)
+{
+	uint16_t X2 = (X1 + W - 1);
+	uint16_t Y2 = (Y1 + H - 1);
+	SPI_NSS_HIGH();
+	SPI_NSS_LOW();
+	ILI9341_Command_Low();
+	SPI_Master_TX(SPI1,0x2A); //
+	ILI9341_Command_High();
+	SPI_Master_TX(SPI1,X1 >> 8);
+	SPI_Master_TX(SPI1,X1 & 0xFF);
+	SPI_Master_TX(SPI1,X2 >> 8);
+	SPI_Master_TX(SPI1,X2 & 0xFF);
+	ILI9341_Command_Low();
+	SPI_Master_TX(SPI1,0x2B);
+	ILI9341_Command_High();
+	SPI_Master_TX(SPI1,Y1 >> 8);
+	SPI_Master_TX(SPI1,Y1 & 0xFF);
+	SPI_Master_TX(SPI1,Y2 >> 8);
+	SPI_Master_TX(SPI1,Y2 & 0xFF);
+	SPI_NSS_HIGH();
+}
+
+
+
+void ILI9341_Draw_Pixel(uint16_t x, uint16_t y, uint16_t* color)
+{
+
+	if((x < Display_Width)&& (y < Display_Height))
+	{
+		ILI9341_Define_Window(x,y,1,1);
+		ILI9341_Memory_Write(color,1);
+
+
+	}
+}
 
 
 void ILI9341_Memory_Read(int* data, int length)
@@ -303,5 +323,4 @@ void ILI9341_Write_Display_Brightness(uint8_t brightness)
 	SPI_NSS_HIGH();
 
 }
-
 
