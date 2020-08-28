@@ -3,6 +3,7 @@
 
 #include "stm32f10x.h"
 #include "SPI.h"
+#include "Timer.h"
 
 //	D/CX -> 1 data & 0 command
 
@@ -31,8 +32,6 @@ void ILI9341_Display_ON(void);
 
 void ILI9341_Reset_Low(void);
 void ILI9341_Reset_High(void);
-void ILI9341_Display_Inversion_ON(void);
-void ILI9341_Display_Inversion_OFF(void);
 void ILI9341_Define_Window(uint16_t X1, uint16_t Y1, uint16_t W, uint16_t H);
 uint32_t ILI9341_Set_Cursor(uint16_t x, uint16_t y );
 void ILI9341_Get_Cursor(void);
