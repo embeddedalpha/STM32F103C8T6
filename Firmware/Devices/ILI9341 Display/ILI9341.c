@@ -117,4 +117,42 @@ void ILI9341_Set_Cursor(uint16_t x, uint16_t y )
 }
 
 
-void ILI9341_Draw_Pixel()
+void ILI9341_Draw_Pixel(uint16_t x, uint16_t y, uint16_t* color)
+{
+
+	if((x < Display_Width)&& (y < Display_Height))
+	{
+		ILI9341_Define_Window(x,y,1,1);
+		ILI9341_Memory_Write(color,1);
+
+
+	}
+}
+
+
+void ILI9341_Write_Display_Brightness(uint8_t brightness)
+{
+	SPI_NSS_HIGH();
+	SPI_NSS_LOW();
+	ILI9341_Command_Low();
+	SPI_Master_TX(SPI1,0x51);
+	ILI9341_Command_High();
+	SPI_Master_TX(SPI1,brightness);
+	SPI_NSS_HIGH();
+
+}
+
+
+void ILI9341_Draw_Line(uint16_t x1, uint16_t x2, uint16_t y1,uint16_t y2 , uint16_t* color)
+{
+	if((x1 < Display_Width) && (y1 < Display_Height) && (x2 < Display_Height) && (y2 < Display_Height))
+	{
+		uint8_t colorh = color >> 8;
+		uint8_t colorl = color;
+		ILI9341_Define_Window(x1,y1,x2,y2);
+
+
+
+	}
+
+}
