@@ -142,6 +142,20 @@ void ILI9341_Write_Display_Brightness(uint8_t brightness)
 
 }
 
+void ILI9341_Memory_Write(uint16_t* data, int length)
+{
+	SPI_NSS_HIGH();
+	SPI_NSS_LOW();
+	ILI9341_Command_High();
+	SPI_Master_TX(SPI1,0x2c);
+	ILI9341_Command_Low();
+	for(int i =0 ; i < length; i++)
+	{
+		SPI_Master_TX(SPI1, *data++);
+	}
+	SPI_NSS_HIGH();
+
+}
 
 void ILI9341_Draw_Line(uint16_t x1, uint16_t x2, uint16_t y1,uint16_t y2 , uint16_t* color)
 {
@@ -155,4 +169,11 @@ void ILI9341_Draw_Line(uint16_t x1, uint16_t x2, uint16_t y1,uint16_t y2 , uint1
 
 	}
 
+}
+
+
+void ILI9341_Paint_Screen(uint16_t color)
+{
+
+	ILI9341_Memory_Write(color,1);
 }
