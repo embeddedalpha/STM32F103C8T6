@@ -126,6 +126,6 @@ struct General_Command {
 
 
 
-
+void MFRC522_Send_Data(SPI_TypeDef *SPI, uint8_t address, uint8_t *data, int len);
 
 #endif
