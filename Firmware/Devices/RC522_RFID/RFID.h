@@ -26,10 +26,10 @@ struct Command_and_Status
 	uint8_t		Status1Reg				= 0x07 ;	// communication status bits
 	uint8_t		Status2Reg				= 0x08 ;	// receiver and transmitter status bits
 	uint8_t		FIFODataReg				= 0x09 ;	// input and output of 64 byte FIFO buffer
-	uint8_t		FIFOLevelReg			= 0x0A ;	// number of bytes stored in the FIFO buffer
-	uint8_t		WaterLevelReg			= 0x0B ;	// level for FIFO underflow and overflow warning
+	uint8_t		FIFOLevelReg				= 0x0A ;	// number of bytes stored in the FIFO buffer
+	uint8_t		WaterLevelReg				= 0x0B ;	// level for FIFO underflow and overflow warning
 	uint8_t		ControlReg				= 0x0C ;	// miscellaneous control registers
-	uint8_t		BitFramingReg			= 0x0D ;	// adjustments for bit-oriented frames
+	uint8_t		BitFramingReg				= 0x0D ;	// adjustments for bit-oriented frames
 	uint8_t		CollReg					= 0x0E ;	//bit position of the first bit-collision detected on the RF interface
 }Command_and_Status;
 
@@ -38,35 +38,35 @@ struct Command
 {
 	uint8_t		ModeReg 				= 0x11;		//defines general modes for transmitting and receiving
 	uint8_t		TxModeReg  				= 0x11;		//defines transmission data rate and framing
-	uint8_t		RxModeReg   			= 0x11;		//defines reception data rate and framing
-	uint8_t		TxControlReg 			= 0x11;		//controls the logical behavior of the antenna driver pins TX1 and TX2
+	uint8_t		RxModeReg   				= 0x11;		//defines reception data rate and framing
+	uint8_t		TxControlReg 				= 0x11;		//controls the logical behavior of the antenna driver pins TX1 and TX2
 	uint8_t		TxASKReg 				= 0x11;		//controls the setting of the transmission modulation Table 63 on page 51
 	uint8_t		TxSelReg 				= 0x11;		//selects the internal sources for the antenna driver Table 65 on page 51
 	uint8_t		RxSelReg 				= 0x11;		//selects internal receiver settings Table 67 on page 52
-	uint8_t		RxThresholdReg 			= 0x11;		//selects thresholds for the bit decoder Table 69 on page 53
+	uint8_t		RxThresholdReg 				= 0x11;		//selects thresholds for the bit decoder Table 69 on page 53
 	uint8_t		DemodReg 				= 0x11;		//defines demodulator settings Table 71 on page 53
 	uint8_t		MfTxReg 				= 0x11;		//controls some MIFARE communication transmit parameters Table 77 on page 55
 	uint8_t		MfRxReg 				= 0x11;		//controls some MIFARE communication receive parameters Table 79 on page 55
-	uint8_t		SerialSpeedReg			= 0x11;		//selects the speed of the serial UART interface
+	uint8_t		SerialSpeedReg				= 0x11;		//selects the speed of the serial UART interface
 }Command;
 
 
 
 struct Configuration
 {
-	uint8_t		CRCResultRegH			= 0x21 ;	// shows the MSB and LSB values of the CRC calculation
-	uint8_t		CRCResultRegL			= 0x22 ;
+	uint8_t		CRCResultRegH				= 0x21 ;	// shows the MSB and LSB values of the CRC calculation
+	uint8_t		CRCResultRegL				= 0x22 ;
 	uint8_t		ModWidthReg				= 0x24 ;	// controls the ModWidth setting?
 	uint8_t		RFCfgReg				= 0x26 ;	// configures the receiver gain
 	uint8_t		GsNReg					= 0x27 ;	// selects the conductance of the antenna driver pins TX1 and TX2 for modulation
 	uint8_t		CWGsPReg				= 0x28 ;	// defines the conductance of the p-driver output during periods of no modulation
 	uint8_t		ModGsPReg				= 0x29 ;	// defines the conductance of the p-driver output during periods of modulation
 	uint8_t		TModeReg				= 0x2A ;	// defines settings for the internal timer
-	uint8_t		TPrescalerReg			= 0x2B ;	// the lower 8 bits of the TPrescaler value. The 4 high bits are in TModeReg.
+	uint8_t		TPrescalerReg				= 0x2B ;	// the lower 8 bits of the TPrescaler value. The 4 high bits are in TModeReg.
 	uint8_t		TReloadRegH				= 0x2C ;	// defines the 16-bit timer reload value
 	uint8_t		TReloadRegL				= 0x2D ;
-	uint8_t		TCounterValueRegH		= 0x2E ;	// shows the 16-bit timer value
-	uint8_t		TCounterValueRegL		= 0x2F ;
+	uint8_t		TCounterValueRegH			= 0x2E ;	// shows the 16-bit timer value
+	uint8_t		TCounterValueRegL			= 0x2F ;
 }Configuration;
 
 
@@ -74,12 +74,12 @@ struct Test_Register
 {
 	uint8_t		TestSel1Reg				= 0x31 ;	// general test signal configuration
 	uint8_t		TestSel2Reg				= 0x32 ;	// general test signal configuration
-	uint8_t		TestPinEnReg			= 0x33 ;	// enables pin output driver on pins D1 to D7
-	uint8_t		TestPinValueReg			= 0x34 ;	// defines the values for D1 to D7 when it is used as an I/O bus
+	uint8_t		TestPinEnReg				= 0x33 ;	// enables pin output driver on pins D1 to D7
+	uint8_t		TestPinValueReg				= 0x34 ;	// defines the values for D1 to D7 when it is used as an I/O bus
 	uint8_t		TestBusReg				= 0x35 ;	// shows the status of the internal test bus
 	uint8_t		AutoTestReg				= 0x36 ;	// controls the digital self-test
 	uint8_t		VersionReg				= 0x37 ;	// shows the software version
-	uint8_t		AnalogTestReg			= 0x38 ;	// controls the pins AUX1 and AUX2
+	uint8_t		AnalogTestReg				= 0x38 ;	// controls the pins AUX1 and AUX2
 	uint8_t		TestDAC1Reg				= 0x39 ;	// defines the test value for TestDAC1
 	uint8_t		TestDAC2Reg				= 0x3A ;	// defines the test value for TestDAC2
 	uint8_t		TestADCReg				= 0x3B ;	// shows the value of ADC I and Q channels
@@ -89,19 +89,19 @@ struct Test_Register
 struct General_Command {
 	uint8_t 	Idle 					= 0b0000; 	//no action, cancels current command execution
 	uint8_t		Mem  					= 0b0001; 	//stores 25 bytes into the internal buffer
-	uint8_t		Generate_RandomID 		= 0b0010; 	//generates a 10-byte random ID number
+	uint8_t		Generate_RandomID 			= 0b0010; 	//generates a 10-byte random ID number
 	uint8_t		CalcCRC 				= 0b0011; 	//activates the CRC co-processor or performs a self test
 	uint8_t		Transmit 				= 0b0100;	//transmits data from the FIFO buffer
-	uint8_t		NoCmdChange 			= 0b0111; 	//no command change, can be used to modify the CommandReg register bits without affecting the command, for example, the PowerDown bit
+	uint8_t		NoCmdChange 				= 0b0111; 	//no command change, can be used to modify the CommandReg register bits without affecting the command, for example, the PowerDown bit
 	uint8_t		Receive  				= 0b1000; 	//activates the receiver circuits
 	uint8_t		Transceive 				= 0b1100; 	//transmits data from FIFO buffer to antenna and automatically activates the receiver after transmission
 	uint8_t		MFAuthent 				= 0b1110; 	//performs the MIFARE standard authentication as a reader
 	uint8_t		SoftReset 				= 0b1111; 	//resets the MRFC522
 }GeneralCommand;
 
-#define PowerDown								1<<4
-#define Analog_Receiver_Off						1<<5
-#define Analog_Receiver_ON						0<<5
+#define PowerDown					1<<4
+#define Analog_Receiver_Off				1<<5
+#define Analog_Receiver_ON				0<<5
 
 
 #define Allow_Transmitter_Interrupt_Request		1<<6
@@ -109,7 +109,7 @@ struct General_Command {
 #define Allow_Receiver_Interrupt_Request		1<<5
 #define Deny_Receiver_Interrupt_Request			0<<5
 #define Allow_Idle_Interrupt_Request			1<<4
-#define Deny_Idle_Interrupt_Request				0<<4
+#define Deny_Idle_Interrupt_Request			0<<4
 #define Allow_High_Alert_Interrupt_Request		1<<3
 #define Deny_High_Alert_Interrupt_Request		0<<3
 #define Allow_Low_Alert_Interrupt_Request		1<<2
@@ -119,9 +119,9 @@ struct General_Command {
 #define Allow_Timer_Interrupt_Request			1<<0
 #define Deny_Timer_Interrupt_Request			0<<0
 
-#define IRQpin_isCMOS							1<<7
+#define IRQpin_isCMOS					1<<7
 #define Allow_MFIN_Active_Interrupt_Request		1<<4
-#define Allow_CRC_Interrupt_Request				1<<2
+#define Allow_CRC_Interrupt_Request			1<<2
 
 
 
