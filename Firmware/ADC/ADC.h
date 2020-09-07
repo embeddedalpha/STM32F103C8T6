@@ -7,12 +7,10 @@
           This file contains the prototype of functions in ADC.c file.
           By calling various functions, the user can configure
           the ADC Hardware Peripheral.
-
 @attention: This file aims at providing the user an abrstraction layer to the CAN peripheral
             and is tested on STM32f103C8T6. This file is free for use to any person or corporation.
             In case of failure of code/product due to third party tampering, the author will not be
             responsible. This code is published under MIT License.
-
 *********************************************************************************************************************************
 */
 
@@ -23,14 +21,14 @@
 #include "stm32f10x.h"
 #include "Board.h"
 
-const float ADC_Sampling_Time_1_16us = 0; //1.16 us
-const float ADC_Sampling_Time_1_66us = 1; //1.667 us
-const float ADC_Sampling_Time_2_16us = 2; //2.16 us
-const float ADC_Sampling_Time_3_41us = 3; //3.41 us
-const float ADC_Sampling_Time_4_50us = 4; //4.50 us
-const float ADC_Sampling_Time_5_67us = 5; //5.67 us
-const float ADC_Sampling_Time_7_00us = 6; //7.00 us
-const float ADC_Sampling_Time_21_us =  7; //21.0 us
+const uint8_t ADC_Sampling_Time_1_16us = 0; //1.16 us
+const uint8_t ADC_Sampling_Time_1_66us = 1; //1.667 us
+const uint8_t ADC_Sampling_Time_2_16us = 2; //2.16 us
+const uint8_t ADC_Sampling_Time_3_41us = 3; //3.41 us
+const uint8_t ADC_Sampling_Time_4_50us = 4; //4.50 us
+const uint8_t ADC_Sampling_Time_5_67us = 5; //5.67 us
+const uint8_t ADC_Sampling_Time_7_00us = 6; //7.00 us
+const uint8_t ADC_Sampling_Time_21_us =  7; //21.0 us
 
 /***************************************** Initialization Mode *****************************************************************
 //@brief: The function sets up the ADC in Initialization mode.
