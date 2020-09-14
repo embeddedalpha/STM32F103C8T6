@@ -44,7 +44,7 @@ int CAN_Receive_Messages(int fifo_number);
   
 <h4> To set the controller in Normal Mode, it needs to be initialized first. Initialization mode can be entered by calling the following function </h4>
 
-``` javascript
+``` C
 CAN_Initialization_Mode(void);
 ```
 
