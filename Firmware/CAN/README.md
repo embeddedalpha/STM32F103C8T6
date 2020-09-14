@@ -15,7 +15,7 @@
 
 <h4> The acceptable baudrates are: </h4>
 
-```javascript
+```C
  CAN_BitRate_1000_kbps   1000
  CAN_BitRate_500_kbps    500
  CAN_BitRate_250_kbps    250
@@ -28,7 +28,7 @@
 
 <h4> The CAN.h contains the following functions which can be called in application. </h4>
 
-``` javascript   
+```C   
 int CAN_Initialization_Mode(void);
 int CAN_Normal_Mode(void);
 int CAN_Sleep_Mode(void);
@@ -50,7 +50,7 @@ CAN_Initialization_Mode(void);
 
 <h4> After initialization, the bitrate, interrupts, identifier and mask should be set </h4>
 
-``` javascript
+```C
 CAN_Bitrate(int baudrate);
 CAN_Interrupt_Setup(int interrupts);
 CAN_Identifier_&_Mask(uint16_t id, uint16_t mask);
@@ -58,25 +58,25 @@ CAN_Identifier_&_Mask(uint16_t id, uint16_t mask);
 
 <h4> Once the setup is done, the Normal Mode can be entered. To enter the Normal Mode the following function should be called. </h4>
 
-``` javascript
+```C
 CAN_Normal_Mode(void);
 ```
 
 <h4> After the Normal Mode is entered, messages can be sent on CAN bus. To send a message: the mailbox no, standard_id, extended_id, dlc, actual data in the form of an array and message priority should be passed to the function. </h4>
 
-``` javascript
+```C
 CAN_Transmit_Data_Frame(int mailbox_no, int standard_id, int extended_id, int dlc, int data[], int priority)
 ```
 
 <h4> To receive messages from CAN bus, the following function should be called. The data in the messages can be accessed by the predfined structs : FIFO_0_Message[] and FIFO_1_Message[]. The fifo number should be passed. </h4>
   
-``` javascript
+``` C
 CAN_Receive_Messages(int fifo_number);
 ```
 
 <h4>As there are two FIFOs and each FIFO can hold 3 messages, so to access message 1 in the FIFO 0, the user should send fifo_number = 0 and access the data from struct FIFO_0_Message[0]. </h4>
 
- ``` javascript
+ ```C
  CAN_Receive_Messages(0);
  int standard_id = FIFO_0_Message[0].standard_id;
  int extended_id = FIFO_0_Message[0].extended_id;
@@ -86,7 +86,7 @@ CAN_Receive_Messages(int fifo_number);
 
 <h4> Simple Example of CAN Transmission and Reception </h4>
 
- ``` javascript
+ ``` C
  #include  "stm32f10x.h"
 #include "CAN.h"
 
