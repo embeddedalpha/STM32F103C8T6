@@ -29,3 +29,9 @@ void SPI1_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_
 void SPI2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 void SPI2_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 ```
+
+#### ADC
+
+```C
+void ADC1_DMA(uint32_t desitnation, uint8_t data_buffer_size, uint8_t memory_size, uint8_t peripheral_size, uint8_t priority);
+```
