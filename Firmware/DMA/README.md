@@ -21,4 +21,11 @@ void I2C2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t pri
 void I2C2_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 ```
 
+#### SPI
 
+```C
+void SPI1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+void SPI1_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+void SPI2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+void SPI2_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+```
