@@ -103,43 +103,32 @@ void USART1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t p
 }
 
 
+void USART1_RX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel5 ->CPAR = (uint32_t)(USART1->DR);
+	DMA1_Channel5 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel5 ->CNDTR = buffer_size;
+	DMA1_Channel5 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel5 ->CCR &= ~DMA_CCR5_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel5 -> CCR |=	 DMA_CCR5_CIRC;
+	}
+	else
+	{
+		DMA1_Channel5 -> CCR &=	~DMA_CCR5_CIRC;
+	}
+
+}
+
+
+
+//********************************************************************************************************************
+
+
 void USART2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 {
-	DMA1_Channel7 ->CPAR = (uint32_t)(USART1->DR);
-	DMA1_Channel7 ->CMAR = (uint32_t)(source_address);
-	DMA1_Channel7 ->CNDTR = buffer_size;
-	DMA1_Channel7 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
-	if(Circular_buffer)
-	{
-		DMA1_Channel7 -> CCR |=	 DMA_CCR7_CIRC;
-	}
-	else
-	{
-		DMA1_Channel7 -> CCR &=	~DMA_CCR7_CIRC;
-	}
-
-}
-
-void USART3_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
-{
-	DMA1_Channel2 ->CPAR = (uint32_t)(USART1->DR);
-	DMA1_Channel2 ->CMAR = (uint32_t)(source_address);
-	DMA1_Channel2 ->CNDTR = buffer_size;
-	DMA1_Channel2 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
-	if(Circular_buffer)
-	{
-		DMA1_Channel2 -> CCR |=	 DMA_CCR2_CIRC;
-	}
-	else
-	{
-		DMA1_Channel2 -> CCR &=	~DMA_CCR2_CIRC;
-	}
-
-}
-
-void I2C1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
-{
-	DMA1_Channel6 ->CPAR = (uint32_t)(USART1->DR);
+	DMA1_Channel6 ->CPAR = (uint32_t)(USART2->DR);
 	DMA1_Channel6 ->CMAR = (uint32_t)(source_address);
 	DMA1_Channel6 ->CNDTR = buffer_size;
 	DMA1_Channel6 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
@@ -155,9 +144,110 @@ void I2C1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t pri
 }
 
 
+
+void USART2_RX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel7 ->CPAR = (uint32_t)(USART2->DR);
+	DMA1_Channel7 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel7 ->CNDTR = buffer_size;
+	DMA1_Channel7 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel7 ->CCR &= ~DMA_CCR7_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel7 -> CCR |=	 DMA_CCR7_CIRC;
+	}
+	else
+	{
+		DMA1_Channel7 -> CCR &=	~DMA_CCR7_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
+
+void USART3_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel2 ->CPAR = (uint32_t)(USART3->DR);
+	DMA1_Channel2 ->CMAR = (uint32_t)(source_address);
+	DMA1_Channel2 ->CNDTR = buffer_size;
+	DMA1_Channel2 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
+	if(Circular_buffer)
+	{
+		DMA1_Channel2 -> CCR |=	 DMA_CCR2_CIRC;
+	}
+	else
+	{
+		DMA1_Channel2 -> CCR &=	~DMA_CCR2_CIRC;
+	}
+
+}
+
+
+
+void USART3_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel3 ->CPAR = (uint32_t)(USART3->DR);
+	DMA1_Channel3 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel3 ->CNDTR = buffer_size;
+	DMA1_Channel3 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel3 ->CCR &= ~DMA_CCR3_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel3 -> CCR |=	 DMA_CCR3_CIRC;
+	}
+	else
+	{
+		DMA1_Channel3 -> CCR &=	~DMA_CCR3_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
+
+void I2C1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel6 ->CPAR = (uint32_t)(I2C1->DR);
+	DMA1_Channel6 ->CMAR = (uint32_t)(source_address);
+	DMA1_Channel6 ->CNDTR = buffer_size;
+	DMA1_Channel6 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
+	if(Circular_buffer)
+	{
+		DMA1_Channel6 -> CCR |=	 DMA_CCR6_CIRC;
+	}
+	else
+	{
+		DMA1_Channel6 -> CCR &=	~DMA_CCR6_CIRC;
+	}
+
+}
+
+
+
+void I2C1_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel7 ->CPAR = (uint32_t)(I2C1->DR);
+	DMA1_Channel7 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel7 ->CNDTR = buffer_size;
+	DMA1_Channel7 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel7 ->CCR &= ~DMA_CCR7_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel7 -> CCR |=	 DMA_CCR7_CIRC;
+	}
+	else
+	{
+		DMA1_Channel7 -> CCR &=	~DMA_CCR7_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
 void I2C2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 {
-	DMA1_Channel4 ->CPAR = (uint32_t)(USART1->DR);
+	DMA1_Channel4 ->CPAR = (uint32_t)(I2C2->DR);
 	DMA1_Channel4 ->CMAR = (uint32_t)(source_address);
 	DMA1_Channel4 ->CNDTR = buffer_size;
 	DMA1_Channel4 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
@@ -172,9 +262,32 @@ void I2C2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t pri
 
 }
 
+
+
+void I2C2_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel5 ->CPAR = (uint32_t)(I2C2->DR);
+	DMA1_Channel5 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel5 ->CNDTR = buffer_size;
+	DMA1_Channel5 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel5 ->CCR &= ~DMA_CCR5_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel5 -> CCR |=	 DMA_CCR5_CIRC;
+	}
+	else
+	{
+		DMA1_Channel5 -> CCR &=	~DMA_CCR5_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
+
 void SPI1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 {
-	DMA1_Channel3 ->CPAR = (uint32_t)(USART1->DR);
+	DMA1_Channel3 ->CPAR = (uint32_t)(SPI1->DR);
 	DMA1_Channel3 ->CMAR = (uint32_t)(source_address);
 	DMA1_Channel3 ->CNDTR = buffer_size;
 	DMA1_Channel3 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
@@ -189,9 +302,31 @@ void SPI1_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t pri
 
 }
 
+
+
+void SPI1_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel2 ->CPAR = (uint32_t)(SPI1->DR);
+	DMA1_Channel2 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel2 ->CNDTR = buffer_size;
+	DMA1_Channel2 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel2 ->CCR &= ~DMA_CCR2_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel2 -> CCR |=	 DMA_CCR2_CIRC;
+	}
+	else
+	{
+		DMA1_Channel2 -> CCR &=	~DMA_CCR2_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
 void SPI2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
 {
-	DMA1_Channel5 ->CPAR = (uint32_t)(USART1->DR);
+	DMA1_Channel5 ->CPAR = (uint32_t)(I2C1->DR);
 	DMA1_Channel5 ->CMAR = (uint32_t)(source_address);
 	DMA1_Channel5 ->CNDTR = buffer_size;
 	DMA1_Channel5 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
@@ -205,3 +340,44 @@ void SPI2_TX_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t pri
 	}
 
 }
+
+
+
+void SPI2_RX_DMA_Init(uint32_t destination_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel4 ->CPAR = (uint32_t)(I2C1->DR);
+	DMA1_Channel4 ->CMAR = (uint32_t)(destination_address);
+	DMA1_Channel4 ->CNDTR = buffer_size;
+	DMA1_Channel4 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) ;
+	DMA1_Channel4 ->CCR &= ~DMA_CCR4_DIR;
+	if(Circular_buffer)
+	{
+		DMA1_Channel4 -> CCR |=	 DMA_CCR4_CIRC;
+	}
+	else
+	{
+		DMA1_Channel4 -> CCR &=	~DMA_CCR4_CIRC;
+	}
+
+}
+
+//********************************************************************************************************************
+
+
+void ADC1_DMA_Init(uint32_t source_address, uint16_t buffer_size, uint8_t priority, bool Circular_buffer)
+{
+	DMA1_Channel5 ->CPAR = (uint32_t)(I2C1->DR);
+	DMA1_Channel5 ->CMAR = (uint32_t)(source_address);
+	DMA1_Channel5 ->CNDTR = buffer_size;
+	DMA1_Channel5 ->CCR |= (priority << 12) | (3<<10) | (3<<8) | (1 << 7) | (1<<4);
+	if(Circular_buffer)
+	{
+		DMA1_Channel5 -> CCR |=	 DMA_CCR5_CIRC;
+	}
+	else
+	{
+		DMA1_Channel5 -> CCR &=	~DMA_CCR5_CIRC;
+	}
+
+}
+
