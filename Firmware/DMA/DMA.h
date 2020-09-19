@@ -5,6 +5,11 @@
 #include "stm32f10x.h"
 #include <stdbool.h>
 
+#define DMA_Priority_Very_High 3
+#define DMA_Priority_High      2
+#define DMA_Priority_Medium    1
+#define DMA_Priority_Low       0
+
 
 
 void DMA_Memory_2_Memory(uint32_t destination, uint32_t source, uint8_t direction, uint8_t data_buffer_size, uint8_t memory_size, uint8_t peripheral_size, uint8_t priority);
