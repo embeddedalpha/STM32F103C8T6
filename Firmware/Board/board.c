@@ -135,6 +135,7 @@ void Paralle_Transmission_Init(void)
 
 }
 
+//************************************************** Setup for GPIO **************************************************
 
 
 uint32_t GPIO_Config(uint8_t io_number, uint8_t type)
