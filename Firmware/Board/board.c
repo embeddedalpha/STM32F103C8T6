@@ -134,3 +134,16 @@ void Paralle_Transmission_Init(void)
 
 
 }
+
+
+
+uint32_t GPIO_Config(uint8_t io_number, uint8_t type)
+{
+	if(io_number < 8)
+	{
+		return (type << (4*io_number));
+	}
+	else {
+		return (type << (4*(io_number-8)));
+	}
+}
