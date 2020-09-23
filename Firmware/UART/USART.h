@@ -72,4 +72,26 @@ void USART_Interrupt_Setup(USART_TypeDef *uart,
 						  );
 
 
+/***********************************************************************************************************************
+ * @brief: This function receives incoming data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *@return: UART 8 bit data
+ ***********************************************************************************************************************/
+
+uint8_t UART_Get_Data(USART_TypeDef *uart);
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function sends out data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *             data  -> 8 bit data
+ ***********************************************************************************************************************/
+
+void UART_Send_Data(USART_TypeDef *uart,uint8_t data);
+
 #endif
