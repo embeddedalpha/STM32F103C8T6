@@ -180,18 +180,34 @@ void UART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t
 
 
 void USART_Interrupt_Setup(USART_TypeDef *uart,
-			   bool parity_interrupt,
-			   bool transmitter_register_empty_interrupt,
-		           bool transmitter_complete_interrupt,
-			   bool receiver_register_empty_interrupt,
-			   bool idle_interrupt,
-			   bool CTS_interrupt,
-			   bool Error_interrupt )
+						  bool parity_interrupt,
+						  bool transmitter_register_empty_interrupt,
+						  bool transmitter_complete_interrupt,
+						  bool receiver_register_empty_interrupt,
+						  bool idle_interrupt,
+						  bool CTS_interrupt,
+						  bool Error_interrupt
+						  )
 {
 	uart -> CR1 |= parity_interrupt << 8 | transmitter_register_empty_interrupt << 7 | transmitter_complete_interrupt << 6 | receiver_register_empty_interrupt << 5 | idle_interrupt << 4;
 	uart -> CR3 |= CTS_interrupt << 10 | Error_interrupt << 0;
 
 }
+
+
+/***********************************************************************************************************************
+ * @brief: This function enables hardware flow control for asynchronous communication
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ ***********************************************************************************************************************/
+
+
+void UART_Flow_Control_Setup(USART_TypeDef *uart)
+{
+	uart -> CR3 |= USART_CR3_CTSE | USART_CR3_RTSE;
+}
+
 
 
 /***********************************************************************************************************************
@@ -223,4 +239,6 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data)
 	uart -> DR = data;
 	while((uart->SR & USART_SR_TC) != 1);
 }
+
+
 
