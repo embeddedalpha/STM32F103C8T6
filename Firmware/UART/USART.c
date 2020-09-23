@@ -193,3 +193,35 @@ void USART_Interrupt_Setup(USART_TypeDef *uart,
 	uart -> CR3 |= CTS_interrupt << 10 | Error_interrupt << 0;
 
 }
+
+
+/***********************************************************************************************************************
+ * @brief: This function receives incoming data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *@return: UART 8 bit data
+ ***********************************************************************************************************************/
+
+uint8_t UART_Get_Data(USART_TypeDef *uart)
+{
+	while((uart->SR & USART_SR_RXNE) != 1);
+	return uart -> DR;
+}
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function sends out data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *             data  -> 8 bit data
+ ***********************************************************************************************************************/
+
+void UART_Send_Data(USART_TypeDef *uart,uint8_t data)
+{
+	uart -> DR = data;
+	while((uart->SR & USART_SR_TC) != 1);
+}
+
