@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "board.h"
 
+
 /***********************************************************************************************************************/
 //                                                         UART
 /***********************************************************************************************************************/
@@ -146,6 +147,36 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data);
 
 
 void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
+
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function receives incoming data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *@return: UART 8 bit data
+ ***********************************************************************************************************************/
+
+uint8_t USART_Get_Data(USART_TypeDef *uart);
+
+
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function sends out data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *             data  -> 8 bit data
+ ***********************************************************************************************************************/
+
+void USART_Send_Data(USART_TypeDef *uart,uint8_t data);
+
+
+
 
 
 #endif
