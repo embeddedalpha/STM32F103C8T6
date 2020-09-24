@@ -161,7 +161,6 @@ void UART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t
 
 }
 
-/**********************************************************************************************************************/
 
 
 /**********************************************************************************************************************
@@ -276,6 +275,10 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data)
  *                                1:  0.5 Stop bit
  *                                2:  2 Stop bits
  *                                3:  1.5 Stop bit
+ *              CPOL              0:  Steady low value on CK pin outside transmission window
+ *                                1:  Steady high value on CK pin outside transmission window
+ *              CPHA              0:  The first clock transition is the first data capture edge
+ *                                1:  The second clock transition is the first data capture edge
  *              DMA_TX       ->   0:  DMA mode is enabled for transmission
  *                                1:  DMA mode is disabled for transmission
  *              DMA_RX       ->   0:  DMA mode is enabled for reception
@@ -283,7 +286,7 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data)
  **********************************************************************************************************************/
 
 
-void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX)
+void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX)
 {
 	switch(uart)
 	{
@@ -318,6 +321,24 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 			else
 			{
 				uart ->CR3 &= ~USART_CR3_DMAR;
+			}
+
+			if(CPOL)
+			{
+				uart ->CR2 |= USART_CR2_CPOL;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPOL;
+			}
+
+			if(CPHA)
+			{
+				uart ->CR2 |= USART_CR2_CPHA;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPHA;
 			}
 
 			uart -> stop_bits << 12;
@@ -360,6 +381,26 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 				uart ->CR3 &= ~USART_CR3_DMAR;
 			}
 
+			if(CPOL)
+			{
+				uart ->CR2 |= USART_CR2_CPOL;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPOL;
+			}
+
+			if(CPHA)
+			{
+				uart ->CR2 |= USART_CR2_CPHA;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPHA;
+			}
+
+
+
 			uart ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
 			uart -> CR2 |= USART_CR2_CLKEN;
 			uart -> stop_bits << 12;
@@ -400,6 +441,24 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 				uart ->CR3 &= ~USART_CR3_DMAR;
 			}
 
+			if(CPOL)
+			{
+				uart ->CR2 |= USART_CR2_CPOL;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPOL;
+			}
+
+			if(CPHA)
+			{
+				uart ->CR2 |= USART_CR2_CPHA;
+			}
+			else
+			{
+				uart ->CR2 &= ~USART_CR2_CPHA;
+			}
+
 			uart ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
 			uart -> CR2 |= USART_CR2_CLKEN;
 			uart -> stop_bits << 12;
@@ -410,5 +469,39 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 	}
 
 }
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function receives incoming data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *@return: UART 8 bit data
+ ***********************************************************************************************************************/
+
+uint8_t USART_Get_Data(USART_TypeDef *uart)
+{
+	while((uart->SR & USART_SR_RXNE) != 1);
+	return uart -> DR;
+}
+
+
+
+/***********************************************************************************************************************
+ * @brief: This function sends out data
+ * @parameter: uart  -> USART1
+ *                      USART2
+ *                      USART3
+ *             data  -> 8 bit data
+ ***********************************************************************************************************************/
+
+void USART_Send_Data(USART_TypeDef *uart,uint8_t data)
+{
+	uart -> DR = data;
+	while((uart->SR & USART_SR_TC) != 1);
+}
+
+
 
 
