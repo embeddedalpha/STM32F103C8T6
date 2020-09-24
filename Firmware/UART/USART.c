@@ -241,4 +241,167 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data)
 }
 
 
+/***********************************************************************************************************************/
+//                                                         USART
+/***********************************************************************************************************************/
+
+
+
+
+/**********************************************************************************************************************
+ * @brief: This function sets up basic functions of USART (with clock)
+ * @parameters: uart         ->       USART1
+ *                                    USART2
+ *                                    USART3
+ *              baudrate     ->       2400
+ *                                    9600
+ *                                    19200
+ *                                    57600
+ *                                    115200
+ *                                    230400
+ *                                    460800
+ *                                    921600
+ *                                    2250000
+ *                                    450000
+ *              frame_length ->   0:  1 Start bit, 8 Data bits, n Stop bit
+ *                                1:  1 Start bit, 9 Data bits, n Stop bit
+ *              stop_bits    ->   0:  1 Stop bit
+ *                                1:  0.5 Stop bit
+ *                                2:  2 Stop bits
+ *                                3:  1.5 Stop bit
+ *              DMA_TX       ->   0:  DMA mode is enabled for transmission
+ *                                1:  DMA mode is disabled for transmission
+ *              DMA_RX       ->   0:  DMA mode is enabled for reception
+ *                                1:  DMA mode is disabled for reception
+ **********************************************************************************************************************/
+
+
+void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX)
+{
+	switch(uart)
+	{
+
+		case USART1:
+		{
+			RCC -> APB2ENR |= RCC_APB2ENR_USART1EN | RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN;
+			GPIOA -> CRH |= GPIO_Config(9,ALT_PUSH_PULL_OUTPUT);
+			GPIOA->CRH |= GPIO_Config(8,4);
+			if(frame_length)
+			{
+				uart ->CR1 |= USART_CR1_M;
+			}
+			else
+			{
+				uart ->CR1 &= ~USART_CR1_M;
+			}
+
+			if(DMA_TX)
+			{
+				uart ->CR3 |= USART_CR3_DMAT;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAT;
+			}
+
+			if(DMA_RX)
+			{
+				uart ->CR3 |= USART_CR3_DMAR;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAR;
+			}
+
+			uart -> stop_bits << 12;
+			uart ->BRR = (int)(TIMER_CLOCK_ADVANCED / (16 * baudrate));
+			uart -> CR2 |= USART_CR2_CLKEN;
+			uart ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
+			uart ->CR1 |= USART_CR1_UE;
+		}
+
+		case USART2:
+		{
+			RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN;
+			RCC -> APB1ENR |= RCC_APB1ENR_USART2EN;
+			GPIOA -> CRL |= GPIO_Config(2,ALT_PUSH_PULL_OUTPUT);
+			GPIOA->CRH |= GPIO_Config(3,4);
+			if(frame_length)
+			{
+				uart ->CR1 |= USART_CR1_M;
+			}
+			else
+			{
+				uart ->CR1 &= ~USART_CR1_M;
+			}
+
+			if(DMA_TX)
+			{
+				uart ->CR3 |= USART_CR3_DMAT;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAT;
+			}
+
+			if(DMA_RX)
+			{
+				uart ->CR3 |= USART_CR3_DMAR;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAR;
+			}
+
+			uart ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
+			uart -> CR2 |= USART_CR2_CLKEN;
+			uart -> stop_bits << 12;
+			uart ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
+			uart ->CR1 |= USART_CR1_UE;
+		}
+
+		case USART3:
+		{
+			RCC -> APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
+			RCC -> APB1ENR |= RCC_APB1ENR_USART3EN ;
+			GPIOB -> CRH |= GPIO_Config(10,ALT_PUSH_PULL_OUTPUT);
+			GPIOB -> CRH |= GPIO_Config(11,4);
+			if(frame_length)
+			{
+				uart ->CR1 |= USART_CR1_M;
+			}
+			else
+			{
+				uart ->CR1 &= ~USART_CR1_M;
+			}
+
+			if(DMA_TX)
+			{
+				uart ->CR3 |= USART_CR3_DMAT;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAT;
+			}
+
+			if(DMA_RX)
+			{
+				uart ->CR3 |= USART_CR3_DMAR;
+			}
+			else
+			{
+				uart ->CR3 &= ~USART_CR3_DMAR;
+			}
+
+			uart ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
+			uart -> CR2 |= USART_CR2_CLKEN;
+			uart -> stop_bits << 12;
+			uart ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
+			uart ->CR1 |= USART_CR1_UE;
+		}
+
+	}
+
+}
+
 
