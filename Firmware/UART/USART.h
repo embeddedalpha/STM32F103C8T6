@@ -139,6 +139,10 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data);
  *                                1:  0.5 Stop bit
  *                                2:  2 Stop bits
  *                                3:  1.5 Stop bit
+ *              CPOL              0:  Steady low value on CK pin outside transmission window
+ *                                1:  Steady high value on CK pin outside transmission window
+ *              CPHA              0:  The first clock transition is the first data capture edge
+ *                                1:  The second clock transition is the first data capture edge
  *              DMA_TX       ->   0:  DMA mode is enabled for transmission
  *                                1:  DMA mode is disabled for transmission
  *              DMA_RX       ->   0:  DMA mode is enabled for reception
@@ -146,7 +150,7 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data);
  **********************************************************************************************************************/
 
 
-void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
+void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
 
 
 
