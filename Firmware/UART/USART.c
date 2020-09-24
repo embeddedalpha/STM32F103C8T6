@@ -295,7 +295,8 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 		{
 			RCC -> APB2ENR |= RCC_APB2ENR_USART1EN | RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN;
 			GPIOA -> CRH |= GPIO_Config(9,ALT_PUSH_PULL_OUTPUT);
-			GPIOA->CRH |= GPIO_Config(8,4);
+			GPIOA->CRH |= GPIO_Config(10,4);
+			GPIOA -> CRH |= GPIO_Config(8,ALT_PUSH_PULL_OUTPUT );
 			if(frame_length)
 			{
 				uart ->CR1 |= USART_CR1_M;
@@ -353,7 +354,8 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 			RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN;
 			RCC -> APB1ENR |= RCC_APB1ENR_USART2EN;
 			GPIOA -> CRL |= GPIO_Config(2,ALT_PUSH_PULL_OUTPUT);
-			GPIOA->CRH |= GPIO_Config(3,4);
+			GPIOA->CRL |= GPIO_Config(3,4);
+			GPIOA -> CRL |= GPIO_Config(4,ALT_PUSH_PULL_OUTPUT );
 			if(frame_length)
 			{
 				uart ->CR1 |= USART_CR1_M;
@@ -414,6 +416,7 @@ void USART_Setup(USART_TypeDef *uart,uint8_t baudrate, bool frame_length, uint8_
 			RCC -> APB1ENR |= RCC_APB1ENR_USART3EN ;
 			GPIOB -> CRH |= GPIO_Config(10,ALT_PUSH_PULL_OUTPUT);
 			GPIOB -> CRH |= GPIO_Config(11,4);
+			GPIOB -> CRH |= GPIO_Config(12,ALT_PUSH_PULL_OUTPUT);
 			if(frame_length)
 			{
 				uart ->CR1 |= USART_CR1_M;
