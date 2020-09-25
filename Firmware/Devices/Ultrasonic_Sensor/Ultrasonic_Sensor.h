@@ -8,9 +8,9 @@
 
 
 //these are 
-static TIM_TypeDef *delay_timer;
-static TIM_TypeDef *timer_used;
-static GPIO_TypeDef *port;
+TIM_TypeDef *delay_timer;
+TIM_TypeDef *timer_used;
+GPIO_TypeDef *port;
 static int trigger_pin_static;
 static int echo_pin_static;
 
