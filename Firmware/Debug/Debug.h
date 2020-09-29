@@ -5,6 +5,8 @@
 #include "stdlib.h"
 #include "stdarg.h"
 #include "string.h"
+#include "USART.h"
+#include "stdio.h"
 
 
 #define DEBUG_UART  USART1
@@ -12,13 +14,7 @@
 
 void InitConsole(void);
 static void printConsole(char *msg, ...);
-
-
-
-
-
-
-
+int Console_Dump(const char *s);
 
 
 #endif
