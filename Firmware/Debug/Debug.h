@@ -15,6 +15,7 @@
 void InitConsole(void);
 static void printConsole(char *msg, ...);
 int Console_Dump(const char *s);
+char * Console_Return(char *s);
 
 
 #endif
