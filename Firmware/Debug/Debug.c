@@ -1,6 +1,11 @@
 #include "Debug.h"
 
 
+
+
+
+
+
 void InitConsole(void){
 
 RCC->APB2ENR |= RCC_APB2ENR_USART1EN | RCC_APB2ENR_AFIOEN | RCC_APB2ENR_IOPAEN;
@@ -32,7 +37,35 @@ int Console_Dump(const char *s)
 	return 1;
 }
 
-static void printConsole(char *msg, ...){
+//char * Console_Return(void)
+//{
+//	char s[100];
+//	int i =0;
+//	UART_Get_Data(USART1);
+//	while(UART_Get_Data(USART1) != EOF)
+//	{
+//		s[i] = UART_Get_Data(USART1);
+//	}
+//	return s;
+//}
+
+char * Console_Return(char *s)
+{
+	int ch;
+	char *p = s;
+
+	while( (ch = UART_Get_Data(USART1)) != '\n' && ch != EOF)
+	{
+		*s = (char)ch;
+		s++;
+	}
+	*s = '\0';
+	return p;
+}
+
+
+static void printConsole(char *msg, ...)
+{
 
 char buff[100];
 	#ifdef DEBUG_UART
@@ -50,61 +83,3 @@ char buff[100];
 }
 
 
-
-static int scanConsole(char *str, ...)
-{
-
-	 va_list vl;
-    int i = 0, j=0, ret = 0;
-    char buff[100] = {0}, tmp[20], c;
-    char *out_loc;
-    while(c != ' ')
-    {
-        if (fread(&c, 1, 1))
-        {
- 	       buff[i] = USART1->DR;
- 	       i++;
- 	    }
- 	}
- 	va_start( vl, str );
- 	i = 0;
- 	while (str && str[i])
- 	{
- 	    if (str[i] == '%')
- 	    {
- 	       i++;
- 	       switch (str[i])
- 	       {
- 	           case 'c':
- 	           {
-	 	           *(char *)va_arg( vl, char* ) = buff[j];
-	 	           j++;
-	 	           ret ++;
-	 	           break;
- 	           }
- 	           case 'd':
- 	           {
-	 	           *(int *)va_arg( vl, int* ) =strtol(&buff[j], &out_loc, 10);
-	 	           j+=out_loc -&buff[j];
-	 	           ret++;
-	 	           break;
- 	            }
- 	            case 'x':
- 	            {
-	 	           *(int *)va_arg( vl, int* ) =strtol(&buff[j], &out_loc, 16);
-	 	           j+=out_loc -&buff[j];
-	 	           ret++;
-	 	           break;
- 	            }
- 	        }
- 	    }
- 	    else
- 	    {
- 	        buff[j] =str[i];
-            j++;
-        }
-        i++;
-    }
-    va_end(vl);
- return ret;
-}
