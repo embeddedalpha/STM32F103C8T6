@@ -38,11 +38,12 @@
 
 //Set 400KHz sclk
 
+void SD_Send_Command(uint8_t command, unsigned long arg, uint8_t CRC);
 void SD_Init(void);
 int SD_Respose(void);
-
 int SD_Write_Data(char *filepath, char *filename, char *data);
 char * SD_Read_Data(char *filepath, char *filename);
+char * SD_List_Files_in_Directory(char *directory);
 
 
 
@@ -55,4 +56,3 @@ char * SD_Read_Data(char *filepath, char *filename);
 
 
 #endif
-
