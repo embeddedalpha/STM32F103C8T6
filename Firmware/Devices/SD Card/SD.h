@@ -12,6 +12,19 @@
 //http://users.ece.utexas.edu/~valvano/EE345M/SD_Physical_Layer_Spec.pdf
 
 
+
+/*
+ * MCU			SD Card
+ *
+ * CS			2	CD/DATA3
+ * SCLK			5	CLK
+ * MISO			3	CMD
+ * MOSI			7	DAT0
+ */
+
+
+
+
 #define CMD0	(0 + 64)
 #define CMD1	(1 + 64)
 #define CMD8	(8 + 64)
