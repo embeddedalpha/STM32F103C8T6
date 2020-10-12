@@ -93,6 +93,14 @@ void SPI_NSS_HIGH(void)
 {
 	PORT ->BSRR |= NSS_Pin;
 }
+
+uint8_t SPI_Master_TXRX(uint8_t data)
+{
+	SPI -> DR = data;
+	while(!(SPI -> SR & SPI_SR_TXE));
+	while((SPI -> SR & SPI_SR_RXNE));
+	return SPI->DR;
+}
 /******************************************     Slave Configuration     ******************************************/
 
 void SPI_Slave_Config(struct SPI_Slave_Parameters SPI_S)
