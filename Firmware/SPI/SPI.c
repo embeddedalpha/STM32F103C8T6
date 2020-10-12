@@ -40,19 +40,16 @@ SPI->CRCPR |= SPI_M.CRC_Polynomial;
 SPI->CR1 |= SPI_M.CRC_Enable << 13;
 }
 
-void SPI_Master_Enable(SPI_TypeDef *SPI)
-{
-	SPI->CR1 |= SPI_CR1_SPE;
-}
 
-void SPI_Master_IRQ_Config(struct SPI_Master_IRQ_Parameters SPIM_I)
+
+void SPI_Master_IRQ_Config(SPI_TypeDef *SPI,struct SPI_Master_IRQ_Parameters SPIM_I)
 {
 SPI->CR2 |= (SPIM_I.TX_Interrupt) << 7;
 SPI->CR2 |= (SPIM_I.RX_Interrupt) << 6;
 SPI->CR2 |= (SPIM_I.Error_Interrupt) << 5;
 }
 
-void SPI_Master_Enable(void)
+void SPI_Master_Enable(SPI_TypeDef *SPI)
 {
 
 	SPI -> CR1 |= SPI_CR1_SPE;
@@ -61,17 +58,17 @@ void SPI_Master_Enable(void)
 void SPI_Master_TX(SPI_TypeDef *SPI,int data)
 {
 
-	while(!(SPI -> SR & SPI_SR_TXE));
 	SPI -> DR = data;
+	while(!(SPI -> SR & SPI_SR_TXE));
 }
 
-int SPI_Master_RX(void)
+int SPI_Master_RX(SPI_TypeDef *SPI)
 {
 	while((SPI -> SR & SPI_SR_RXNE));
 	return SPI->DR;
 }
 
-void SPI_NSS_Pin_Setup(void)
+void SPI_NSS_Pin_Setup(GPIO_TypeDef *PORT)
 {
 
 	if(NSS_Pin < 8)
@@ -84,26 +81,27 @@ void SPI_NSS_Pin_Setup(void)
 	}
 }
 
-void SPI_NSS_LOW(void)
+void SPI_NSS_LOW(GPIO_TypeDef *PORT)
 {
 	PORT ->BSRR |= (16 + NSS_Pin);
 }
 
-void SPI_NSS_HIGH(void)
+void SPI_NSS_HIGH(GPIO_TypeDef *PORT)
 {
 	PORT ->BSRR |= NSS_Pin;
 }
 
-uint8_t SPI_Master_TXRX(uint8_t data)
+uint8_t SPI_Master_TXRX(SPI_TypeDef *SPI,uint8_t data)
 {
 	SPI -> DR = data;
 	while(!(SPI -> SR & SPI_SR_TXE));
 	while((SPI -> SR & SPI_SR_RXNE));
 	return SPI->DR;
 }
+
 /******************************************     Slave Configuration     ******************************************/
 
-void SPI_Slave_Config(struct SPI_Slave_Parameters SPI_S)
+void SPI_Slave_Config(SPI_TypeDef *SPI,struct SPI_Slave_Parameters SPI_S)
 {
 SPI->CR1 |= SPI_S.Baudrate << 3;
 SPI->CR1 |= SPI_S.CPOL << 1;
@@ -119,25 +117,25 @@ SPI->CR2 |= SPI_S.RxDMA << 0;
 }
 
 
-void SPI_Slave_IRQ_Config(struct SPI_Slave_IRQ_Parameters SPIS_I)
+void SPI_Slave_IRQ_Config(SPI_TypeDef *SPI,struct SPI_Slave_IRQ_Parameters SPIS_I)
 {
 	SPI->CR2 |= (SPIS_I.TX_Interrupt) << 7;
 	SPI->CR2 |= (SPIS_I.RX_Interrupt) << 6;
 	SPI->CR2 |= (SPIS_I.Error_Interrupt) << 5;
 }
 
-void SPI_Slave_TX(int data)
+void SPI_Slave_TX(SPI_TypeDef *SPI,int data)
 {
 	SPI -> DR = data;
 }
 
-int SPI_Slave_RX(void)
+int SPI_Slave_RX(SPI_TypeDef *SPI)
 {
 	return SPI->DR;
 }
 
 
-void SPI_Slave_Enable(void)
+void SPI_Slave_Enable(SPI_TypeDef *SPI)
 {
 	SPI -> CR1 |= SPI_CR1_SPE;
 }
