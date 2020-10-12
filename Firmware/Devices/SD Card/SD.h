@@ -1,7 +1,11 @@
 #ifndef _SD_H_
 #define _SD_H_
 
-//
+#include "stm32f10x.h"
+#include "SPI.h"
+#include "board.h"
+
+
 //https://openlabpro.com/guide/raw-sd-readwrite-using-pic-18f4550/
 //https://openlabpro.com/guide/interfacing-microcontrollers-with-sd-card/
 //http://www.rjhcoding.com/avrc-sd-interface-3.php
@@ -38,7 +42,7 @@
 
 //Set 400KHz sclk
 
-void SD_Send_Command(uint8_t command, unsigned long arg, uint8_t CRC);
+void SD_Send_Commands(uint8_t command, unsigned long arg, uint8_t sdCRC);
 void SD_Init(void);
 int SD_Respose(void);
 int SD_Write_Data(char *filepath, char *filename, char *data);
