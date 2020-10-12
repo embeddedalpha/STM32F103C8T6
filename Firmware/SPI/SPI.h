@@ -75,6 +75,7 @@ void SPI_Master_IRQ_Config(SPI_TypeDef *SPI, struct SPI_Master_IRQ_Parameters SP
 void SPI_Master_TX(SPI_TypeDef *SPI,int data);
 int SPI_Master_RX();
 void SPI_Master_Enable(SPI_TypeDef *SPI);
+uint8_t SPI_Master_TXRX(uint8_t data);
 
 void SPI_NSS_Pin_Setup(void);
 void SPI_NSS_LOW(void);
