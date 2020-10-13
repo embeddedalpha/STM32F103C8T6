@@ -6,7 +6,7 @@
 
 
 
-extern int NSS_Pin;
+static int NSS_Pin;
 
 #define LSB 0
 #define MSB 1
