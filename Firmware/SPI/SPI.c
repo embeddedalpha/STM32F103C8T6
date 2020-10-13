@@ -139,3 +139,4 @@ void SPI_Slave_Enable(SPI_TypeDef *SPI)
 {
 	SPI -> CR1 |= SPI_CR1_SPE;
 }
+
