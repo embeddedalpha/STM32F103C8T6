@@ -43,21 +43,26 @@
 #define ACMD41  41
 #define ACMD23  23
 
-#define SD_Idle                 (1 << 0)
-#define SD_Erase_Reset          (1 << 1)
-#define SD_Illegal_Command      (1 << 2)
-#define SD_Command_CRC_Error    (1 << 3)
-#define SD_Erase_Sequence_Error (1 << 4)
-#define SD_Address_Error        (1 << 5)
-#define SD_Parameter_Error      (1 << 6)
+#define SD_Idle                 (int)(1 << 0)
+#define SD_Erase_Reset          (int)(1 << 1)
+#define SD_Illegal_Command      (int)(1 << 2)
+#define SD_Command_CRC_Error    (int)(1 << 3)
+#define SD_Erase_Sequence_Error (int)(1 << 4)
+#define SD_Address_Error        (int)(1 << 5)
+#define SD_Parameter_Error      (int)(1 << 6)
 
 #define SD_CRC 0x95
 
-//Set 400KHz sclk
 
-void SD_Send_Commands(uint8_t command, unsigned long arg, uint8_t sdCRC);
+
+void SD_Delay(int i);
+void SD_Dummy_Clock(int i);
+void SD_PowerUPSequence(void);
+void SD_Proceed(void);
+void SD_Send_Commands(uint8_t command, uint32_t arg, uint8_t sdCRC);
+
+//For use in application
 void SD_Init(void);
-int SD_Respose(void);
 int SD_Write_Data(char *filepath, char *filename, char *data);
 char * SD_Read_Data(char *filepath, char *filename);
 char * SD_List_Files_in_Directory(char *directory);
