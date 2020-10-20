@@ -67,9 +67,9 @@ do {
 	{
 		buff = SPI_Master_RX(SPI1);
 		count++;
-	} while ((buff != 0x01) && (count < 10));
+	} while ((buff != SD_Idle) && (count < 10));
 	count = 0;
-} while (buff != 0x01);
+} while (buff != SD_Idle);
 
 do {
 	SD_Send_Commands(CMD1,0x00000000,0x00);
@@ -82,7 +82,6 @@ do {
 } while (buff != 0x00);
 
 }
-
 
 
 
