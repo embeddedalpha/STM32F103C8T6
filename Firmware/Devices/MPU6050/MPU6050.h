@@ -35,7 +35,7 @@ void MPU6050_Write_Single_Byte(uint8_t address,uint8_t data);
 uint8_t MPU6050_Read_Single_Byte(uint8_t address);
 uint16_t *MPU6050_Gyro_Raw(void);
 uint16_t *MPU6050_Accl_Raw(void);
-uint16_t *MPU6050_Temp_Raw(void);
+uint16_t MPU6050_Temp_Raw(void);
 void MPU6050_Reset(void);
 void MPU6050_Sleep_Enable(void);
 void MPU6050_Sleep_Disable(void);

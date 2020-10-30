@@ -1,28 +1,30 @@
 #include "MPU6050.h"
 
 
-int power(float base, uint8_t exp)
-{
-	int result = 1;
-	for(exp; exp > 0; exp--)
-	{
-		result = result * base;
-	}
-	return result;
-}
+//int power(float base, uint8_t exp)
+//{
+//	int result = 1;
+//	for(exp; exp > 0; exp--)
+//	{
+//		result = result * base;
+//	}
+//	return result;
+//}
 
 
 void MPU6050_SPI_Init(void)
 {
 	struct SPI_Master_Parameters MPU6050;
 
-	MPU6050->Baudrate = 1; //9 MHz
-	MPU6050->BiDirectional_Mode = Duplex;
-	MPU6050->CPHA = 1;
-	MPU6050->CPOL = 1;
-	MPU6050->DataFormat = Bit_8;
-	MPU6050->LSBorMSB = MSB;
-	MPU6050->Slave_Management = Software_Managed;
+	RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+	MPU6050.Baudrate = 1; //9 MHz
+	MPU6050.BiDirectional_Mode = Duplex;
+	MPU6050.CPHA = 1;
+	MPU6050.CPOL = 1;
+	MPU6050.DataFormat = Bit_8;
+	MPU6050.LSBorMSB = MSB;
+	MPU6050.Slave_Management = Software_Managed;
 
 	SPI_Master_Config(SPI1,MPU6050);
 	SPI_Master_Enable(SPI1);
@@ -33,6 +35,11 @@ void MPU6050_SPI_Init(void)
 	MPU6050_Write_Single_Byte(0x1b,0x18);
 	MPU6050_Write_Single_Byte(0x1c,0x00);
 
+	NSS_Pin = 4;
+	GPIO_Setup(GPIOA,4,GEN_PUSH_PULL_OUTPUT);
+	GPIO_Setup(GPIOA,5,ALT_PUSH_PULL_OUTPUT);
+	GPIO_Setup(GPIOA,6,ALT_PUSH_PULL_OUTPUT);
+	GPIO_Setup(GPIOA,7,FLOATING_INPUT);
 
 
 }
@@ -62,9 +69,9 @@ uint8_t MPU6050_Read_Single_Byte(uint8_t address)
 uint16_t *MPU6050_Gyro_Raw(void)
 {
 	uint16_t Gyro_Data[3];
-	uint16_t Gyro_Data[0] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_X_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_X_LOW)));
-	uint16_t Gyro_Data[1] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_Y_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_Y_LOW)));
-	uint16_t Gyro_Data[2] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_Z_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_Z_LOW)));
+	 Gyro_Data[0] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_X_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_X_LOW)));
+	 Gyro_Data[1] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_Y_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_Y_LOW)));
+	 Gyro_Data[2] = (uint16_t)((MPU6050_Read_Single_Byte(ACCEL_Z_HIGH) << 8) | (MPU6050_Read_Single_Byte(ACCEL_Z_LOW)));
 
 	return Gyro_Data;
 }
@@ -72,9 +79,9 @@ uint16_t *MPU6050_Gyro_Raw(void)
 uint16_t *MPU6050_Accl_Raw(void)
 {
 	uint16_t Accl_Data[3];
-	uint16_t Accl_Data[0] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_X_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_X_LOW)));
-	uint16_t Accl_Data[1] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_Y_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_Y_LOW)));
-	uint16_t Accl_Data[2] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_Z_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_Z_LOW)));
+	 Accl_Data[0] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_X_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_X_LOW)));
+	 Accl_Data[1] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_Y_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_Y_LOW)));
+	 Accl_Data[2] = (uint16_t)((MPU6050_Read_Single_Byte(GYRO_Z_HIGH) << 8) | (MPU6050_Read_Single_Byte(GYRO_Z_LOW)));
 
 	return Accl_Data;
 }
