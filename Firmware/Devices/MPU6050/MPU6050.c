@@ -27,11 +27,11 @@ void MPU6050_SPI_Init(void)
 	SPI_Master_Config(SPI1,MPU6050);
 	SPI_Master_Enable(SPI1);
 
-	MPU6050_Write_Single_Byte(0x19,0x02);
+	MPU6050_Write_Single_Byte(0x19,0x07);
 	MPU6050_Write_Single_Byte(0x6b,0x01);
 	MPU6050_Write_Single_Byte(0x1a,0x00);
 	MPU6050_Write_Single_Byte(0x1b,0x18);
-	MPU6050_Write_Single_Byte(0x1c,0x08);
+	MPU6050_Write_Single_Byte(0x1c,0x00);
 
 
 
