@@ -114,14 +114,36 @@ void Paralle_Transmission_Init(void)
 //************************************************** Setup GPIO MODE **************************************************
 
 
-uint32_t GPIO_Config(uint8_t io_number, uint8_t type)
+
+
+
+void GPIO_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t type)
 {
-	if(io_number < 8)
+	uint32_t *p;
+	p == PORT;
+	if(p == GPIOA)
 	{
-		return (type << (4*io_number));
+		RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
+	}
+	if(p == GPIOB)
+	{
+		RCC -> APB2ENR |= RCC_APB2ENR_IOPBEN;
+	}
+	if(p == GPIOC)
+	{
+		RCC -> APB2ENR |= RCC_APB2ENR_IOPCEN;
+	}
+	if(type == ALT_OPEN_DRAIN_OUTPUT || type == ALT_PUSH_PULL_OUTPUT || type == ANALOG_INPUT)
+	{
+		RCC -> APB1ENR |= RCC_APB2ENR_AFIOEN;
+	}
+
+	if(pin < 8)
+	{
+		PORT ->CRL |= (type << pin*4);
 	}
 	else {
-		return (type << (4*(io_number-8)));
+		PORT ->CRH |= (type << pin*4);
 	}
-}
 
+}
