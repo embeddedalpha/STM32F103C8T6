@@ -145,7 +145,6 @@ DMA_RX        ->      0:  DMA mode is enabled for reception
                       1:  DMA mode is disabled for reception
 ```
 
-
 ```C
 void USART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
 ```
