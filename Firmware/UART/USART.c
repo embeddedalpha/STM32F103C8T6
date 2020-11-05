@@ -34,7 +34,7 @@
  **********************************************************************************************************************/
 
 
-void UART_Setup(USART_TypeDef *USART,uint8_t baudrate, uint8_t frame_length, uint8_t stop_bits, uint8_t DMA_TX, uint8_t DMA_RX)
+void UART_Setup(USART_TypeDef *USART,int baudrate, uint8_t frame_length, uint8_t stop_bits, uint8_t DMA_TX, uint8_t DMA_RX)
 {
 	if (USART == USART1)
 	{
@@ -110,45 +110,6 @@ void UART_Setup(USART_TypeDef *USART,uint8_t baudrate, uint8_t frame_length, uin
 
 		USART ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
 		USART ->CR1 |= stop_bits << 12;
-		USART ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
-		USART ->CR1 |= USART_CR1_UE;
-	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////
-	if(USART == USART3)
-	{
-		RCC -> APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
-		RCC -> APB1ENR |= RCC_APB1ENR_USART3EN ;
-		GPIO_Setup(GPIOA,10,ALTERNATE_PUSH_PULL_OUTPUT);
-		GPIO_Setup(GPIOA,11,FLOATING_INPUT);
-		if(frame_length)
-		{
-			USART ->CR1 |= USART_CR1_M;
-		}
-		else
-		{
-			USART ->CR1 &= ~USART_CR1_M;
-		}
-
-		if(DMA_TX)
-		{
-			USART ->CR3 |= USART_CR3_DMAT;
-		}
-		else
-		{
-			USART ->CR3 &= ~USART_CR3_DMAT;
-		}
-
-		if(DMA_RX)
-		{
-			USART ->CR3 |= USART_CR3_DMAR;
-		}
-		else
-		{
-			USART ->CR3 &= ~USART_CR3_DMAR;
-		}
-
-		USART ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
-		USART -> CR1 |= stop_bits << 12;
 		USART ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
 		USART ->CR1 |= USART_CR1_UE;
 	}
@@ -278,7 +239,7 @@ int UART_Send_Data(USART_TypeDef *uart,uint8_t data)
  **********************************************************************************************************************/
 
 
-void USART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX)
+void USART_Setup(USART_TypeDef *USART,int baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX)
 {
 	if(USART == USART1)
 	{
@@ -397,65 +358,7 @@ void USART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8
 		USART ->CR1 |= USART_CR1_UE;
 	}
 
-	if(USART == USART3)
-	{
-		RCC -> APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
-		RCC -> APB1ENR |= RCC_APB1ENR_USART3EN ;
-		GPIO_Setup(GPIOB,10,ALTERNATE_PUSH_PULL_OUTPUT);
-		GPIO_Setup(GPIOB,11,ALTERNATE_PUSH_PULL_OUTPUT);
-		GPIO_Setup(GPIOB,12,FLOATING_INPUT);
 
-		if(frame_length)
-		{
-			USART ->CR1 |= USART_CR1_M;
-		}
-		else
-		{
-			USART ->CR1 &= ~USART_CR1_M;
-		}
-
-		if(DMA_TX)
-		{
-			USART ->CR3 |= USART_CR3_DMAT;
-		}
-		else
-		{
-			USART ->CR3 &= ~USART_CR3_DMAT;
-		}
-
-		if(DMA_RX)
-		{
-			USART ->CR3 |= USART_CR3_DMAR;
-		}
-		else
-		{
-			USART ->CR3 &= ~USART_CR3_DMAR;
-		}
-
-		if(CPOL)
-		{
-			USART ->CR2 |= USART_CR2_CPOL;
-		}
-		else
-		{
-			USART ->CR2 &= ~USART_CR2_CPOL;
-		}
-
-		if(CPHA)
-		{
-			USART ->CR2 |= USART_CR2_CPHA;
-		}
-		else
-		{
-			USART ->CR2 &= ~USART_CR2_CPHA;
-		}
-
-		USART ->BRR = (int)(TIMER_CLOCK_GENERAL / (16 * baudrate));
-		USART -> CR2 |= USART_CR2_CLKEN;
-		USART -> CR2 |= stop_bits << 12;
-		USART ->CR1 |= USART_CR1_TE | USART_CR1_RE  ;
-		USART ->CR1 |= USART_CR1_UE;
-	}
 }
 
 /***********************************************************************************************************************
@@ -485,7 +388,7 @@ uint8_t USART_Get_Data(USART_TypeDef *uart)
 void USART_Send_Data(USART_TypeDef *uart,uint8_t data)
 {
 	uart -> DR = data;
-	while((uart->SR & USART_SR_TC) == 0);
+	while((uart->SR & USART_SR_TC) == 0){}
 }
 
 
