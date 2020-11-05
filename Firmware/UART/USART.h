@@ -39,7 +39,7 @@
  *                                1:  DMA mode is disabled for reception
  **********************************************************************************************************************/
 
-void UART_Setup(USART_TypeDef *USART,uint8_t baudrate, uint8_t frame_length, uint8_t stop_bits, uint8_t DMA_TX, uint8_t DMA_RX);
+void UART_Setup(USART_TypeDef *USART,int baudrate, uint8_t frame_length, uint8_t stop_bits, uint8_t DMA_TX, uint8_t DMA_RX);
 
 
 
@@ -151,7 +151,7 @@ int UART_Send_Data(USART_TypeDef *uart,uint8_t data);
  **********************************************************************************************************************/
 
 
-void USART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
+void USART_Setup(USART_TypeDef *USART,int baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
 
 
 
