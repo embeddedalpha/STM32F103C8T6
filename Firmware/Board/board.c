@@ -119,17 +119,16 @@ void Paralle_Transmission_Init(void)
 
 void GPIO_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t type)
 {
-	uint32_t *p;
-	p == PORT;
-	if(p == GPIOA)
+
+	if(PORT == GPIOA)
 	{
 		RCC -> APB2ENR |= RCC_APB2ENR_IOPAEN;
 	}
-	if(p == GPIOB)
+	if(PORT == GPIOB)
 	{
 		RCC -> APB2ENR |= RCC_APB2ENR_IOPBEN;
 	}
-	if(p == GPIOC)
+	if(PORT == GPIOC)
 	{
 		RCC -> APB2ENR |= RCC_APB2ENR_IOPCEN;
 	}
