@@ -7,14 +7,14 @@
 #define TIMER_CLOCK_ADVANCED 72000000
 
 
-#define GEN_PUSH_PULL_OUTPUT   (uint8_t)0b0011
-#define GEN_OPEN_DRAIN_OUTPUT  (uint8_t)0b0111
-#define ALT_PUSH_PULL_OUTPUT   (uint8_t)0b1011
-#define ALT_OPEN_DRAIN_OUTPUT  (uint8_t)0b1111
-#define ANALOG_INPUT           (uint8_t)0b0000
-#define FLOATING_INPUT         (uint8_t)0b0100
-#define PULL_DOWN_INPUT        (uint8_t)0b1000
-#define PULL_UP_INPUT          (uint8_t)0b1000
+#define GENERAL_PUSH_PULL_OUTPUT     (uint8_t)0b0011
+#define GENERAL_OPEN_DRAIN_OUTPUT    (uint8_t)0b0111
+#define ALTERNATE_PUSH_PULL_OUTPUT   (uint8_t)0b1011
+#define ALTERNATE_OPEN_DRAIN_OUTPUT  (uint8_t)0b1111
+#define ANALOG_INPUT                 (uint8_t)0b0000
+#define FLOATING_INPUT               (uint8_t)0b0100
+#define PULL_DOWN_INPUT              (uint8_t)0b1000
+#define PULL_UP_INPUT                (uint8_t)0b1000
 
 
 
