@@ -10,6 +10,9 @@
 #### ⚡ UART_Setup: This function configures the hardware USART controller in asynchronous mode. The parameters passed to the function gives more control to the user to configure the hardware. 
 #### Parameters to be passed are mentioned below:
 ```C
+USART        ->       USART1
+                      USART2
+		      USART3
 baudrate     ->       2400
                       9600
                       19200
@@ -34,9 +37,7 @@ DMA_RX        ->      0:  DMA mode is enabled for reception
 
 
 ```C
-void UART1_Init(uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
-void UART2_Init(uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
-void UART3_Init(uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
+void UART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8_t stop_bits, bool DMA_TX, bool DMA_RX);
 ```
 
 
@@ -115,6 +116,9 @@ void UART_Send_Data(USART_TypeDef *uart,uint8_t data);
 #### ⚡ USART_Setup: This function configures the hardware USART controller in synchronous mode. The parameters passed to the function gives more control to the user to configure the hardware. 
 #### Parameters to be passed are mentioned below:
 ```C
+USART        ->       USART1
+                      USART2
+		      USART3
 baudrate     ->       2400
                       9600
                       19200
@@ -143,9 +147,7 @@ DMA_RX        ->      0:  DMA mode is enabled for reception
 
 
 ```C
-void USART1_Setup(uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
-void USART2_Setup(uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
-void USART3_Setup(uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
+void USART_Setup(USART_TypeDef *USART,uint8_t baudrate, bool frame_length, uint8_t stop_bits,bool CPOL,bool CPHA, bool DMA_TX, bool DMA_RX);
 ```
 
 #### ⚡ USART_Get_Data: This function returns the received data.
