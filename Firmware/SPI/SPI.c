@@ -20,122 +20,136 @@
 /******************************************     Master Configuration     ******************************************/
 
 
-void SPI_Master_Config(SPI_TypeDef *SPI,struct SPI_Master_Parameters SPI_M)
+void SPI_Config(SPI_TypeDef *SPI,uint8_t baudrate,
+											 uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB)
+{
+	if(SPI == SPI1)
+	{
+		RCC ->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_SPI1EN | RCC_APB2ENR_AFIOEN;
+		GPIO_Setup(GPIOA,7,ALTERNATE_PUSH_PULL_OUTPUT); //MOSI
+		GPIO_Setup(GPIOA,5,ALTERNATE_PUSH_PULL_OUTPUT); //CLK
+		GPIO_Setup(GPIOA,6,FLOATING_INPUT); //MOSI
+		//GPIO_Setup(GPIOA,4,GENERAL_PUSH_PULL_OUTPUT);//NSS
+		
+		SPI ->CR1 |= ((baudrate << 3) | (CPHA << 0) | (CPOL << 1) | (data_format << 11) | (LSBorMSB << 7));
+		
+	}
+	else if(SPI == SPI2)
+	{
+		RCC ->APB2ENR |= RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
+		RCC ->APB1ENR |= RCC_APB1ENR_SPI2EN;
+		GPIO_Setup(GPIOB,15,ALTERNATE_PUSH_PULL_OUTPUT); //MOSI
+		GPIO_Setup(GPIOB,13,ALTERNATE_PUSH_PULL_OUTPUT); //CLK
+		GPIO_Setup(GPIOB,14,FLOATING_INPUT); //MOSI
+		//GPIO_Setup(GPIOB,12,GENERAL_PUSH_PULL_OUTPUT);//NSS		
+		
+		SPI ->CR1 |= ((baudrate << 3) | (CPHA << 0) | (CPOL << 1) | (data_format << 11) | (LSBorMSB << 7));
+	}
+	
+}
+//
+
+void SPI_Simplex_Config(SPI_TypeDef *SPI, uint8_t TXorRX)
+{
+	SPI ->CR1 |= SPI_CR1_BIDIMODE;
+	if(TXorRX)
+	{
+	SPI ->CR1 |= SPI_CR1_BIDIOE;
+	}
+	else
+	{
+	SPI ->CR1 &= ~SPI_CR1_BIDIOE;
+	}
+}
+//
+
+void SPI_CRC_Enable(SPI_TypeDef *SPI, uint16_t CRC_Polynomial)
+{
+SPI->CR1 |= SPI_CR1_CRCEN;
+SPI->CRCPR = CRC_Polynomial;
+}
+//
+
+void SPI_DMA_Enable(SPI_TypeDef *SPI, uint8_t TXorRX)
+{
+	if(TXorRX)
+	{
+	SPI ->CR2 |= SPI_CR2_TXDMAEN;
+	}
+		else
+     {
+		 SPI->CR2 |= SPI_CR2_RXDMAEN;
+		 }
+}
+//
+
+void SPI_Enable(SPI_TypeDef *SPI)
 {
 
-SPI ->CR1 |= SPI_CR1_MSTR;
-SPI->CR1 |= SPI_M.Baudrate << 3;
-SPI->CR1 |= SPI_M.CPOL << 1;
-SPI->CR1 |= SPI_M.CPHA << 0;
-SPI->CR1 |= SPI_M.DataFormat << 11;
-SPI->CR1 |= SPI_M.LSBorMSB << 7;
-SPI->CR1 |= SPI_M.CRC_Enable << 13;
-SPI->CR1 |= SPI_M.BiDirectional_Mode << 15;
-SPI->CR1 |= SPI_M.TxorRX << 14;
-SPI->CR2 |= SPI_M.TxDMA << 1;
-SPI->CR2 |= SPI_M.RxDMA << 0;
-SPI->CR1 |= SPI_M.Slave_Management << 9;
-SPI->CR1 |= SPI_CR1_SSI;
-SPI->CRCPR |= SPI_M.CRC_Polynomial;
-SPI->CR1 |= SPI_M.CRC_Enable << 13;
+	SPI->CR1 |= SPI_CR1_SPE;
 }
-
-
-
-void SPI_Master_IRQ_Config(SPI_TypeDef *SPI,struct SPI_Master_IRQ_Parameters SPIM_I)
-{
-SPI->CR2 |= (SPIM_I.TX_Interrupt) << 7;
-SPI->CR2 |= (SPIM_I.RX_Interrupt) << 6;
-SPI->CR2 |= (SPIM_I.Error_Interrupt) << 5;
-}
+//
 
 void SPI_Master_Enable(SPI_TypeDef *SPI)
 {
-
-	SPI -> CR1 |= SPI_CR1_SPE;
+SPI ->CR1 |= SPI_CR1_MSTR;
 }
+//
 
-void SPI_Master_TX(SPI_TypeDef *SPI,int data)
+void SPI_Slave_Enable(SPI_TypeDef *SPI)
+{
+SPI ->CR1 &= ~SPI_CR1_MSTR;
+}
+//
+
+void SPI_TX(SPI_TypeDef *SPI,uint8_t data)
 {
 
 	SPI -> DR = data;
 	while(!(SPI -> SR & SPI_SR_TXE));
 }
+//
 
-int SPI_Master_RX(SPI_TypeDef *SPI)
+int SPI_RX(SPI_TypeDef *SPI)
 {
 	while((SPI -> SR & SPI_SR_RXNE));
 	return SPI->DR;
 }
+//
 
-void SPI_NSS_Pin_Setup(GPIO_TypeDef *PORT)
+
+uint8_t SPI_TXRX(SPI_TypeDef *SPI,uint8_t data)
 {
+	SPI -> DR = data;
+	while(!(SPI -> SR & SPI_SR_TXE));
+	while((SPI -> SR & SPI_SR_RXNE));
+	return (uint8_t)(SPI->DR);
+}
+//
+
+void SPI_NSS_Pin_Setup(GPIO_TypeDef *PORT, uint8_t pin)
+{
+	NSS_Pin = pin;
 
 	if(NSS_Pin < 8)
 	{
-		PORT ->CRL |= ALT_PUSH_PULL_OUTPUT << NSS_Pin;
+		GPIO_Setup(PORT,NSS_Pin,GENERAL_PUSH_PULL_OUTPUT);
 	}
 	else
 	{
-		PORT->CRH |= ALT_PUSH_PULL_OUTPUT << NSS_Pin;
+		PORT->CRH |= (uint16_t)(ALTERNATE_PUSH_PULL_OUTPUT << NSS_Pin);
 	}
 }
+//
 
 void SPI_NSS_LOW(GPIO_TypeDef *PORT)
 {
-	PORT ->BSRR |= (16 + NSS_Pin);
+	PORT ->BSRR |= (uint16_t)(16 + NSS_Pin);
 }
+//
 
 void SPI_NSS_HIGH(GPIO_TypeDef *PORT)
 {
 	PORT ->BSRR |= NSS_Pin;
 }
-
-uint8_t SPI_Master_TXRX(SPI_TypeDef *SPI,uint8_t data)
-{
-	SPI -> DR = data;
-	while(!(SPI -> SR & SPI_SR_TXE));
-	while((SPI -> SR & SPI_SR_RXNE));
-	return SPI->DR;
-}
-
-/******************************************     Slave Configuration     ******************************************/
-
-void SPI_Slave_Config(SPI_TypeDef *SPI,struct SPI_Slave_Parameters SPI_S)
-{
-SPI->CR1 |= SPI_S.Baudrate << 3;
-SPI->CR1 |= SPI_S.CPOL << 1;
-SPI->CR1 |= SPI_S.CPHA << 0;
-SPI->CR1 |= SPI_S.DataFormat << 11;
-SPI->CR1 |= SPI_S.LSBorMSB << 7;
-SPI->CR1 |= SPI_S.CRC_Enable << 13;
-SPI->CR1 |= SPI_S.BiDirectional_Mode << 15;
-SPI->CR1 |= SPI_S.TxorRX << 14;
-SPI -> CR1 &= ~SPI_CR1_MSTR;
-SPI->CR2 |= SPI_S.TxDMA << 1;
-SPI->CR2 |= SPI_S.RxDMA << 0;
-}
-
-
-void SPI_Slave_IRQ_Config(SPI_TypeDef *SPI,struct SPI_Slave_IRQ_Parameters SPIS_I)
-{
-	SPI->CR2 |= (SPIS_I.TX_Interrupt) << 7;
-	SPI->CR2 |= (SPIS_I.RX_Interrupt) << 6;
-	SPI->CR2 |= (SPIS_I.Error_Interrupt) << 5;
-}
-
-void SPI_Slave_TX(SPI_TypeDef *SPI,int data)
-{
-	SPI -> DR = data;
-}
-
-int SPI_Slave_RX(SPI_TypeDef *SPI)
-{
-	return SPI->DR;
-}
-
-
-void SPI_Slave_Enable(SPI_TypeDef *SPI)
-{
-	SPI -> CR1 |= SPI_CR1_SPE;
-}
+//
