@@ -12,24 +12,13 @@ static uint8_t NSS_Pin;
 #define MSB 1
 #define Bit_8 0
 #define Bit_16 1
-#define Simplex 1
-#define Duplex 0
 #define Tx 1
 #define Rx 0
-#define Enable 1
-#define Disable 0
-#define Hardware_Managed 0
-#define Software_Managed 1
 
 
 
 
-
-
-
-
-
-void SPI_Config(SPI_TypeDef *SPI,uint8_t baudrate,uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB);
+void SPI_Config(SPI_TypeDef *SPI,uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB);
 void SPI_Simplex_Config(SPI_TypeDef *SPI, uint8_t TXorRX);
 void SPI_CRC_Enable(SPI_TypeDef *SPI, uint16_t CRC_Polynomial);
 void SPI_DMA_Enable(SPI_TypeDef *SPI, uint8_t TXorRX);
