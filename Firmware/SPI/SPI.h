@@ -6,7 +6,7 @@
 
 
 
-static int NSS_Pin;
+static uint8_t NSS_Pin;
 
 #define LSB 0
 #define MSB 1
@@ -22,79 +22,31 @@ static int NSS_Pin;
 #define Software_Managed 1
 
 
-struct  SPI_Master_Parameters
-{
-	uint8_t CPOL ;
-	uint8_t CPHA ;
-	uint8_t Baudrate;
-	uint8_t LSBorMSB ;
-	uint8_t DataFormat ;
-	uint8_t CRC_Enable ;
-	uint8_t BiDirectional_Mode ;
-	uint8_t TxorRX ;
-	uint8_t TxDMA ;
-	uint8_t RxDMA ;
-	uint8_t Slave_Management;
-	uint16_t CRC_Polynomial;
-};
-
-struct SPI_Master_IRQ_Parameters
-{
-	uint8_t TX_Interrupt ;
-	uint8_t RX_Interrupt ;
-	uint8_t Error_Interrupt  ;
-
-};
-
-struct  SPI_Slave_Parameters
-{
-	uint8_t CPOL ;
-	uint8_t CPHA ;
-	uint8_t Baudrate ;
-	uint8_t LSBorMSB ;
-	uint8_t DataFormat ;
-	uint8_t CRC_Enable ;
-	uint8_t BiDirectional_Mode ;
-	uint8_t TxorRX ;
-	uint8_t TxDMA ;
-	uint8_t RxDMA ;
-};
-
-struct SPI_Slave_IRQ_Parameters
-{
-	uint8_t TX_Interrupt ;
-	uint8_t RX_Interrupt ;
-	uint8_t Error_Interrupt;
-
-};
 
 
-void SPI_Master_Config(SPI_TypeDef *SPI, struct SPI_Master_Parameters SPI_M);
-void SPI_Master_IRQ_Config(SPI_TypeDef *SPI, struct SPI_Master_IRQ_Parameters SPIM_I);
-void SPI_Master_TX(SPI_TypeDef *SPI,int data);
-int SPI_Master_RX(SPI_TypeDef *SPI);
+
+
+
+
+
+void SPI_Config(SPI_TypeDef *SPI,uint8_t baudrate,uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB);
+void SPI_Simplex_Config(SPI_TypeDef *SPI, uint8_t TXorRX);
+void SPI_CRC_Enable(SPI_TypeDef *SPI, uint16_t CRC_Polynomial);
+void SPI_DMA_Enable(SPI_TypeDef *SPI, uint8_t TXorRX);
+
 void SPI_Master_Enable(SPI_TypeDef *SPI);
-uint8_t SPI_Master_TXRX(SPI_TypeDef *SPI,uint8_t data);
+void SPI_Slave_Enable(SPI_TypeDef *SPI);
 
-void SPI_NSS_Pin_Setup(GPIO_TypeDef *PORT);
+void SPI_Enable(SPI_TypeDef *SPI);
+
+void SPI_TX(SPI_TypeDef *SPI,uint8_t data);
+int SPI_RX(SPI_TypeDef *SPI);
+uint8_t SPI_TXRX(SPI_TypeDef *SPI,uint8_t data);
+
+
+void SPI_NSS_Pin_Setup(GPIO_TypeDef *PORT, uint8_t pin);
 void SPI_NSS_LOW(GPIO_TypeDef *PORT);
 void SPI_NSS_HIGH(GPIO_TypeDef *PORT);
-
-void SPI_Slave_Init(SPI_TypeDef *SPI,struct SPI_Slave_Parameters SPI_S);
-void SPI_Slave_IRQ_Config(SPI_TypeDef *SPI,struct SPI_Slave_IRQ_Parameters SPIS_I);
-void SPI_Slave_Enable(SPI_TypeDef *SPI);
-void SPI_Slave_TX(SPI_TypeDef *SPI,int data);
-int SPI_Slave_RX(SPI_TypeDef *SPI);
-
-
-
-
-
-
-
-
-
-
 
 
 
