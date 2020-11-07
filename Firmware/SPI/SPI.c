@@ -20,8 +20,7 @@
 /******************************************     Master Configuration     ******************************************/
 
 
-void SPI_Config(SPI_TypeDef *SPI,uint8_t baudrate,
-											 uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB)
+void SPI_Config(SPI_TypeDef *SPI,uint8_t CPHA,uint8_t CPOL,uint8_t data_format, uint8_t LSBorMSB)
 {
 	if(SPI == SPI1)
 	{
@@ -31,7 +30,7 @@ void SPI_Config(SPI_TypeDef *SPI,uint8_t baudrate,
 		GPIO_Setup(GPIOA,6,FLOATING_INPUT); //MOSI
 		//GPIO_Setup(GPIOA,4,GENERAL_PUSH_PULL_OUTPUT);//NSS
 		
-		SPI ->CR1 |= ((baudrate << 3) | (CPHA << 0) | (CPOL << 1) | (data_format << 11) | (LSBorMSB << 7));
+		SPI ->CR1 |= ((0 << 3) | (CPHA << 0) | (CPOL << 1) | (data_format << 11) | (LSBorMSB << 7));
 		
 	}
 	else if(SPI == SPI2)
