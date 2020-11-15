@@ -9,6 +9,7 @@
 
 void SDIO_1_Bit_Init(uint32_t data_length);
 void SDIO_4_Bit_Init(uint32_t data_length);
+void SDIO_8_Bit_Init(uint32_t data_length);
 
 void SDIO_Power_ON(void);
 void SDIO_Power_OFF(void);
