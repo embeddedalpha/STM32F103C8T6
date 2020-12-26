@@ -58,11 +58,16 @@ void lcd_cmd(unsigned char c)
 
   void LCD_SEND_DATA(char *c)
   {
-	 int i;
-	 for(i = 0; c[i] != 0; i++)
-	 {
-	    lcd_data(c[i]);
-	 }
+    if((c[i] == '\n'))
+    {
+      lcd_cmd(0xC0);
+      delay();
+    }
+  
+  lcd_data(c[i]);  
+    }
+       lcd_cmd(0x01);	//clear screen
+      delay();
   }
 
 void LCD_new_line()
