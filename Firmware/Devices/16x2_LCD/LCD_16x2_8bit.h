@@ -13,15 +13,4 @@ void LCD_new_line();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 #endif
