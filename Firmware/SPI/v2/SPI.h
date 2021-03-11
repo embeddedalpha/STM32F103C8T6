@@ -1,16 +1,15 @@
 /*
  * SPI.h
  *
- *  Created on: March 11, 2021
- *      Author: Kunal Salvi
+ *  Created on: Feb 27, 2021
+ *      Author: Kunal
  */
 
 #ifndef SPI_SPI_H_
 #define SPI_SPI_H_
 
-#include "stm32f103xb.h"
-#include "stm32f1xx.h"
-#include "stdbool.h"
+
+#include "main.h"
 
 typedef struct SPI_Master_Config
 {
@@ -31,8 +30,9 @@ typedef struct SPI_Master_Config
 
 }SPI_Master_Config;
 
+
 void SPI_Master_Init(SPI_Master_Config SPI);
 
+void SPI_Master_TX(SPI_Master_Config SPI, uint16_t data);
 
 #endif /* SPI_SPI_H_ */
-
