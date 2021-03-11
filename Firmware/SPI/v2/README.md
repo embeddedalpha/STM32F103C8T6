@@ -32,9 +32,19 @@ bool txDMA;                 //Enable transmit buffer DMA by passing '1'
 bool rxDMA;                 //Enable receiver buffer DMA by passing '1'
 ```
 
+#### Initiate the structure 
+ ```
+ struct SPI_Master_Config SPI_Test;
+ ```
+
 #### Pass the structure in the SPI_Master_Init function
 
 ```
-struct SPI_Master_Config SPI_Test;
 void SPI_Master_Init(SPI_Test);
+```
+
+#### Transmit data by using the SPI_Master_TX function
+
+```
+SPI_Master_TX(SPI_Test, 0x45);
 ```
