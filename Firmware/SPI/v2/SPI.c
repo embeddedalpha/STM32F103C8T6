@@ -1,4 +1,3 @@
-
 /*
  * SPI.c
  *
@@ -41,3 +40,62 @@ void SPI_Master_TX(SPI_Master_Config SPI, uint16_t data)
 	SPI.SPI->DR = data;
 	while(!(SPI.SPI -> SR & SPI_SR_TXE));
 }
+
+
+
+uint16_t SPI_Master_RX(SPI_Master_Config SPI)
+{
+	while(!(SPI.SPI -> SR & SPI_SR_RXNE));
+	return SPI.SPI -> DR;
+}
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+// NVIC_EnableIRQ(SPI1_IRQn);
+
+
+
+/*
+void SPI1_IRQHandler(void)
+{
+	if(SPI1->SR & SPI_SR_TXE)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_RXNE)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_OVR)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_MODF)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_CRCERR)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_UDR)
+	{
+		//Your code goes here
+	}
+
+}*/
