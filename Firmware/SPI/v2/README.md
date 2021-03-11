@@ -48,3 +48,50 @@ void SPI_Master_Init(SPI_Test);
 ```
 SPI_Master_TX(SPI_Test, 0x45);
 ```
+
+#### Receive data by using the SPI_Master_RX function
+
+```
+uint16_t var1 = SPI_Master_RX(SPI_Test);
+```
+
+#### Interrupts can be implemented by adding the following lines of code. This snippet is commented at the end of SPI.c 
+#### and be used in application's main.c file.
+
+```
+void SPI1_IRQHandler(void)
+{
+	if(SPI1->SR & SPI_SR_TXE)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_RXNE)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_OVR)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_MODF)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_CRCERR)
+	{
+		//Your code goes here
+	}
+
+	if(SPI1->SR & SPI_SR_UDR)
+	{
+		//Your code goes here
+	}
+
+}
+
+	NVIC_EnableIRQ(SPI1_IRQn);
+```
