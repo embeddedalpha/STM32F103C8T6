@@ -10,11 +10,13 @@
 
 
 #include "main.h"
+#include "GPIO/GPIO.h"
 
-typedef struct SPI_Master_Config
+typedef struct SPI_Config
 {
 	SPI_TypeDef *SPI;
-	uint8_t mode;
+	bool mode;
+	bool onlyTXorRX;
 	bool frame_format;
 	uint8_t clock_speed;
 	uint8_t lsb_or_msb;
@@ -28,13 +30,19 @@ typedef struct SPI_Master_Config
 	bool txDMA;
 	bool rxDMA;
 
-}SPI_Master_Config;
+}SPI_Config;
 
 
-void SPI_Master_Init(SPI_Master_Config SPI);
+void SPI_Master_Init(SPI_Config SPI);
 
-void SPI_Master_TX(SPI_Master_Config SPI, uint16_t data);
+void SPI_Master_TX(SPI_Config SPI, uint16_t data);
 
-uint16_t SPI_Master_RX(SPI_Master_Config SPI);
+uint16_t SPI_Master_RX(SPI_Config SPI);
+
+void SPI_Slave_Init(SPI_Config SPI);
+
+void SPI_Slave_TX(SPI_Config SPI, uint16_t data);
+
+uint16_t SPI_Slave_RX(SPI_Config SPI);
 
 #endif /* SPI_SPI_H_ */
