@@ -6,8 +6,7 @@
 #### Structures are provided to facilitate seemless and easy hardware configuration. SPI has a master and a slave mode, and structures for each mode are provided. 
 
 ```
-typedef struct SPI_Master_Config;
-typedef struct SPI_SLave_Config;
+typedef struct SPI_Config;
 ```
 
 #### Description of members of the SPI_Master_Config structure:
@@ -34,25 +33,41 @@ bool rxDMA;                 //Enable receiver buffer DMA by passing '1'
 
 #### Initiate the structure 
  ```
- struct SPI_Master_Config SPI_Test;
+ struct SPI_Config SPI_Master_Test;
  ```
 
 #### Pass the structure in the SPI_Master_Init function
 
 ```
-void SPI_Master_Init(SPI_Test);
+void SPI_Master_Init(SPI_Master_Test);
 ```
 
 #### Transmit data by using the SPI_Master_TX function
 
 ```
-SPI_Master_TX(SPI_Test, 0x45);
+SPI_Master_TX(SPI_Master_Test, 0x45);
 ```
 
 #### Receive data by using the SPI_Master_RX function
 
 ```
-uint16_t var1 = SPI_Master_RX(SPI_Test);
+uint16_t var1 = SPI_Master_RX(SPI_Master_Test);
+```
+
+#### To initialize SPI in slave mode, initiate the structure like that in the master mode.
+
+```
+struct SPI_Config SPI_Slave_Test;
+ SPI_Slave_Init(SPI_Slave_Test);
+ 
+```
+
+#### To send and receive data :
+
+```
+SPI_Slaver_TX(SPI_Slave_Test, 0x45);
+uint16_t var1 = SPI_Slave_RX(SPI_Slave_Test);
+
 ```
 
 #### Interrupts can be implemented by adding the following lines of code. This snippet is commented at the end of SPI.c 
