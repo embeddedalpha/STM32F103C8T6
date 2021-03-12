@@ -154,6 +154,16 @@ uint16_t SPI_Slave_RX(SPI_Config SPI)
 }
 
 
+void SPI_Disable(SPI_Config SPI)
+{
+
+while(SPI.SPI -> SR & SPI_SR_RXNE);
+while(SPI.SPI -> SR & SPI_SR_TXE);
+while(~(SPI.SPI -> SR & SPI_SR_BSY));
+SPI.SPI -> CR1 &= ~SPI_CR1_SPE;
+
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
