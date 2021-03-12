@@ -70,6 +70,12 @@ uint16_t var1 = SPI_Slave_RX(SPI_Slave_Test);
 
 ```
 
+##### Disable the peripheral by calling SPI_Disable()
+
+```
+void SPI_Disable(SPI_Config SPI);
+```
+
 #### Interrupts can be implemented by adding the following lines of code. This snippet is commented at the end of SPI.c 
 #### and be used in application's main.c file.
 
