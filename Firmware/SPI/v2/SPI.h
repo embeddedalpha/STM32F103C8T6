@@ -45,4 +45,6 @@ void SPI_Slave_TX(SPI_Config SPI, uint16_t data);
 
 uint16_t SPI_Slave_RX(SPI_Config SPI);
 
+void SPI_Disable(SPI_Config SPI);
+
 #endif /* SPI_SPI_H_ */
