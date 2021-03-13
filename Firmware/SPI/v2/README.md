@@ -70,6 +70,15 @@ uint16_t var1 = SPI_Slave_RX(SPI_Slave_Test);
 
 ```
 
+#### NSS / CSS pins are GPIOA_4 and GPIOB_12 for SPI1 & SPI2.
+
+```
+SPI1_CSS_HIGH();
+SPI1_CSS_LOW();
+SPI2_CSS_HIGH();
+SPI2_CSS_LOW();
+```
+
 ##### Disable the peripheral by calling SPI_Disable()
 
 ```
