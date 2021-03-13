@@ -77,8 +77,30 @@ void SPI_Master_TX(SPI_Config SPI, uint16_t data)
 
 uint16_t SPI_Master_RX(SPI_Config SPI)
 {
+	SPI_Master_TX(SPI,0x00);
 	while(!(SPI.SPI -> SR & SPI_SR_RXNE));
 	return SPI.SPI -> DR;
+}
+
+
+void SPI1_CSS_LOW(void)
+{
+	GPIOA -> BSRR |= GPIO_BSRR_BR4;
+}
+
+void SPI1_CSS_High(void)
+{
+	GPIOA -> BSRR |= GPIO_BSRR_BS4;
+}
+
+void SPI2_CSS_LOW(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BR12;
+}
+
+void SPI2_CSS_High(void)
+{
+	GPIOB -> BSRR |= GPIO_BSRR_BS12;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
