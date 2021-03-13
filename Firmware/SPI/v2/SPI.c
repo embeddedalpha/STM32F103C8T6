@@ -88,7 +88,7 @@ void SPI1_CSS_LOW(void)
 	GPIOA -> BSRR |= GPIO_BSRR_BR4;
 }
 
-void SPI1_CSS_High(void)
+void SPI1_CSS_HIGH(void)
 {
 	GPIOA -> BSRR |= GPIO_BSRR_BS4;
 }
@@ -98,7 +98,7 @@ void SPI2_CSS_LOW(void)
 	GPIOB -> BSRR |= GPIO_BSRR_BR12;
 }
 
-void SPI2_CSS_High(void)
+void SPI2_CSS_HIGH(void)
 {
 	GPIOB -> BSRR |= GPIO_BSRR_BS12;
 }
