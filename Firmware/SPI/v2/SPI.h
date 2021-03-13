@@ -47,4 +47,14 @@ uint16_t SPI_Slave_RX(SPI_Config SPI);
 
 void SPI_Disable(SPI_Config SPI);
 
+
+void SPI1_CSS_High(void);
+
+void SPI1_CSS_LOW(void);
+
+void SPI2_CSS_High(void);
+
+void SPI2_CSS_LOW(void);
+
+
 #endif /* SPI_SPI_H_ */
