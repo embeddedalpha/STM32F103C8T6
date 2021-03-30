@@ -3,13 +3,13 @@
 ### SPI driver for STM32F103C8T6
 
 
-#### Structures are provided to facilitate seemless and easy hardware configuration. SPI has a master and a slave mode, and structures for each mode are provided. 
+#### Structures are provided to facilitate seemless and easy hardware configuration. SPI has 2 master and a slave modes. 
 
 ```
 typedef struct SPI_Config;
 ```
 
-#### Description of members of the SPI_Master_Config structure:
+#### Description of members of the SPI_Config structure:
 ```
 SPI_TypeDef *SPI;           //Hardware SPI you wish to use : SPI1 or SPI2
 uint8_t mode;               //SPI mode: Bidirectional by passing '1' or Unidirectional by passing '0'. 
