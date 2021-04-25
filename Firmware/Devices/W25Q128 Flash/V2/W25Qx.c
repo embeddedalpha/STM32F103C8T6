@@ -164,3 +164,73 @@ uint8_t W25Qx_Read_Status_Register_2(void)
 	W25Qx_Deselect();
 	return temp;
 }
+
+void W25Qx_Block_Erase_64KB(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0xD8);
+	SPI_Master_TX(W25Q, ((address >> 16) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 8) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 0) & 0xFF));
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+
+}
+
+void W25Qx_Block_Erase_32KB(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0x52);
+	SPI_Master_TX(W25Q, ((address >> 16) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 8) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 0) & 0xFF));
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+
+}
+
+void W25Qx_Block_Erase_4KB(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0x20);
+	SPI_Master_TX(W25Q, ((address >> 16) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 8) & 0xFF));
+	SPI_Master_TX(W25Q, ((address >> 0) & 0xFF));
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+
+}
+
+void W25Qx_Chip_Erase(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0xC7);
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+
+}
+
+void W25Qx_Power_Down(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0xB9);
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+}
+
+void W25Qx_Memory_Protect(void)
+{
+	W25Qx_Write_Enable();
+	W25Qx_Select();
+	SPI_Master_TX(W25Q, 0x01);
+	SPI_Master_TX(W25Q, 0x9C);
+	SPI_Master_TX(W25Q, 0x01);
+	W25Qx_Deselect();
+	W25Qx_Write_Disable();
+
+}
