@@ -56,5 +56,5 @@ void SPI2_CSS_HIGH(void);
 
 void SPI2_CSS_LOW(void);
 
-
+void delay1(uint32_t delay);
 #endif /* SPI_SPI_H_ */
