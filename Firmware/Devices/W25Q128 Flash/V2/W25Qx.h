@@ -34,5 +34,12 @@ void W25Qx_Select(void);
 void W25Qx_Deselect(void);
 uint8_t W25Qx_Read_Status_Register_1(void);
 uint8_t W25Qx_Read_Status_Register_2(void);
+void W25Qx_Block_Erase_64KB(void);
+void W25Qx_Block_Erase_32KB(void);
+void W25Qx_Block_Erase_4KB(void);
+void W25Qx_Chip_Erase(void);
+void W25Qx_Power_Down(void);
+void W25Qx_Memory_Protect(void);
+
 
 #endif /* W25QX_W25QX_H_ */
