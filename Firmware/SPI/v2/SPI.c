@@ -77,7 +77,7 @@ void SPI_Master_TX(SPI_Config SPI, uint16_t data)
 
 uint16_t SPI_Master_RX(SPI_Config SPI)
 {
-	SPI_Master_TX(SPI,0x00);
+	SPI_Master_TX(SPI,0xFF);
 	while(!(SPI.SPI -> SR & SPI_SR_RXNE));
 	return SPI.SPI -> DR;
 }
@@ -227,3 +227,10 @@ void SPI1_IRQHandler(void)
 	}
 
 }*/
+
+
+void delay1(uint32_t delay)
+{
+	for(int i = 0; i<= delay; i++)
+	{}
+}
