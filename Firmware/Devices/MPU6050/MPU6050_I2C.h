@@ -1,7 +1,7 @@
 /*
  * MPU6050.h
  *
- *  Created on: 25-Apr-2021
+ *  Created on: 26-Apr-2021
  *      Author: Kunal
  */
 
@@ -15,7 +15,7 @@
 
 void MPU6050_Init(I2C_TypeDef *I2C);
 
-short * MPU6050_Get_Data(void);
+short *MPU6050_Get_Raw_Data(I2C_TypeDef *I2C);
 
 
 
