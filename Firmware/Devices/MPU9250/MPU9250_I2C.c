@@ -7,6 +7,7 @@
  */
 
 
+
 #include "MPU9250.h"
 
 
@@ -75,4 +76,25 @@ void MPU9250_Read_Multiple_Bytes(I2C_TypeDef *I2C, uint8_t reg_address,uint8_t *
 	I2C_Master_Stop(I2C);
 
 }
+
+void MPU9250_Read_Accl_Data(I2C_TypeDef *I2C, int16_t *array)
+{
+	uint16_t raw_data[6];
+	MPU9250_Read_Multiple_Bytes(I2C, ACCEL_XOUT_H, raw_data, 6);
+	array[0] = ((int16_t)raw_data[0] << 8) | raw_data[1];
+	array[1] = ((int16_t)raw_data[2] << 8) | raw_data[3];
+	array[2] = ((int16_t)raw_data[4] << 8) | raw_data[5];
+}
+
+
+void MPU9250_Read_Gyro_Data(I2C_TypeDef *I2C, int16_t *array)
+{
+	uint16_t raw_data[6];
+	MPU9250_Read_Multiple_Bytes(I2C, GYRO__XOUT_H, raw_data, 6);
+	array[0] = ((int16_t)raw_data[0] << 8) | raw_data[1];
+	array[1] = ((int16_t)raw_data[2] << 8) | raw_data[3];
+	array[2] = ((int16_t)raw_data[4] << 8) | raw_data[5];
+}
+
+
 
