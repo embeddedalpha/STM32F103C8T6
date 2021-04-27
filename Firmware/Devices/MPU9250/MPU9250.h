@@ -1,20 +1,23 @@
 /*
  * MPU9250.h
  *
- *  Created on: 06-Mar-2021
- *      Author: Kunal
+ *  Created on: 27-04-2021
+ *      Author: Kunal Salvi
  */
 
 #ifndef MPU9250_MPU9250_H_
 #define MPU9250_MPU9250_H_
 
 #include "main.h"
-#include "SPI/SPI.h"
+#include "I2C/I2C.h"
 
+#define MPU9250_Address	0x68
+//#define MPU9250_Address	0x69    Un-comment to use any of one to use
 
-
-void MPU9250_Init(SPI_Config MPU9250);
-
+void MPU9250_Init(I2C_TypeDef *I2C);
+void MPU9250_Write_byte(I2C_TypeDef *I2C, uint8_t reg_address, uint8_t data);
+void MPU9250_Write_Multiple_Bytes(I2C_TypeDef *I2C, uint8_t reg_address, uint8_t *data, uint16_t length);
+uint8_t MPU9250_Read_Byte(I2C_TypeDef *I2C, uint8_t reg_address);
+void MPU9250_Read_Multiple_Bytes(I2C_TypeDef *I2C, uint8_t reg_address,uint8_t *data, uint16_t length);
 
 #endif /* MPU9250_MPU9250_H_ */
-
