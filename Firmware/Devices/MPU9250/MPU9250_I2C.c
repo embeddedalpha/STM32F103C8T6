@@ -1,8 +1,8 @@
 /*
  * MPU9250.c
  *
- *  Created on: 29-04-2021
- *      Author: Kunal
+ *  Created on: 30-04-2021
+ *      Author: Kunal Salvi
  */
 
 
@@ -108,5 +108,20 @@ void MPU9250_Read_Magn_Data(I2C_TypeDef *I2C, int16_t *array)
 		array[1] = ((int16_t )data[3] << 8) | data[2];
 		array[2] = ((int16_t )data[5] << 8) | data[4];
 	}
+
+}
+
+void MPU9250_Calibrate_Accl(I2C_TypeDef *I2C, uint16_t *array)
+{
+
+}
+
+void MPU9250_Calibrate_Gyro(I2C_TypeDef *I2C, uint16_t *array)
+{
+
+}
+
+void MPU9250_Calibrate_Magn(I2C_TypeDef *I2C, uint16_t *array)
+{
 
 }
