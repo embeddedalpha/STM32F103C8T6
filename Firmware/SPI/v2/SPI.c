@@ -1,7 +1,7 @@
 /*
  * SPI.c
  *
- *  Created on: May 01, 2021
+ *  Created on: Feb 27, 2021
  *      Author: Kunal
  */
 
@@ -172,7 +172,7 @@ SPI.SPI -> CR1 &= ~SPI_CR1_SPE;
 }
 
 
-void SPI_Master_SS_Select(void)
+void SPI_Master_SS_Select(SPI_Config SPI)
 {
 	if(SPI.SPI == SPI1)
 	{
@@ -189,7 +189,7 @@ void SPI_Master_SS_Select(void)
 	}
 }
 
-void SPI_Master_SS_Deselect(void)
+void SPI_Master_SS_Deselect(SPI_Config SPI)
 {
 	if(SPI.SPI == SPI1)
 	{
