@@ -1,7 +1,7 @@
 /*
  * SPI.h
  *
- *  Created on: Feb 27, 2021
+ *  Created on: May 01, 2021
  *      Author: Kunal
  */
 
@@ -47,14 +47,10 @@ uint16_t SPI_Slave_RX(SPI_Config SPI);
 
 void SPI_Disable(SPI_Config SPI);
 
+void SPI_Master_SS_Select(SPI_Config SPI);
 
-void SPI1_CSS_HIGH(void);
+void SPI_Master_SS_Deselect(SPI_Config SPI);
 
-void SPI1_CSS_LOW(void);
-
-void SPI2_CSS_HIGH(void);
-
-void SPI2_CSS_LOW(void);
 
 void delay1(uint32_t delay);
 #endif /* SPI_SPI_H_ */
