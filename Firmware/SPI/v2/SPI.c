@@ -1,7 +1,7 @@
 /*
  * SPI.c
  *
- *  Created on: Feb 27, 2021
+ *  Created on: May 01, 2021
  *      Author: Kunal
  */
 
@@ -11,6 +11,7 @@
 
 void SPI_Master_Init(SPI_Config SPI)
 {
+	Delay_Config();
 	if(SPI.SPI == SPI1)
 	{
 		RCC ->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN | RCC_APB2ENR_SPI1EN;
@@ -52,6 +53,9 @@ void SPI_Master_Init(SPI_Config SPI)
 						   SPI.rxDMA << 6) ;
 	}
 
+	SPI.SPI -> CR1 &= ~(SPI_CR1_SSM);
+	SPI.SPI -> CR2 |= SPI_CR2_SSOE;
+
 	if(SPI.mode)
 	{
 		SPI.SPI -> CR1 |= SPI_CR1_BIDIMODE | (SPI.onlyTXorRX << 14);
@@ -83,25 +87,6 @@ uint16_t SPI_Master_RX(SPI_Config SPI)
 }
 
 
-void SPI1_CSS_LOW(void)
-{
-	GPIOA -> BSRR |= GPIO_BSRR_BR4;
-}
-
-void SPI1_CSS_HIGH(void)
-{
-	GPIOA -> BSRR |= GPIO_BSRR_BS4;
-}
-
-void SPI2_CSS_LOW(void)
-{
-	GPIOB -> BSRR |= GPIO_BSRR_BR12;
-}
-
-void SPI2_CSS_HIGH(void)
-{
-	GPIOB -> BSRR |= GPIO_BSRR_BS12;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -187,6 +172,40 @@ SPI.SPI -> CR1 &= ~SPI_CR1_SPE;
 }
 
 
+void SPI_Master_SS_Select(void)
+{
+	if(SPI.SPI == SPI1)
+	{
+		SPI1_CSS_HIGH();
+		Delay_us(100);
+		SPI1_CSS_LOW();
+		Delay_us(100);
+	}
+	else{
+		SPI2_CSS_HIGH();
+		Delay_us(100);
+		SPI2_CSS_LOW();
+		Delay_us(100);
+	}
+}
+
+void SPI_Master_SS_Deselect(void)
+{
+	if(SPI.SPI == SPI1)
+	{
+		SPI1_CSS_LOW();
+		delay1(300);
+		SPI1_CSS_HIGH();
+		delay1(300);
+	}
+	else{
+		SPI2_CSS_LOW();
+		delay1(300);
+		SPI2_CSS_HIGH();
+		delay1(300);
+	}
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // NVIC_EnableIRQ(SPI1_IRQn);
@@ -228,9 +247,3 @@ void SPI1_IRQHandler(void)
 
 }*/
 
-
-void delay1(uint32_t delay)
-{
-	for(int i = 0; i<= delay; i++)
-	{}
-}
