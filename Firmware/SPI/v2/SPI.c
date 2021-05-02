@@ -1,8 +1,8 @@
 /*
  * SPI.c
  *
- *  Created on: Feb 27, 2021
- *      Author: Kunal
+ *  Created on: May 02, 2021
+ *      Author: Kunal Salvi
  */
 
 
@@ -176,15 +176,15 @@ void SPI_Master_SS_Select(SPI_Config SPI)
 {
 	if(SPI.SPI == SPI1)
 	{
-		SPI1_CSS_HIGH();
+		GPIOA->BSRR |= GPIO_BSRR_BS4;
 		Delay_us(100);
-		SPI1_CSS_LOW();
+		GPIOA->BRR |= GPIO_BRR_BR4;
 		Delay_us(100);
 	}
 	else{
-		SPI2_CSS_HIGH();
+		 GPIOB->BSRR |= GPIO_BSRR_BS12;
 		Delay_us(100);
-		SPI2_CSS_LOW();
+		GPIOB->BRR |= GPIO_BRR_BR12;
 		Delay_us(100);
 	}
 }
@@ -193,16 +193,16 @@ void SPI_Master_SS_Deselect(SPI_Config SPI)
 {
 	if(SPI.SPI == SPI1)
 	{
-		SPI1_CSS_LOW();
-		delay1(300);
-		SPI1_CSS_HIGH();
-		delay1(300);
+		GPIOA->BRR |= GPIO_BRR_BR4;
+		Delay_us(100);
+		GPIOA->BSRR |= GPIO_BSRR_BS4;
+		Delay_us(100);
 	}
 	else{
-		SPI2_CSS_LOW();
-		delay1(300);
-		SPI2_CSS_HIGH();
-		delay1(300);
+		GPIOB->BSRR |= GPIO_BSRR_BS12;
+		Delay_us(100);
+		GPIOB->BRR |= GPIO_BRR_BR12;
+		Delay_us(100);
 	}
 }
 
