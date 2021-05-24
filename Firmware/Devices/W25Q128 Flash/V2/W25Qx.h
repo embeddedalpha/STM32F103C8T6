@@ -24,8 +24,7 @@ struct SPI_Config W25Q;
 #define Busy_Bit                         0
 
 void W25Qx_Init(SPI_TypeDef *SPI);
-uint8_t *W25Qx_Read_Block(uint32_t address, uint32_t length);
-
+uint8_t *W25Qx_Read_Block(uint32_t address,uint8_t *data, uint32_t length);
 uint8_t W25Qx_Read_Byte(uint32_t address);
 void W25Qx_Write_Block(uint32_t address, uint8_t *data, uint32_t length);
 void W25Qx_Write_Byte(uint32_t address, uint8_t byte);
