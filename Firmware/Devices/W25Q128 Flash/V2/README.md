@@ -4,7 +4,7 @@
 
 ``` c
 void W25Qx_Init(SPI_TypeDef *SPI);
-void *W25Qx_Read_Block(uint32_t address, uint32_t length);
+void *W25Qx_Read_Block(uint32_t address,uint32_t length);
 uint8_t W25Qx_Read_Byte(uint32_t address);
 void W25Qx_Write_Block(uint32_t address, uint8_t *data, uint32_t length);
 void W25Qx_Write_Byte(uint32_t address, uint8_t byte);
@@ -43,4 +43,11 @@ uint8_t byte = W25Qx_Read_Byte(0xAABBCC);
 ``` c
 uint8_t *array;
 array = W25Qx_Read_Block(0xAABBCC, 100);
+```
+
+#### Write a block of data to a page or sector by calling W25Qx_Write_Block and passing 24-bit address, data array and length of array
+
+``` C
+uint8_t array[] = {1,2,3,4,5,6,7,8,9,10};
+W25Qx_Write_Block(0xAABBCC, array, 10);
 ```
