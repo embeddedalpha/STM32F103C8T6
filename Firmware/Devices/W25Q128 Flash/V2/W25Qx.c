@@ -20,10 +20,9 @@ void W25Qx_Init(SPI_TypeDef *SPI)
 }
 
 
-uint8_t  *W25Qx_Read_Block(uint32_t address,  uint32_t length)
+uint8_t *W25Qx_Read_Block(uint32_t address,uint8_t *data, uint32_t length)
 {
 	int i = 0;
-	uint8_t *data;
 	SPI_Master_SS_Select(W25Q);
 	SPI_Master_TX(W25Q, 0x0B);
 	SPI_Master_TX(W25Q, ((address >> 16) & 0xFF));
