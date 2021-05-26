@@ -45,3 +45,23 @@ bool Write_Phy_Register(unit8_t reg_address, uint16_t data)
 }
 
 
+uint8_t ENC_Read_Control_Reg(uint8_t address)
+{
+	uint8_t x;
+	SPI_Master_SS_Deselect(ENC);
+	SPI_Master_SS_Select(ENC);
+	SPI_Master_TX(ENC, (Read_Control_Register | address));
+	x = SPI_Master_RX(ENC);
+	SPI_Master_SS_Deselect(ENC);
+	return x;
+}
+
+
+void ENC_Write_Control_Reg(uint8_t address, unit8_t data)
+{
+	SPI_Master_SS_Deselect(ENC);
+	SPI_Master_SS_Select(ENC);
+	SPI_Master_TX(ENC, (Write_Control_Register | address));
+	SPI_Master_TX(ENC, data);
+	SPI_Master_SS_Deselect(ENC);
+}
