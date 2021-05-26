@@ -28,4 +28,20 @@ uint16_t Read_Phy_Register(uint8_t reg_address)
 }
 
 
+bool Write_Phy_Register(unit8_t reg_address, uint16_t data)
+{
+	uint8_t status = 0;
+	int counter = 0;
+	Write_Control_Register(MIREGADR, reg_address, Bank2);
+	Write_Control_Register(MIWRL, (data & 0x00FF), Bank2);
+	Write_Control_Register(MIWRH, ((data & 0xFF00) >> 8), Bank2);
+	Delay_us(11);
+	do{
+		status = Read_Control_Register(MISTAT, Bank3);
+		counter++;
+	}while(status != 0 || counter <= 1000);
+	if(counter > 1000) return ER;
+	return SUCCESS;
+}
+
 
