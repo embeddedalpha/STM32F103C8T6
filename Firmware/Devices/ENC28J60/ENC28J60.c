@@ -8,6 +8,32 @@
 
 #include "ENC28J60.h"
 
+void ENC28J60_Init(uint8_t *local_Mac)
+{
+	ENC_System_Reset();
+	ENC_Write_Control_Reg(ERXSTL, 0x00);
+	ENC_Write_Control_Reg(ERXSTH, 0x00);
+	ENC_Write_Control_Reg(ERXNDL, 0xFF);
+	ENC_Write_Control_Reg(ERXNDH, 0x0F);
+	//MAC init
+	ENC_Write_Control_Reg(MACON1, 0x0D);
+	ENC_Write_Control_Reg(MACON2, 0xF1);
+	ENC_Write_Control_Reg(MACON4, 0x40);
+	ENC_Write_Control_Reg(MAMXFLL, 0xDC);
+	ENC_Write_Control_Reg(MAMXFLH, 0x05);
+	ENC_Write_Control_Reg(MABBIPG, 0x15);
+	ENC_Write_Control_Reg(MAIPGL, 0x12);
+	//local MAC
+	ENC_Write_Control_Reg(MAADR1, local_Mac[0]);
+	ENC_Write_Control_Reg(MAADR1, local_Mac[1]);
+	ENC_Write_Control_Reg(MAADR1, local_Mac[2]);
+	ENC_Write_Control_Reg(MAADR1, local_Mac[3]);
+	ENC_Write_Control_Reg(MAADR1, local_Mac[4]);
+	ENC_Write_Control_Reg(MAADR1, local_Mac[5]);
+	//phy init
+	Write_Phy_Register(PHCON1, 0x100);
+
+}
 
 uint16_t Read_Phy_Register(uint8_t reg_address)
 {
