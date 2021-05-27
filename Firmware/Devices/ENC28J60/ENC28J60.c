@@ -65,3 +65,33 @@ void ENC_Write_Control_Reg(uint8_t address, unit8_t data)
 	SPI_Master_TX(ENC, data);
 	SPI_Master_SS_Deselect(ENC);
 }
+
+
+bool ENC_Write_Buffer(uint8_t *buffer, int length)
+{
+	int i;
+	Write_Register(ECON2, 1 << 7, BANK0);
+	SPI_Master_SS_Deselect(ENC);
+	SPI_Master_SS_Select(ENC);
+	for(i = 0;i < length;i++)
+	{
+		SPI_Master_TX(ENC, buffer[i]);
+	}
+	SPI_Master_SS_Deselect(ENC);
+	return SUCCESS;
+}
+
+{
+	int i;
+	if(auto_increment)	Write_Register(ECON2, 1 << 7, BANK0);
+	if(length > 0xFFF) return ER;
+	SPI_Master_SS_Deselect(ENC);
+	SPI_Master_SS_Select(ENC);
+	SPI_Master_TX(ENC, Read_Buffer_Memory);
+	for(i = 0; i< length;i++)
+	{
+		buffer[i] = SPI_Master_RX(ENC);
+	}
+	SPI_Master_SS_Deselect(ENC);
+	return buffer;
+}
