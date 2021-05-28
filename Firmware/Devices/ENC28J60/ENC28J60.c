@@ -11,10 +11,16 @@
 void ENC28J60_Init(uint8_t *local_Mac)
 {
 	ENC_System_Reset();
-	ENC_Write_Control_Reg(ERXSTL, 0x00);
-	ENC_Write_Control_Reg(ERXSTH, 0x00);
-	ENC_Write_Control_Reg(ERXNDL, 0xFF);
-	ENC_Write_Control_Reg(ERXNDH, 0x0F);
+	//RX buffer
+	ENC_Write_Control_Reg(ERXSTL, RX_BUFFER_START & 0x00FF);
+	ENC_Write_Control_Reg(ERXSTH, RX_BUFFER_START >> 8);
+	ENC_Write_Control_Reg(ERXNDL, RX_BUFFER_END & 0x00FF);
+	ENC_Write_Control_Reg(ERXNDH, RX_BUFFER_END >> 8);
+	// TX Buffer
+	ENC_Write_Control_Reg(ETXSTL, TX_BUFFER_START & 0x00FF);
+	ENC_Write_Control_Reg(ETXSTH, TX_BUFFER_START >> 8);
+	ENC_Write_Control_Reg(ETXNDL, TX_BUFFER_END & 0x00FF);
+	ENC_Write_Control_Reg(ETXNDH, TX_BUFFER_END >> 8);
 	//MAC init
 	ENC_Write_Control_Reg(MACON1, 0x0D);
 	ENC_Write_Control_Reg(MACON2, 0xF1);
@@ -24,12 +30,12 @@ void ENC28J60_Init(uint8_t *local_Mac)
 	ENC_Write_Control_Reg(MABBIPG, 0x15);
 	ENC_Write_Control_Reg(MAIPGL, 0x12);
 	//local MAC
-	ENC_Write_Control_Reg(MAADR1, local_Mac[0]);
-	ENC_Write_Control_Reg(MAADR1, local_Mac[1]);
-	ENC_Write_Control_Reg(MAADR1, local_Mac[2]);
-	ENC_Write_Control_Reg(MAADR1, local_Mac[3]);
-	ENC_Write_Control_Reg(MAADR1, local_Mac[4]);
-	ENC_Write_Control_Reg(MAADR1, local_Mac[5]);
+	ENC_Write_Control_Reg(MAADR1, mac[0]);
+	ENC_Write_Control_Reg(MAADR2, mac[1]);
+	ENC_Write_Control_Reg(MAADR3, mac[2]);
+	ENC_Write_Control_Reg(MAADR4, mac[3]);
+	ENC_Write_Control_Reg(MAADR5, mac[4]);
+	ENC_Write_Control_Reg(MAADR6, mac[5]);
 	//phy init
 	Write_Phy_Register(PHCON1, 0x100);
 
