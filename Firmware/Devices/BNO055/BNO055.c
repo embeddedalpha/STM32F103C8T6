@@ -2,6 +2,7 @@
  * BNO055.c
  *
  *  Created on: 30-May-2021
+ *  Updated on: 31-May-2021
  *      Author: Kunal
  */
 
@@ -89,6 +90,28 @@ void BNO055_Get_Quaternion_Angles(short *qu)
 	for(i = 0; i < 4; i++)
 	{
 		qu[i] = (short)((a[i*2+1] << 8) | a[i*2])/16384;
+	}
+}
+
+void BNO055_Get_Linear_Accl(short *la)
+{
+	short i = 0;
+	unit8_t a[6];
+	BNO055_Read_Buffer(LIA_Data_X_LSB, a, 6);
+	for(i = 0; i < 4; i++)
+	{
+		la[i] = (short)((a[i*2+1] << 8) | a[i*2])/4;
+	}
+}
+
+void BNO055_Get_Gravity_Vector(short *gv)
+{
+	short i = 0;
+	unit8_t a[6];
+	BNO055_Read_Buffer(GRV_Data_X_LSB, a, 6);
+	for(i = 0; i < 4; i++)
+	{
+		gv[i] = (short)((a[i*2+1] << 8) | a[i*2])/4;
 	}
 }
 
