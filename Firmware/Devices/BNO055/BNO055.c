@@ -12,7 +12,9 @@
 
 void BNO055_Init(I2C_TypeDef *I2C)
 {
+
 	Delay_Config();
+	Delay_ms(650);
 	BNO055.I2C = I2C;
 	BNO055.mode = Fast_Mode;
 	I2C_Master_Init(BNO055);
@@ -112,6 +114,27 @@ void BNO055_Get_Gravity_Vector(short *gv)
 	for(i = 0; i < 4; i++)
 	{
 		gv[i] = (short)((a[i*2+1] << 8) | a[i*2])/4;
+	}
+}
+
+
+int BNO055_Calibrate(void)
+{
+	unit8_t calib;
+	int i = 0;
+
+	do {
+		calib = BNO055_Read_Single(CALIB_STAT);
+		i++;
+
+	} while ((calib == 0xC0 || calib == 0x3F) && i < 1000);
+	if(i > 1000)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
 	}
 }
 
