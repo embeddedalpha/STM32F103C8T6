@@ -2,6 +2,7 @@
  * I2C.h
  *
  *  Created on: 23-Apr-2021
+ *  Updated on: 30-May-2021
  *      Author: Kunal
  */
 
@@ -16,18 +17,25 @@
 #define read 0
 #define write 1
 
-void I2C_Init(I2C_TypeDef *I2C, uint8_t mode);
+typedef struct I2C_Config
+{
+	I2C_TypeDef *I2C;
+	bool mode;
 
-void I2C_Master_Start(I2C_TypeDef *I2C);
+}I2C_Config;
 
-void I2C_Master_Send_Address(I2C_TypeDef *I2C, char address,char RW);
+void I2C_Master_Init(I2C_Config I2C);
 
-void I2C_Master_Send_Data(I2C_TypeDef *I2C, char data);
+void I2C_Master_Start(I2C_Config I2C);
 
-char I2C_Master_Receive_Data(I2C_TypeDef *I2C);
+void I2C_Master_Send_Address(I2C_Config I2C, char address,char RW);
 
-void I2C_Master_Stop(I2C_TypeDef *I2C);
+void I2C_Master_Send_Data(I2C_Config I2C, char data);
 
-void I2C_Master_Send_NACK(I2C_TypeDef *I2C);
+char I2C_Master_Receive_Data(I2C_Config I2C);
+
+void I2C_Master_Stop(I2C_Config I2C);
+
+void I2C_Master_Send_NACK(I2C_Config I2C);
 
 #endif /* I2C_I2C_H_ */
