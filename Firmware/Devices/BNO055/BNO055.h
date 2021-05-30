@@ -33,4 +33,7 @@ void BNO055_Get_Quaternion_Angles(short *qu);
 void BNO055_Get_Linear_Accl(short *la);
 
 void BNO055_Get_Gravity_Vector(short *gv);
+
+int BNO055_Calibrate(void);
+
 #endif /* BNO055_BNO055_H_ */
