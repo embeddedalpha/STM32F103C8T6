@@ -43,4 +43,13 @@ uint8_t BNO055_Get_MAG_ID(void);
 uint8_t BNO055_Get_ACC_ID(void);
 
 uint8_t BNO055_Get_GYR_ID(void);
+
+uint8_t BNO055_Temp(void);
+
+void BNO055_Get_Accl_Raw(uint8_t *accl);
+
+void BNO055_Get_Gyro_Raw(uint8_t *gyro);
+
+void BNO055_Get_Magn_Raw(uint8_t *magn);
+
 #endif /* BNO055_BNO055_H_ */
