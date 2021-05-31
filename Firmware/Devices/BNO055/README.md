@@ -1,4 +1,4 @@
-# BNO055 Drvier v1
+# BNO055 Drvier v1.0
 ### Created on 30 May 2021
 
 #### Datasheet: https://cdn-shop.adafruit.com/datasheets/BST_BNO055_DS000_12.pdf
