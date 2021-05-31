@@ -15,6 +15,14 @@ void BNO055_Get_Euler_Angles(short *eu);
 void BNO055_Get_Quaternion_Angles(short *qu);
 void BNO055_Get_Linear_Accl(short *la);
 void BNO055_Get_Gravity_Vector(short *gv);
+uint8_t BNO055_Get_Chip_ID(void);
+uint8_t BNO055_Get_MAG_ID(void);
+uint8_t BNO055_Get_ACC_ID(void);
+uint8_t BNO055_Get_GYR_ID(void);
+uint8_t BNO055_Temp(void);
+void BNO055_Get_Accl_Raw(uint8_t *accl);
+void BNO055_Get_Gyro_Raw(uint8_t *gyro);
+void BNO055_Get_Magn_Raw(uint8_t *magn);
 ```
 
 #### As STM32F103C8T6 has 2 I2C hardware blocks, the user can pass either I2C1 or I2C2 in BNO055_Init function to initialize BNO055
@@ -24,6 +32,16 @@ BNO055_Init(I2C1);
 ```
 
 #### By default, NDOF mode is enabled by BNO055 (can be changed to different mode and will be added soon).
+
+#### To get raw values from device:
+
+```c
+uint8_t acc[6], gyro[6], magn[6];
+BNO055_Get_Accl_Raw(accl);
+BNO055_Get_Gyro_Raw(gyro);
+BNO055_Get_Magn_Raw(magn);
+```
+
 ##### To get Euler Angles:
 ```C
 short eu[3];
