@@ -1,7 +1,9 @@
-# BNO055 Drvier v 1.0   ![visitors](https://visitor-badge.glitch.me/badge?page_id=embeddedalpha.stm32f103c8t6/firmware/Devices/BNO055/)
+# BNO055 Drvier v 1.0   ![visitors](https://visitor-badge.glitch.me/badge?page_id=embeddedalpha.stm32f103c8t6/firmware/Devices/BNO055/)  [Datasheet](https://cdn-shop.adafruit.com/datasheets/BST_BNO055_DS000_12.pdf)
+
 ### Created on 30 May 2021
 
 #### Datasheet: https://cdn-shop.adafruit.com/datasheets/BST_BNO055_DS000_12.pdf
+
 
 #### Functions for data trasnfer and initializations 
 ```C
