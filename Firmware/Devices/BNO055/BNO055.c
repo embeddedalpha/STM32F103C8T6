@@ -1,7 +1,8 @@
 /*
- * BNO055.c
+ * BNO055.h
  *
  *  Created on: 30-May-2021
+ *  Updated on: 31-May-2021
  *      Author: Kunal Salvi
  */
 
@@ -9,7 +10,7 @@
 #include "BNO055.h"
 
 
-void BNO055_Init(I2C_TypeDef *I2C)
+unit8_t BNO055_Init(I2C_TypeDef *I2C)
 {
 
 	Delay_Config();
@@ -19,6 +20,7 @@ void BNO055_Init(I2C_TypeDef *I2C)
 	I2C_Master_Init(BNO055);
 	BNO055_Write_Single(OPR_MODE, 0x0C);
 	Delay_ms(20);
+	return BNO055_Get_Chip_ID();
 
 }
 
