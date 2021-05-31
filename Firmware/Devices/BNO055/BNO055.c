@@ -2,8 +2,7 @@
  * BNO055.c
  *
  *  Created on: 30-May-2021
- *  Updated on: 31-May-2021
- *      Author: Kunal
+ *      Author: Kunal Salvi
  */
 
 
@@ -138,4 +137,23 @@ int BNO055_Calibrate(void)
 	}
 }
 
+uint8_t BNO055_Get_Chip_ID(void)
+{
+	return BNO055_Read_Single(CHIP_ID);
+}
 
+
+uint8_t BNO055_Get_ACC_ID(void)
+{
+	return BNO055_Read_Single(ACC_ID);
+}
+
+uint8_t BNO055_Get_MAG_ID(void)
+{
+	return BNO055_Read_Single(MAG_ID);
+}
+
+uint8_t BNO055_Get_GYR_ID(void)
+{
+	return BNO055_Read_Single(GYR_ID);
+}
