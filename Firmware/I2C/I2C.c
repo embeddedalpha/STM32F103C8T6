@@ -2,7 +2,6 @@
  * I2C.h
  *
  *  Created on: 23-Apr-2021
- *  Updated on: 30-May-2021
  *      Author: Kunal
  */
 
@@ -24,7 +23,7 @@ typedef struct I2C_Config
 
 }I2C_Config;
 
-void I2C_Master_Init(I2C_Config I2C);
+int I2C_Master_Init(I2C_Config I2C);
 
 void I2C_Master_Start(I2C_Config I2C);
 
