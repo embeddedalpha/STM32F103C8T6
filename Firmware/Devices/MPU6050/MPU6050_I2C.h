@@ -2,6 +2,7 @@
  * MPU6050.h
  *
  *  Created on: 25-Apr-2021
+ *  Updated on: 01-Jun-2021
  *      Author: Kunal Salvi
  */
 
@@ -14,7 +15,7 @@
 #include "MPU6050_Reg.h"
 
 struct I2C_Config MPU6050;
-#define MPU6050_Dev_Add	0x78
+#define MPU6050_Dev_Add	0x68
 
 void MPU6050_I2C_Init(I2C_TypeDef *I2C);
 void MPU6050_I2C_Write_Single(uint8_t reg, uint8_t data);
