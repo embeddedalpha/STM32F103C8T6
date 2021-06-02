@@ -16,15 +16,15 @@
 
 struct I2C_Config BNO055;
 
-unit8_t BNO055_Init(I2C_TypeDef *I2C);
+uint8_t BNO055_Init(I2C_TypeDef *I2C);
 
 void BNO055_Read_Buffer(uint8_t reg, uint8_t *data, int len);
 
-void BNO055_Write_Buffer(unit8_t reg, uint8_t *data, int len);
+void BNO055_Write_Buffer(uint8_t reg, uint8_t *data, int len);
 
-void BNO055_Write_Single(unit8_t reg, unit8_t data);
+void BNO055_Write_Single(uint8_t reg, uint8_t data);
 
-unit8_t BNO055_Read_Single(unit8_t reg);
+uint8_t BNO055_Read_Single(uint8_t reg);
 
 void BNO055_Get_Euler_Angles(short *eu);
 
