@@ -2,7 +2,7 @@
  * MPU6050.h
  *
  *  Created on: 25-Apr-2021
- *  Updated on: 01-Jun-2021
+ *  Updated on: 02-Jun-2021
  *      Author: Kunal Salvi
  */
 
@@ -19,9 +19,9 @@ struct I2C_Config MPU6050;
 
 void MPU6050_I2C_Init(I2C_TypeDef *I2C);
 void MPU6050_I2C_Write_Single(uint8_t reg, uint8_t data);
-void MPU6050_I2C_Write_Burst(uint8_t reg, unit8_t *data, int len);
-unit8_t MPU6050_I2C_Read_Single(uint8_t reg);
-void MPU6050_I2C_Read_Burst(uint8_t reg, unit8_t *data, int len);
+void MPU6050_I2C_Write_Burst(uint8_t reg, uint8_t *data, int len);
+uint8_t MPU6050_I2C_Read_Single(uint8_t reg);
+void MPU6050_I2C_Read_Burst(uint8_t reg, uint8_t *data, int len);
 void MPU6050_I2C_Get_Raw_Data(uint16_t *accl_x,
 		                  uint16_t *accl_y,
 						  uint16_t *accl_z,
