@@ -2,8 +2,10 @@
  * MPU6050.c
  *
  *  Created on: 25-Apr-2021
+ *  Updated on: 02-Jun-2021
  *      Author: Kunal
  */
+
 
 #include "MPU6050_I2C.h"
 
@@ -28,7 +30,7 @@ void MPU6050_I2C_Write_Single(uint8_t reg, uint8_t data)
 	I2C_Master_Stop(MPU6050);
 }
 
-void MPU6050_I2C_Write_Burst(uint8_t reg, unit8_t *data, int len)
+void MPU6050_I2C_Write_Burst(uint8_t reg, uint8_t *data, int len)
 {
 	int i = 0;
 	I2C_Master_Start(MPU6050);
@@ -40,12 +42,11 @@ void MPU6050_I2C_Write_Burst(uint8_t reg, unit8_t *data, int len)
 	I2C_Master_Stop(MPU6050);
 }
 
-unit8_t MPU6050_I2C_Read_Single(uint8_t reg)
+uint8_t MPU6050_I2C_Read_Single(uint8_t reg)
 {
 	uint8_t x;
 	I2C_Master_Start(MPU6050);
 	I2C_Master_Send_Address(MPU6050, MPU6050_Dev_Add, write);
-	I2C_Master_Send_Data(MPU6050, data);
 	I2C_Master_Start(MPU6050);
 	I2C_Master_Send_Address(MPU6050, MPU6050_Dev_Add, read);
 	x = I2C_Master_Receive_Data(MPU6050);
@@ -54,12 +55,11 @@ unit8_t MPU6050_I2C_Read_Single(uint8_t reg)
 	return x;
 }
 
-void MPU6050_I2C_Read_Burst(uint8_t reg, unit8_t *data, int len)
+void MPU6050_I2C_Read_Burst(uint8_t reg, uint8_t *data, int len)
 {
 	int i;
 	I2C_Master_Start(MPU6050);
 	I2C_Master_Send_Address(MPU6050, MPU6050_Dev_Add, write);
-	I2C_Master_Send_Data(MPU6050, data);
 	I2C_Master_Start(MPU6050);
 	I2C_Master_Send_Address(MPU6050, MPU6050_Dev_Add, read);
 	for(i = 0; i < len; i++)
@@ -78,7 +78,7 @@ void MPU6050_I2C_Get_Raw_Data(uint16_t *accl_x,
 						  uint16_t *gyro_y,
 						  uint16_t *gyro_z)
 {
-	unint8_t x[14];
+	uint8_t x[14];
 	MPU6050_I2C_Read_Burst(MPU6050_RA_GYRO_ZOUT_L, x, 14);
 	*accl_x = (x[1] << 8 | x[0]);
 	*accl_y = x[3] << 8 | x[2];
@@ -95,7 +95,7 @@ void MPU6050_I2C_Get_Filtered_Data(uint16_t *accl_x,
 		                           uint16_t *gyro_y,
 		                           uint16_t *gyro_z)
 {
-	unint8_t x[14];
+	uint8_t x[14];
 	MPU6050_I2C_Read_Burst(MPU6050_RA_GYRO_ZOUT_L, x, 14);
 	*accl_x = (x[1]  << 8) + x[0];
 	*accl_y = (x[3]  << 8) + x[0];
@@ -104,4 +104,3 @@ void MPU6050_I2C_Get_Filtered_Data(uint16_t *accl_x,
 	*gyro_y = (x[11] << 8) + x[11];
 	*gyro_z = (x[13] << 8) + x[12];
 }
-
