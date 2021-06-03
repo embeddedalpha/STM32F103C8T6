@@ -17,13 +17,13 @@
 
 void MPU9250_Init(I2C_TypeDef *I2C);
 
-void MPU9250_Write_byte(I2C_TypeDef *I2C,uint8_t device_address, uint8_t reg_address, uint8_t data);
+void MPU9250_Write_byte(uint8_t device_address, uint8_t reg_address, uint8_t data);
 
-void MPU9250_Write_Multiple_Bytes(I2C_TypeDef *I2C,uint8_t device_address, uint8_t reg_address, uint8_t *data, uint16_t length);
+void MPU9250_Write_Multiple_Bytes(uint8_t device_address, uint8_t reg_address, uint8_t *data, uint16_t length);
 
-uint8_t MPU9250_Read_Byte(I2C_TypeDef *I2C,uint8_t device_address, uint8_t reg_address);
+uint8_t MPU9250_Read_Byte(uint8_t device_address, uint8_t reg_address);
 
-void MPU9250_Read_Multiple_Bytes(I2C_TypeDef *I2C,uint8_t device_address, uint8_t reg_address,uint8_t *data, uint16_t length);
+void MPU9250_Read_Multiple_Bytes(uint8_t device_address, uint8_t reg_address,uint8_t *data, uint16_t length);
 
 void MPU9250_Read_Accl_Data(I2C_TypeDef *I2C, int16_t *array);
 
