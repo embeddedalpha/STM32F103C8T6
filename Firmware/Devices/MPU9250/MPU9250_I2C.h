@@ -35,6 +35,6 @@ void MPU9250_Read_Gyro_Data(short *array);
 
 void MPU9250_Read_Magn_Data(short *array);
 
-
+short MPU9250_Get_Temperture(void);
 
 #endif /* MPU9250_MPU9250_H_ */
