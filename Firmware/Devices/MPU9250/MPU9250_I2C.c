@@ -105,3 +105,9 @@ void MPU9250_Read_Magn_Data(short *array)
     array[2]= (short)((raw[4] << 8) | raw[5]); //MAGN_Z
 }
 
+short MPU9250_Get_Temperture(void)
+{
+	short x;
+	x = (short)((MPU9250_Read_Byte(MPU9250_ADDRESS, TEMP_OUT_H) << 8) | (MPU9250_Read_Byte(MPU9250_ADDRESS, TEMP_OUT_L)));
+	return x;
+}
