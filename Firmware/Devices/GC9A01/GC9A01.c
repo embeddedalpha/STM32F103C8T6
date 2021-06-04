@@ -1,1 +1,40 @@
+/*
+ * GC9A01_I2C.c
+ *
+ *  Created on: 04-Jun-2021
+ *      Author: Kunal
+ */
 
+
+#include "GC9A01.h"
+
+
+void GC9A01_DC_Low(void)
+{
+	GPIOA->BRR |= GPIO_BRR_BR3;
+}
+void GC9A01_DC_High(void)
+{
+	GPIOA->BSRR |= GPIO_BSRR_BR3;
+}
+
+void GC9A01_Init(SPI_TypeDef *SPI)
+{
+	GC9A01.SPI = SPI;
+	GC9A01.clock_phase = 1;
+	GC9A01.clock_polarity = 1;
+	GC9A01.frame_format = 0;
+	GC9A01.lsb_or_msb = 0;
+	SPI_Master_Init(GC9A01);
+	GPIO_Pin_Setup(GPIOA, 3, GEN_PUSH_PULL_OUTPUT);
+}
+
+void GC9A01_Send_Command(uint8_t command, uint8_t data)
+{
+
+}
+
+void GC9A01_Send_Display_Data(uint8_t *data)
+{
+
+}
