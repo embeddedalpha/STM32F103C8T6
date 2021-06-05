@@ -2,6 +2,7 @@
  * GC9A01_I2C.h
  *
  *  Created on: 04-Jun-2021
+ *  Updated on: 05-Jun-2021
  *      Author: Kunal
  */
 
@@ -22,6 +23,5 @@ void GC9A01_Init(SPI_TypeDef *SPI);
 
 void GC9A01_Send_Command(uint8_t command, uint8_t data);
 
-void GC9A01_Send_Display_Data(uint8_t *data);
 
 #endif /* GC9A01_LCD_DRIVER_GC9A01_H_ */
