@@ -2,6 +2,7 @@
  * GC9A01_I2C.c
  *
  *  Created on: 04-Jun-2021
+ *  Updated on: 05-Jun-2021
  *      Author: Kunal
  */
 
@@ -31,10 +32,15 @@ void GC9A01_Init(SPI_TypeDef *SPI)
 
 void GC9A01_Send_Command(uint8_t command, uint8_t data)
 {
+	SPI_Master_SS_Deselect(GC9A01);
+	SPI_Master_SS_Select(GC9A01);
+	GC9A01_DC_Low();
+	SPI_Master_TX(GC9A01, command);
+	SPI_Master_SS_Deselect(GC9A01);
+	SPI_Master_SS_Select(GC9A01);
+	GC9A01_DC_High();
+	SPI_Master_TX(GC9A01, data);
+	SPI_Master_SS_Deselect(GC9A01);
 
 }
 
-void GC9A01_Send_Display_Data(uint8_t *data)
-{
-
-}
