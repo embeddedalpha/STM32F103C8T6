@@ -2,7 +2,7 @@
  * GC9A01_I2C.c
  *
  *  Created on: 04-Jun-2021
- *  Updated on: 07-Jun-2021
+ *  Updated on: 05-Jun-2021
  *      Author: Kunal
  */
 
@@ -30,6 +30,7 @@ void GC9A01_RS_High(void)
 void GC9A01_Init(SPI_TypeDef *SPI)
 {
 
+	uint8_t data[3];
 	Delay_Config();
 	GPIO_Pin_Setup(GPIOA, 3, GEN_PUSH_PULL_OUTPUT);
 	GPIO_Pin_Setup(GPIOB, 0, GEN_PUSH_PULL_OUTPUT);
@@ -49,6 +50,42 @@ void GC9A01_Init(SPI_TypeDef *SPI)
 
 	GC9A01_Send_Command(0xEF, 0);
 	GC9A01_Send_Command(0xEB, 0x14);
+	GC9A01_Send_Command(0x84, 0x40);
+	GC9A01_Send_Command(0x86, 0xFF);
+	GC9A01_Send_Command(0x87, 0xFF);
+	GC9A01_Send_Command(0x88, 0x0a);
+	GC9A01_Send_Command(0x89, 0x21);
+	GC9A01_Send_Command(0x8a, 0x00);
+	GC9A01_Send_Command(0x8b, 0x80);
+	GC9A01_Send_Command(0x8c, 0x01);
+	GC9A01_Send_Command(0x8d, 0x01);
+	GC9A01_Send_Command(0x8e, 0xFF);
+	GC9A01_Send_Command(0x8f, 0xFF);
+
+	GC9A01_Send_Command(0xB6, 0x00);
+	GC9A01_Send_Command(0x36, 0x48);
+	GC9A01_Send_Command(0x3A, 0x05);
+
+	data[0] = 0x08;
+	data[1] = 0x08;
+	data[2] = 0x08;
+
+	GC9A01_Send_Command(0x90, 0x08);
+	GC9A01_Send_Buffer_Data(data, 3);
+
+	GC9A01_Send_Command(0xBD, 0x06);
+	GC9A01_Send_Command(0xBC, 0x00);
+
+	GC9A01_Send_Command(0xFF, 0x60);
+	data[0] = 0x01;
+	data[1] = 0x04;
+	GC9A01_Send_Buffer_Data(data, 2);
+
+	GC9A01_Send_Command(0xC3, 0x13);
+	GC9A01_Send_Command(0xC4, 0x13);
+	GC9A01_Send_Command(0xC9, 0x22);
+	GC9A01_Send_Command(0xBE, 0x11);
+
 
 
 }
