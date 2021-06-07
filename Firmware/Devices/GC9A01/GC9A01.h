@@ -2,7 +2,7 @@
  * GC9A01_I2C.h
  *
  *  Created on: 04-Jun-2021
- *  Updated on: 05-Jun-2021
+ *  Updated on: 07-Jun-2021
  *      Author: Kunal
  */
 
