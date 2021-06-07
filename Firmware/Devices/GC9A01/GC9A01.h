@@ -23,5 +23,11 @@ void GC9A01_Init(SPI_TypeDef *SPI);
 
 void GC9A01_Send_Command(uint8_t command, uint8_t data);
 
+void GC9A01_RS_Low(void);
+
+void GC9A01_RS_High(void);
+
+void GC9A01_Send_Buffer_Data(uint8_t *buffer, int length);
+
 
 #endif /* GC9A01_LCD_DRIVER_GC9A01_H_ */
