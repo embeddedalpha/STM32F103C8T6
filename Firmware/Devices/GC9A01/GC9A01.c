@@ -2,7 +2,7 @@
  * GC9A01_I2C.c
  *
  *  Created on: 04-Jun-2021
- *  Updated on: 05-Jun-2021
+ *  Updated on: 08-Jun-2021
  *      Author: Kunal
  */
 
@@ -86,6 +86,19 @@ void GC9A01_Init(SPI_TypeDef *SPI)
 	GC9A01_Send_Command(0xC9, 0x22);
 	GC9A01_Send_Command(0xBE, 0x11);
 
+	data[0] = 0x0E;
+	GC9A01_Send_Command(0xE1, 0x10);
+	GC9A01_Send_Buffer_Data(data, 1);
+
+	data[0] = 0x0c;
+	data[1] = 0x02;
+	GC9A01_Send_Command(0xDF, 0x21);
+	GC9A01_Send_Buffer_Data(data, 2);
+
+	data[0] = 0x0c;
+	data[1] = 0x02;
+	GC9A01_Send_Command(0xDF, 0x21);
+	GC9A01_Send_Buffer_Data(data, 2);
 
 
 }
