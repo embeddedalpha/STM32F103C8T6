@@ -16,5 +16,16 @@ I2C_Master_Send_NACK(I2C_Config I2C);
 <h4> Declare a struct with type I2C_Config</h4>
 
 ```C
-struct I2C_Config MPU6050;
+struct I2C_Config I2C_STM32;
+```
+
+<h4>
+  Struct has variables like shown below. Pass the values as such.
+</h4>
+
+```C
+I2C_STM32.I2C = I2C1;
+I2C_STM32.mode = Fast_Mode;
+I2C_Master_Init(I2C_STM32);
+
 ```
