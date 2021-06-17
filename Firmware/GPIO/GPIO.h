@@ -12,7 +12,7 @@
 #define FLOATING_INPUT         0b0100
 #define PULL_DOWN_INPUT        0b1000
 #define PULL_UP_INPUT          0b1000
-#define INPUT_MODE
+#define INPUT_MODE             0b0100
 
 #define Rising_Edge     1
 #define Falling_Ege     2
