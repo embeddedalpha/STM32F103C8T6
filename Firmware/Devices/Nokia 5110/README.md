@@ -18,3 +18,19 @@ void N5110_Draw_Point(uint8_t x, uint8_t y);
 void N5110_Printf(uint8_t x,uint8_t y, char *s);
 void N5110_Screen_Clear();
 ```
+
+#### To initialize the display, call the N5110_Init function by passing the the either SPI1 or SPI2.
+```C
+N5110_Init(SPI1);
+```
+
+#### To print text on the screen, call N5110_Printf function by passing x & y co-ordinates and the string to be printed.
+
+```C
+N5110_Printf(0,0,"hello world");
+```
+
+#### Clear the screen by calling N5110_Screen_Clear function.
+```C
+N5110_Screen_Clear();
+```
