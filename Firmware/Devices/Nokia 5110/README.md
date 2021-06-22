@@ -1,4 +1,4 @@
-# Nokia 5110
+# Nokia 5110   ![visitors](https://visitor-badge.glitch.me/badge?page_id=nokia_5110.visitor-badge)
 
 ### Driver for Nokia 5110         |         [Datasheet](https://www.sparkfun.com/datasheets/LCD/Monochrome/Nokia5110.pdf)
 
