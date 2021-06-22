@@ -34,3 +34,12 @@ N5110_Printf(0,0,"hello world");
 ```C
 N5110_Screen_Clear();
 ```
+
+#### User can use N5110_Set_Pointer and N5110_Draw_Point function 
+```C
+void Draw_Something(x1,y1,x2,y2)
+{
+ N5110_Set_Pointer();
+ N5110_Draw_Point();
+}
+```
